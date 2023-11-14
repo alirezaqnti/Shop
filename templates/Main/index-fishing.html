@@ -1,0 +1,2594 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>قالب فروشگاهی فاکسیک - صفحه اصلی - ماهیگیری</title>
+	<link rel="shortcut icon" type="image/x-icon" href="/media/images/favicon.ico" />
+	<link href="{% static 'main/bootstrap.min.css' %}" rel="stylesheet">
+	<link href="{% static 'main/vendor.min.css' %}" rel="stylesheet">
+	<link href="{% static 'fishing/style-fishing.css' %}" rel="stylesheet">
+	<link href="{% static 'main/fonts/icomoon/icons.css' %}" rel="stylesheet">
+</head>
+
+<body class="has-round-btns equal-height">
+
+	<body class="has-round-btns ">
+		<header class="hdr-wrap">
+			<div class="hdr-content hdr-content-sticky">
+				<div class="container">
+					<div class="row">
+						<div class="col-auto show-mobile">
+							<div class="menu-toggle"> <a href="#" class="mobilemenu-toggle"><i
+										class="icon-menu"></i></a>
+							</div>
+						</div>
+						<div class="col-auto hdr-logo">
+							<a href="/" class="logo"><img
+									srcset="/media/images/skins/fishing/logo-fishing.webp 1x, images/skins/fishing/logo-fishing2x.webp 2x"
+									alt="Logo"></a>
+						</div>
+						<div class="hdr-nav hide-mobile nav-holder-s">
+						</div>
+						<div class="hdr-links-wrap col-auto mr-auto">
+							<div class="hdr-inline-link">
+								<div class="search_container_desktop">
+									<div class="dropdn dropdn_search dropdn_fullwidth">
+										<a href="#" class="dropdn-link  js-dropdn-link only-icon"><i
+												class="icon-search"></i><span class="dropdn-link-txt">جستجو</span></a>
+										<div class="dropdn-content">
+											<div class="container">
+												<form method="get" action="#" class="search search-off-popular">
+													<input name="search" type="text" class="search-input input-empty"
+														placeholder="دنبال چه چیزی میگردید؟">
+													<button type="submit" class="search-button"><i
+															class="icon-search"></i></button>
+													<a href="#" class="search-close js-dropdn-close"><i
+															class="icon-close-thin"></i></a>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="dropdn dropdn_wishlist">
+									<a href="account-wishlist.html" class="dropdn-link only-icon wishlist-link ">
+										<i class="icon-heart"></i><span class="dropdn-link-txt">لیست علاقه
+											مندی</span><span class="wishlist-qty">3</span>
+									</a>
+								</div>
+								<div class="dropdn dropdn_account dropdn_fullheight">
+									<a href="#" class="dropdn-link js-dropdn-link js-dropdn-link only-icon"
+										data-panel="#dropdnAccount"><i class="icon-user"></i><span
+											class="dropdn-link-txt">حساب کاربری</span></a>
+								</div>
+								<div class="dropdn dropdn_fullheight minicart">
+									<a href="#" class="dropdn-link js-dropdn-link minicart-link only-icon"
+										data-panel="#dropdnMinicart">
+										<i class="icon-fishing-net"></i>
+										<span class="minicart-qty">3</span>
+										<span class="minicart-total hide-mobile">340,000 ریال</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="hdr">
+				<div class="hdr-topline hdr-topline--light js-hdr-top">
+					<div class="container">
+						<div class="row flex-nowrap">
+							<div class="col hdr-topline-left hide-mobile">
+								<div class="hdr-line-separate">
+									<ul class="social-list list-unstyled">
+										<li>
+											<a href="#"><i class="icon-facebook"></i></a>
+										</li>
+										<li>
+											<a href="#"><i class="icon-twitter"></i></a>
+										</li>
+										<li>
+											<a href="#"><i class="icon-google"></i></a>
+										</li>
+										<li>
+											<a href="#"><i class="icon-instagram"></i></a>
+										</li>
+										<li>
+											<a href="#"><i class="icon-vimeo"></i></a>
+										</li>
+										<li>
+											<a href="#"><i class="icon-linkedin"></i></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col hdr-topline-center">
+								<div class="custom-text js-custom-text-carousel"
+									data-slick='{"speed": 1000, "autoplaySpeed": 3000}'>
+									<div class="custom-text-item"><i class="icon-fox"></i> برای دریافت 15% تخفیف از
+										<span>فاکسیک</span> کد promocode را استفاده کنید
+									</div>
+									<div class="custom-text-item"><i class="icon-air-freight"></i> <span>ارسال
+											رایگان</span>
+										برای سفارشات بیشتر از<span> 250 هزار ریال</span></div>
+									<div class="custom-text-item"><i class="icon-gift"></i> فقط امروز! فروش ویژه <span>
+											تعطیلات</span> فلش و مموری</div>
+								</div>
+							</div>
+							<div class="col hdr-topline-right hide-mobile">
+								<div class="hdr-inline-link">
+									<div class="dropdn_language">
+										<div class="dropdn dropdn_language dropdn_language--noimg dropdn_caret">
+											<a href="#" class="dropdn-link js-dropdn-link"><span
+													class="js-dropdn-select-current">فارسی</span><i
+													class="icon-angle-down"></i></a>
+											<div class="dropdn-content">
+												<ul>
+													<li class="active"><a href="#"><img
+																src="/media/images/flags/en.webp" alt="">فارسی</a></li>
+													<li><a href="#"><img src="/media/images/flags/en.webp"
+																alt="">انگلیسی</a>
+													</li>
+													<li><a href="#"><img src="/media/images/flags/de.webp"
+																alt="">آلمانی</a>
+													</li>
+													<li><a href="#"><img src="/media/images/flags/fr.webp"
+																alt="">فرانسوی</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="dropdn_currency">
+										<div class="dropdn dropdn_caret">
+											<a href="#" class="dropdn-link js-dropdn-link">ریال<i
+													class="icon-angle-down"></i></a>
+											<div class="dropdn-content">
+												<ul>
+													<li class="active"><a href="#"><span>ریال</span></a></li>
+													<li><a href="#"><span>دلار</span></a></li>
+													<li><a href="#"><span>لیر</span></a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="hdr_container_desktop">
+										<div class="dropdn dropdn_account dropdn_fullheight">
+											<a href="#" class="dropdn-link js-dropdn-link"
+												data-panel="#dropdnAccount"><i class="icon-user"></i><span
+													class="dropdn-link-txt">حساب
+													کاربری</span></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="hdr-content">
+					<div class="container">
+						<div class="row">
+							<div class="col-auto show-mobile">
+								<div class="menu-toggle"> <a href="#" class="mobilemenu-toggle"><i
+											class="icon-menu"></i></a> </div>
+							</div>
+							<div class="col-auto hdr-logo">
+								<a href="/" class="logo"><img
+										srcset="/media/images/skins/fishing/logo-fishing.webp 1x, images/skins/fishing/logo-fishing2x.webp 2x"
+										alt="Logo"></a>
+							</div>
+							<div class="hdr-nav hide-mobile nav-holder justify-content-center">
+								<ul class="mmenu mmenu-js mmenu--link-lined">
+									<li class="mmenu-item--simple"><a href="#" class="active"><span>خانه</span></a>
+										<div class="mmenu-submenu d-flex">
+											<ul class="submenu-list mt-0">
+												<li><a href="/">پوسته مُد (پیش فرض)</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen01.webp" alt=""></span></li>
+												<li><a href="index-sport.html">پوسته ورزشی</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen-sport.webp" alt=""></span>
+												</li>
+												<li><a href="index-books.html">پوسته کتاب<span
+															class="menu-label  menu-label--color3">جدید</span></a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen-books.webp" alt=""></span>
+												</li>
+												<li><a href="index-electronics.html">پوسته لوازم الکترونیکی<span
+															class="menu-label  menu-label--color3">جدید</span></a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen-electronics.webp"
+															alt=""></span>
+												</li>
+												<li><a href="index-viping.html">پوسته دستگاه ویپ <span
+															class="menu-label  menu-label--color3">جدید</span></a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen-vaping.webp" alt=""></span>
+												</li>
+												<li><a href="index-pets.html">پوسته حیوانات خانگی </a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen-pets.webp" alt=""></span>
+												</li>
+												<li><a href="index-zir.html">پوسته لباس زیر </a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen-zir.webp" alt=""></span>
+												</li>
+												<li><a href="index-games.html">پوسته بازی ها</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen-games.webp" alt=""></span>
+												</li>
+												<li><a href="index-helloween.html">پوسته هالووین</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen-halloween.webp"
+															alt=""></span>
+												</li>
+												<li><a href="index-medical.html">پوسته پزشکی</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen-medical.webp"
+															alt=""></span></li>
+												<li><a href="index-food.html">پوسته بازار غذا</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen-food.webp" alt=""></span>
+												</li>
+												<li><a href="index-cosmetics.html">پوسته لوازم آرایشی و بهداشتی</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen-cosmetics.webp"
+															alt=""></span>
+												</li>
+												<li><a href="index-fishing.html">پوسته ماهیگیری</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen-fishing.webp"
+															alt=""></span></li>
+											</ul>
+											<ul class="submenu-list mt-0">
+												<li><a href="#">پوسته فنجان و لیوان <span
+															class="menu-label menu-label--color1">به
+															زودی</span></a><span class="submenu-link-image"><img
+															src="/media/images/screen/screen-cups.webp" alt=""></span>
+												</li>
+												<li><a href="#">پوسته دوچرخه <span
+															class="menu-label menu-label--color2">به
+															زودی</span></a><span class="submenu-link-image"><img
+															src="/media/images/screen/screen-bikes.webp" alt=""></span>
+												</li>
+												<li><a href="#">پوسته تیشرت <span class="menu-label">به
+															زودی</span></a><span class="submenu-link-image"><img
+															src="/media/images/screen/screen-tshirts.webp"
+															alt=""></span></li>
+												<li><a href="index-02.html">صفحه خانه 2</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen02.webp" alt=""></span></li>
+												<li><a href="index-03.html">صفحه خانه 3</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen03.webp" alt=""></span></li>
+												<li><a href="index-04.html">صفحه خانه 4</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen04.webp" alt=""></span></li>
+												<li><a href="index-05.html">صفحه خانه 5</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen05.webp" alt=""></span></li>
+												<li><a href="index-06.html">صفحه خانه 6</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen06.webp" alt=""></span></li>
+												<li><a href="index-07.html">صفحه خانه 7</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen07.webp" alt=""></span></li>
+												<li><a href="index-08.html">صفحه خانه 8</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen08.webp" alt=""></span></li>
+												<li><a href="index-09.html">صفحه خانه 9</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen09.webp" alt=""></span></li>
+												<li><a href="index-10.html">صفحه خانه 10</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen10.webp" alt=""></span></li>
+												<li><a href="index-ltr.html">صفحه خانه LTR</a><span
+														class="submenu-link-image"><img
+															src="/media/images/screen/screen-rtl.webp" alt=""></span>
+												</li>
+											</ul>
+										</div>
+									</li>
+									<li class="mmenu-item--simple"><a href="#">صفحات</a>
+										<div class="mmenu-submenu">
+											<ul class="submenu-list">
+												<li><a href="product.html">صفحه محصول</a>
+													<ul>
+														<li><a href="product.html">صفحه محصول نوع 1<span
+																	class="menu-label menu-label--color3">محبوب</span></a>
+														</li>
+														<li><a href="product-2.html">صفحه محصول نوع 2</a></li>
+														<li><a href="product-3.html">صفحه محصول نوع 3</a></li>
+														<li><a href="product-4.html">صفحه محصول نوع 4</a></li>
+														<li><a href="product-5.html">صفحه محصول نوع 5</a></li>
+														<li><a href="product-6.html">صفحه محصول نوع 6</a></li>
+														<li><a href="product-7.html">صفحه محصول نوع 7</a></li>
+													</ul>
+												</li>
+												<li><a href="category.html">صفحه دسته بندی</a>
+													<ul>
+														<li><a href="category.html">فیلترهای سایدبار راست</a></li>
+														<li><a href="category-closed-filter.html">فیلترهای بسته</a></li>
+														<li><a href="category-horizontal-filter.html">فیلترهای افقی</a>
+														</li>
+														<li><a href="category-listview.html">نمای لیست</a></li>
+														<li><a href="category-empty.html">دسته بندی خالی</a></li>
+													</ul>
+												</li>
+												<li><a href="{% url 'CartView' %}">سبد خرید و پرداخت</a>
+													<ul>
+														<li><a href="{% url 'CartView' %}">صفحه سبد خرید</a></li>
+														<li><a href="cart-style-2.html">صفحه سبد خرید نوع 2</a></li>
+														<li><a href="cart-empty.html">سبد خرید خالی</a></li>
+														<li><a href="{% url 'CheckoutView' %}">صفحه پرداخت نوع 1</a>
+														</li>
+														<li><a href="checkout-2.html">صفحه پرداخت نوع 2</a></li>
+														<li><a href="checkout-3.html">صفحه پرداخت نوع 3</a></li>
+													</ul>
+												</li>
+												<li><a href="{% url 'user_sign' %}">حساب کاربری</a>
+													<ul>
+														<li><a href="{% url 'user_sign' %}">ورود</a></li>
+														<li><a href="{% url 'user_sign' %}">ایجاد حساب کاربری</a></li>
+														<li><a href="account-details.html">جزئیات حساب کاربری</a></li>
+														<li><a href="account-addresses.html">آدرس ها</a></li>
+														<li><a href="account-history.html">تاریخچه سفارشات</a></li>
+														<li><a href="account-wishlist.html">لیست علاقه مندی</a></li>
+													</ul>
+												</li>
+												<li><a href="blog.html">اخبار</a>
+													<ul>
+														<li><a href="blog.html">سایدبار چپ</a></li>
+														<li><a href="blog-left-sidebar.html">سایدبار راست</a></li>
+														<li><a href="blog-without-sidebar.html">بدون سایدبار</a></li>
+														<li><a href="blog-sticky-sidebar.html">سایدبار چسبیده</a></li>
+														<li><a href="blog-grid.html">شبکه بندی</a></li>
+														<li><a href="blog-post.html">جزئیات خبر</a></li>
+													</ul>
+												</li>
+												<li><a href="gallery.html">گالری</a></li>
+												<li><a href="faq.html">سوالات متداول</a></li>
+												<li><a href="about.html">درباره ما</a></li>
+												<li><a href="contact.html">تماس با ما</a></li>
+												<li><a href="404.html">خطا 404</a></li>
+												<li><a href="typography.html">تایپوگرافی</a></li>
+												<li><a href="coming-soon.html" target="_blank">به زودی</a></li>
+											</ul>
+										</div>
+									</li>
+									<li class="mmenu-item--mega"><a href="collections.html"><span>فروشگاه
+												ماهیگیری</span></a>
+										<div class="mmenu-submenu mmenu-submenu--has-bottom">
+											<div class="mmenu-submenu-inside">
+												<div class="container">
+													<div class="mmenu-left width-25">
+														<div class="mmenu-bnr-wrap">
+															<a href="product.html"
+																class="image-hover-scale image-container w-100"
+																style="padding-bottom: 102.91%">
+																<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+																	data-srcset="/media/images/skins/fishing/menu/mmenu-bnr-01.webp"
+																	class="lazyload fade-up" alt="">
+															</a>
+														</div>
+														<h3 class="submenu-title"><a href="category.html">فروش
+																بزرگ<br>پاییز 2020</a></h3>
+													</div>
+													<div class="mmenu-cols column-4">
+														<div class="mmenu-col">
+															<h3 class="submenu-title"><a href="category.html">کالکشن
+																	ها</a>
+															</h3>
+															<ul class="submenu-list">
+																<li><a href="category.html">هنر مارتینز 2020/21<span
+																			class="submenu-link-txt">در دسترس در
+																			بیوتیک ها از بهمن 1399</span></a></li>
+																<li><a href="category.html">بهار-تابستان 1400<span
+																			class="submenu-link-txt">در دسترس در
+																			بیوتیک ها از آذر 1399</span></a></li>
+																<li><a href="category.html">کالکشن مخصوص
+																		بهار-تابستان 2021<span
+																			class="submenu-link-txt">در
+																			بوتیک
+																			ها</span></a></li>
+																<li><a href="category.html">سفر دریایی 2020/21<span
+																			class="submenu-link-txt">در بوتیک
+																			ها</span></a>
+																</li>
+																<li><a href="category.html">پاییز-زمستان 1400/01</a>
+																</li>
+															</ul>
+														</div>
+														<div class="mmenu-col">
+															<h3 class="submenu-title"><a href="category.html">آماده
+																	برای
+																	پوشیدن</a></h3>
+															<ul class="submenu-list">
+																<li><a href="category.html" class="active">کت و
+																		ژاکت</a>
+																	<ul class="sub-level">
+																		<li><a href="category.html">ژاکت ویژه</a>
+																		</li>
+																		<li><a href="category.html">کت دوچرخه
+																				سواری</a></li>
+																		<li><a href="category.html">کاپشن کامیون</a>
+																		</li>
+																		<li><a href="category.html">کت های جین</a>
+																		</li>
+																		<li><a href="category.html">ژاکت های
+																				بلوز<span class="menu-label">فروش
+																					ویژه</span></a>
+																		</li>
+																		<li><a href="category.html">پالتو</a></li>
+																		<li><a href="category.html">کت های جدید</a>
+																		</li>
+																	</ul>
+																</li>
+																<li><a href="category.html">لباس<span
+																			class="menu-label menu-label--color3">فروش
+																			ویژه</span></a></li>
+																<li><a href="category.html">بلوز و تاپ</a></li>
+																<li><a href="category.html">ژاکت پشمی و پلیور</a>
+																</li>
+																<li><a href="category.html">دامن</a></li>
+																<li><a href="category.html">شلوار و شلوارک</a></li>
+																<li><a href="category.html">لباس بیرونی</a></li>
+																<li><a href="category.html">لباس شنا</a></li>
+															</ul>
+														</div>
+														<div class="mmenu-col">
+															<h3 class="submenu-title"><a href="category.html">لوازم
+																	جانبی</a></h3>
+															<ul class="submenu-list">
+																<li><a href="category.html">کت و ژاکت</a></li>
+																<li><a href="category.html">لباس</a></li>
+																<li><a href="category.html">بلوز و تاپ</a></li>
+																<li><a href="category.html">ژاکت پشمی و پلیور</a>
+																</li>
+																<li><a href="category.html">دامن<span
+																			class="menu-label">فروش ویژه</span></a>
+																</li>
+																<li><a href="category.html">شلوار و شلوارک</a></li>
+																<li><a href="category.html">لباس بیرونی</a></li>
+															</ul>
+														</div>
+														<div class="mmenu-col">
+															<h3 class="submenu-title"><a href="category.html">برند
+																	ها</a>
+															</h3>
+															<ul class="submenu-list">
+																<li><a href="category.html">کت و ژاکت</a></li>
+																<li><a href="category.html">لباس</a></li>
+																<li><a href="category.html">بلوز و تاپ</a></li>
+																<li><a href="category.html">ژاکت پشمی و پلیور</a>
+																</li>
+																<li><a href="category.html">دامن<span
+																			class="menu-label menu-label--color1">فروش
+																			ویژه</span></a></li>
+																<li><a href="category.html">شلوار و شلوارک</a></li>
+																<li><a href="category.html">لباس بیرونی</a></li>
+															</ul>
+														</div>
+														<div class="mmenu-bottom justify-content-center">
+															<a href="#"><i class="icon-fox icon--lg"></i><b>اخبار
+																	فروشگاه فاکسیک</b><i
+																	class="icon-arrow-left"></i></a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li><a href="#"><span>قالب فاکسیک</span></a></li>
+								</ul>
+							</div>
+							<div class="hdr-links-wrap col-auto mr-auto">
+								<div class="hdr-inline-link">
+									<div class="search_container_desktop">
+										<div class="dropdn dropdn_search dropdn_fullwidth">
+											<a href="#" class="dropdn-link  js-dropdn-link only-icon"><i
+													class="icon-search"></i><span
+													class="dropdn-link-txt">جستجو</span></a>
+											<div class="dropdn-content">
+												<div class="container">
+													<form method="get" action="#" class="search search-off-popular">
+														<input name="search" type="text"
+															class="search-input input-empty"
+															placeholder="دنبال چه چیزی میگردید؟">
+														<button type="submit" class="search-button"><i
+																class="icon-search"></i></button>
+														<a href="#" class="search-close js-dropdn-close"><i
+																class="icon-close-thin"></i></a>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="dropdn dropdn_compare">
+										<a href="#" class="dropdn-link only-icon compare-link ">
+											<i class="icon-compare"></i><span class="dropdn-link-txt">لیست علاقه
+												مندی</span><span class="compare-qty">3</span>
+										</a>
+									</div>
+									<div class="hdr_container_mobile show-mobile">
+										<div class="dropdn dropdn_account dropdn_fullheight">
+											<a href="#" class="dropdn-link js-dropdn-link"
+												data-panel="#dropdnAccount"><i class="icon-user"></i><span
+													class="dropdn-link-txt">حساب
+													کاربری</span></a>
+										</div>
+									</div>
+									<div class="dropdn dropdn_fullheight minicart">
+										<a href="#" class="dropdn-link js-dropdn-link minicart-link"
+											data-panel="#dropdnMinicart">
+											<i class="icon-fishing-net"></i>
+											<span class="minicart-qty">3</span>
+											<span class="minicart-total hide-mobile">340,000 ریال</span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div class="header-side-panel">
+			<div class="mobilemenu js-push-mbmenu">
+				<div class="mobilemenu-content">
+					<div class="mobilemenu-close mobilemenu-toggle">بستن</div>
+					<div class="mobilemenu-scroll">
+						<div class="mobilemenu-search"></div>
+						<div class="nav-wrapper show-menu">
+							<div class="nav-toggle">
+								<span class="nav-back"><i class="icon-angle-right"></i></span>
+								<span class="nav-title"></span>
+								<a href="#" class="nav-viewall">مشاهده همه</a>
+							</div>
+							<ul class="nav nav-level-1">
+								<li><a href="/">لایه ها<span class="menu-label menu-label--color1">جدید</span><span
+											class="arrow"><i class="icon-angle-left"></i></a>
+									<ul class="nav-level-2">
+										<li><a href="/">پوسته مُد (پیش فرض)</a></li>
+										<li><a href="index-sport.html">پوسته ورزشی</a></li>
+										<li><a href="index-helloween.html">پوسته هالووین</a></li>
+										<li><a href="index-medical.html">پوسته پزشکی</a></li>
+										<li><a href="index-food.html">پوسته بازار غذا</a></li>
+										<li><a href="index-cosmetics.html">پوسته لوازم آرایشی و بهداشتی</a></li>
+										<li><a href="index-fishing.html">پوسته ماهیگیری</a></li>
+										<li><a href="#">پوسته کتاب<span class="menu-label menu-label--color1">به
+													زودی</span></a></li>
+										<li><a href="#">پوسته لوازم الکترونیکی<span
+													class="menu-label menu-label--color2">به
+													زودی</span></a></li>
+										<li><a href="#">پوسته بازی ها<span class="menu-label menu-label--color3">به
+													زودی</span></a></li>
+										<li><a href="#">پوسته دستگاه ویپ<span class="menu-label">به زودی</span></a></li>
+										<li><a href="index-02.html">صفحه خانه 2</a></li>
+										<li><a href="index-03.html">صفحه خانه 3</a></li>
+										<li><a href="index-04.html">صفحه خانه 4</a></li>
+										<li><a href="index-05.html">صفحه خانه 5</a></li>
+										<li><a href="index-06.html">صفحه خانه 6</a></li>
+										<li><a href="index-07.html">صفحه خانه 7</a></li>
+										<li><a href="index-08.html">صفحه خانه 8</a></li>
+										<li><a href="index-09.html">صفحه خانه 9</a></li>
+										<li><a href="index-10.html">صفحه خانه 10</a></li>
+										<li><a href="index-ltr.html">صفحه خانه LTR</a></li>
+									</ul>
+								</li>
+								<li><a href="#">صفحات<span class="arrow"><i class="icon-angle-left"></i></a>
+									<ul class="nav-level-2">
+										<li><a href="product.html">صفحه محصول<span class="arrow"><i
+														class="icon-angle-left"></i></a>
+											<ul class="nav-level-3">
+												<li><a href="product.html">صفحه محصول نوع 1<span
+															class="menu-label menu-label--color3">محبوب</span></a></li>
+												<li><a href="product-2.html">صفحه محصول نوع 2</a></li>
+												<li><a href="product-3.html">صفحه محصول نوع 3</a></li>
+												<li><a href="product-4.html">صفحه محصول نوع 4</a></li>
+												<li><a href="product-5.html">صفحه محصول نوع 5</a></li>
+												<li><a href="product-6.html">صفحه محصول نوع 6</a></li>
+												<li><a href="product-7.html">صفحه محصول نوع 7</a></li>
+											</ul>
+										</li>
+										<li><a href="category.html">صفحه دسته بندی<span class="arrow"><i
+														class="icon-angle-left"></i></a>
+											<ul class="nav-level-3">
+												<li><a href="category.html">فیلترهای سایدبار راست</a></li>
+												<li><a href="category-closed-filter.html">فیلترهای بسته</a></li>
+												<li><a href="category-horizontal-filter.html">فیلترهای افقی</a></li>
+												<li><a href="category-listview.html">نمای لیست</a></li>
+												<li><a href="category-empty.html">دسته بندی خالی</a></li>
+											</ul>
+										</li>
+										<li><a href="{% url 'CartView' %}">سبد خرید و پرداخت<span class="arrow"><i
+														class="icon-angle-left"></i></a>
+											<ul class="nav-level-3">
+												<li><a href="{% url 'CartView' %}">صفحه سبد خرید</a></li>
+												<li><a href="cart-style-2.html">صفحه سبد خرید نوع 2</a></li>
+												<li><a href="cart-empty.html">سبد خرید خالی</a></li>
+												<li><a href="{% url 'CheckoutView' %}">صفحه پرداخت نوع 1</a></li>
+												<li><a href="checkout-2.html">صفحه پرداخت نوع 2</a></li>
+												<li><a href="checkout-3.html">صفحه پرداخت نوع 3</a></li>
+											</ul>
+										</li>
+										<li><a href="{% url 'user_sign' %}">حساب کاربری<span class="arrow"><i
+														class="icon-angle-left"></i></a>
+											<ul class="nav-level-3">
+												<li><a href="{% url 'user_sign' %}">ورود</a></li>
+												<li><a href="{% url 'user_sign' %}">ایجاد حساب کاربری</a></li>
+												<li><a href="account-details.html">جزئیات حساب کاربری</a></li>
+												<li><a href="account-addresses.html">آدرس ها</a></li>
+												<li><a href="account-history.html">تاریخچه سفارشات</a></li>
+												<li><a href="account-wishlist.html">لیست علاقه مندی</a></li>
+											</ul>
+										</li>
+										<li><a href="blog.html">اخبار<span class="arrow"><i
+														class="icon-angle-left"></i></a>
+											<ul class="nav-level-3">
+												<li><a href="blog.html">سایدبار چپ</a></li>
+												<li><a href="blog-left-sidebar.html">سایدبار راست</a></li>
+												<li><a href="blog-without-sidebar.html">بدون سایدبار</a></li>
+												<li><a href="blog-sticky-sidebar.html">سایدبار چسبیده</a></li>
+												<li><a href="blog-grid.html">شبکه بندی</a></li>
+												<li><a href="blog-post.html">جزئیات خبر</a></li>
+											</ul>
+										</li>
+										<li><a href="gallery.html">گالری</a></li>
+										<li><a href="faq.html">سوالات متداول</a></li>
+										<li><a href="about.html">درباره ما</a></li>
+										<li><a href="contact.html">تماس با ما</a></li>
+										<li><a href="404.html">خطا 404</a></li>
+										<li><a href="typography.html">تایپوگرافی</a></li>
+										<li><a href="coming-soon.html" target="_blank">به زودی</a></li>
+									</ul>
+								</li>
+								<li><a href="category.html">محصولات جدید<span class="arrow"><i
+												class="icon-angle-left"></i></a>
+									<ul class="nav-level-2">
+										<li><a href="category.html">کفش ها<span class="arrow"><i
+														class="icon-angle-left"></i></a>
+											<ul class="nav-level-3">
+												<li><a href="category.html">پاشنه بلند</a></li>
+												<li><a href="category.html">پوتین</a></li>
+												<li><a href="category.html">تخت</a></li>
+												<li><a href="category.html">ورزشی و مجلسی</a></li>
+												<li><a href="category.html">مخصوص دویدن</a></li>
+											</ul>
+										</li>
+										<li><a href="category.html">برتر<span class="arrow"><i
+														class="icon-angle-left"></i></a>
+											<ul class="nav-level-3">
+												<li><a href="category.html">لباس</a></li>
+												<li><a href="category.html">پیراهن و تاپ</a></li>
+												<li><a href="category.html">کت و پالتو</a></li>
+												<li><a href="category.html">سوییشرت</a></li>
+											</ul>
+										</li>
+										<li><a href="category.html">کفش ها<span class="arrow"><i
+														class="icon-angle-left"></i></a>
+											<ul class="nav-level-3">
+												<li><a href="category.html">پاشنه بلند</a></li>
+												<li><a href="category.html">پوتین</a></li>
+												<li><a href="category.html">تخت</a></li>
+												<li><a href="category.html">ورزشی و مجلسی</a></li>
+												<li><a href="category.html">مخصوص دویدن</a></li>
+											</ul>
+										</li>
+										<li><a href="category.html">پایین تنه<span class="arrow"><i
+														class="icon-angle-left"></i></a>
+											<ul class="nav-level-3">
+												<li><a href="category.html">جین</a></li>
+												<li><a href="category.html">شلوار</a></li>
+												<li><a href="category.html">شلوار اسلش</a></li>
+												<li><a href="category.html">شلوارک</a></li>
+												<li><a href="category.html">جوراب</a></li>
+											</ul>
+										</li>
+										<li><a href="category.html">لوازم جانبی<span class="arrow"><i
+														class="icon-angle-left"></i></a>
+											<ul class="nav-level-3">
+												<li><a href="category.html">عینک آفتابی</a></li>
+												<li><a href="category.html">کلاه</a></li>
+												<li><a href="category.html">ساعت</a></li>
+												<li><a href="category.html">زیورآلات</a></li>
+												<li><a href="category.html">کمربند</a></li>
+											</ul>
+										</li>
+										<li><a href="category.html">کیف ها<span class="arrow"><i
+														class="icon-angle-left"></i></a>
+											<ul class="nav-level-3">
+												<li><a href="category.html">کیف دستی</a></li>
+												<li><a href="category.html">کوله پشتی</a></li>
+												<li><a href="category.html">کیف بند دار</a></li>
+												<li><a href="category.html">کیف پول</a></li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li><a href="#" target="_blank">قالب فاکسیک<span
+											class="menu-label menu-label--color3">عجله
+											کنید!</span><span class="arrow"><i class="icon-angle-left"></i></span></a>
+								</li>
+							</ul>
+						</div>
+						<div class="mobilemenu-bottom">
+							<div class="mobilemenu-currency">
+								<div class="dropdn_currency">
+									<div class="dropdn dropdn_caret">
+										<a href="#" class="dropdn-link js-dropdn-link">ریال<i
+												class="icon-angle-down"></i></a>
+										<div class="dropdn-content">
+											<ul>
+												<li class="active"><a href="#"><span>ریال</span></a></li>
+												<li><a href="#"><span>دلار</span></a></li>
+												<li><a href="#"><span>لیر</span></a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="mobilemenu-language">
+								<div class="dropdn_language">
+									<div class="dropdn dropdn_language dropdn_language--noimg dropdn_caret">
+										<a href="#" class="dropdn-link js-dropdn-link"><span
+												class="js-dropdn-select-current">فارسی</span><i
+												class="icon-angle-down"></i></a>
+										<div class="dropdn-content">
+											<ul>
+												<li class="active"><a href="#"><img src="/media/images/flags/en.webp"
+															alt="">فارسی</a></li>
+												<li><a href="#"><img src="/media/images/flags/en.webp"
+															alt="">انگلیسی</a></li>
+												<li><a href="#"><img src="/media/images/flags/de.webp" alt="">آلمانی</a>
+												</li>
+												<li><a href="#"><img src="/media/images/flags/fr.webp"
+															alt="">فرانسوی</a> </li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="dropdn-content account-drop" id="dropdnAccount">
+				<div class="dropdn-content-block">
+					<div class="dropdn-close"><span class="js-dropdn-close">بستن</span></div>
+					<ul>
+						<li><a href="{% url 'user_sign' %}"><span>ورود</span><i class="icon-login"></i></a></li>
+						<li><a href="{% url 'user_sign' %}"><span>ثبت نام</span><i class="icon-user2"></i></a></li>
+						<li><a href="{% url 'CheckoutView' %}"><span>پرداخت</span><i class="icon-card"></i></a></li>
+					</ul>
+					<div class="dropdn-form-wrapper">
+						<h5>ورود سریع</h5>
+						<form action="#">
+							<div class="form-group">
+								<input type="text" class="form-control form-control--sm is-invalid"
+									placeholder="ایمیل خود را وارد کنید">
+								<div class="invalid-feedback">نمی تواند خالی باشد</div>
+							</div>
+							<div class="form-group">
+								<input type="password" class="form-control form-control--sm"
+									placeholder="رمز عبور خود را وارد کنید">
+							</div>
+							<button type="submit" class="btn">وارد شوید</button>
+						</form>
+					</div>
+				</div>
+				<div class="drop-overlay js-dropdn-close"></div>
+			</div>
+			<div class="dropdn-content minicart-drop" id="dropdnMinicart">
+				<div class="dropdn-content-block">
+					<div class="dropdn-close"><span class="js-dropdn-close">بستن</span></div>
+					<div class="minicart-drop-content js-dropdn-content-scroll">
+						<div class="minicart-prd row">
+							<div class="minicart-prd-image image-hover-scale-circle col">
+								<a href="product.html"><img class="lazyload fade-up"
+										src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+										data-src="/media/images/skins/fashion/products/product-01-1.webp" alt=""></a>
+							</div>
+							<div class="minicart-prd-info col">
+								<div class="minicart-prd-tag">فاکسیک</div>
+								<h2 class="minicart-prd-name"><a href="#">شلوار چرمی</a></h2>
+								<div class="minicart-prd-qty"><span class="minicart-prd-qty-label">تعداد : </span><span
+										class="minicart-prd-qty-value">1</span></div>
+								<div class="minicart-prd-price prd-price">
+									<div class="price-old">200,000 ریال</div>
+									<div class="price-new">180,000 ریال</div>
+								</div>
+							</div>
+							<div class="minicart-prd-action">
+								<a href="#" class="js-product-remove" data-line-number="1"><i
+										class="icon-recycle"></i></a>
+							</div>
+						</div>
+						<div class="minicart-prd row">
+							<div class="minicart-prd-image image-hover-scale-circle col">
+								<a href="product.html"><img class="lazyload fade-up"
+										src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+										data-src="/media/images/skins/fashion/products/product-16-1.webp" alt=""></a>
+							</div>
+							<div class="minicart-prd-info col">
+								<div class="minicart-prd-tag">فاکسیک</div>
+								<h2 class="minicart-prd-name"><a href="#">پیراهن معمولی</a></h2>
+								<div class="minicart-prd-qty"><span class="minicart-prd-qty-label">تعداد : </span><span
+										class="minicart-prd-qty-value">1</span></div>
+								<div class="minicart-prd-price prd-price">
+									<div class="price-old">200,000 ریال</div>
+									<div class="price-new">180,000 ریال</div>
+								</div>
+							</div>
+							<div class="minicart-prd-action">
+								<a href="#" class="js-product-remove" data-line-number="2"><i
+										class="icon-recycle"></i></a>
+							</div>
+						</div>
+						<div class="minicart-empty js-minicart-empty d-none">
+							<div class="minicart-empty-text">سبد خرید شما خالی است</div>
+							<div class="minicart-empty-icon">
+								<i class="icon-shopping-bag"></i>
+								<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+									viewBox="0 0 306 262" style="enable-background:new 0 0 306 262;"
+									xml:space="preserve">
+									<path class="st0"
+										d="M78.1,59.5c0,0-37.3,22-26.7,85s59.7,237,142.7,283s193,56,313-84s21-206-69-240s-249.4-67-309-60C94.6,47.6,78.1,59.5,78.1,59.5z" />
+								</svg>
+							</div>
+						</div>
+						<a href="#" class="minicart-drop-countdown mt-3">
+							<div class="countdown-box-full">
+								<div class="row no-gutters align-items-center">
+									<div class="col-auto"><i class="icon-gift icon--giftAnimate"></i></div>
+									<div class="col">
+										<div class="countdown-txt">هنگام خرید 2 محصول، محصول سوم
+											را هدیه بگیرید
+										</div>
+										<div class="countdown js-countdown" data-countdown="2021/12/01"></div>
+									</div>
+								</div>
+							</div>
+						</a>
+						<div class="minicart-drop-info d-none d-md-block">
+							<div class="shop-feature-single row no-gutters align-items-center">
+								<div class="shop-feature-icon col-auto"><i class="icon-truck"></i></div>
+								<div class="shop-feature-text col"><b>ارسال!</b> برای افزودن
+									محصولات بیشتر و دریافت ارسال
+									رایگان ، به خرید خود ادامه دهید</div>
+							</div>
+						</div>
+					</div>
+					<div class="minicart-drop-fixed js-hide-empty">
+						<div class="loader-horizontal-sm js-loader-horizontal-sm" data-loader-horizontal="">
+							<span></span>
+						</div>
+						<div class="minicart-drop-total js-minicart-drop-total row no-gutters align-items-center">
+							<div class="minicart-drop-total-txt col-auto heading-font">جمع کل
+							</div>
+							<div class="minicart-drop-total-price col" data-header-cart-total="">340,000 ریال</div>
+						</div>
+						<div class="minicart-drop-actions">
+							<a href="{% url 'CartView' %}" class="btn btn--md btn--grey"><i
+									class="icon-basket"></i><span>سبد
+									خرید</span></a>
+							<a href="{% url 'CheckoutView' %}" class="btn btn--md"><i
+									class="icon-checkout"></i><span>پرداخت</span></a>
+						</div>
+						<ul class="payment-link mb-2">
+							<li><i class="icon-amazon-logo"></i></li>
+							<li><i class="icon-visa-pay-logo"></i></li>
+							<li><i class="icon-skrill-logo"></i></li>
+							<li><i class="icon-klarna-logo"></i></li>
+							<li><i class="icon-paypal-logo"></i></li>
+							<li><i class="icon-apple-pay-logo"></i></li>
+						</ul>
+					</div>
+				</div>
+				<div class="drop-overlay js-dropdn-close"></div>
+			</div>
+		</div>
+		<div class="page-content">
+			<div class="holder mt-0">
+				<div class="container-fluid px-0">
+					<div class="bnslider-wrapper">
+						<div class="bnslider bnslider--lg keep-scale" id="bnslider-001"
+							data-slick='{"arrows": true, "dots": true}' data-autoplay="false" data-speed="5000"
+							data-start-width='1920' data-start-height='667' data-start-mwidth='900'
+							data-start-mheight='667'>
+							<div class="bnslider-slide">
+								<div class="bnslider-image-mobile lazyload fade-up-fast"
+									data-bgset="/media/images/skins/fishing/slider/slide-fish-01-m.webp">
+								</div>
+								<div class="bnslider-image lazyload fade-up-fast"
+									data-bgset="/media/images/skins/fishing/slider/slide-fish-01.webp">
+								</div>
+								<div class="bnslider-text-wrap bnslider-overlay">
+									<div class="bnslider-text-content txt-middle txt-center txt-middle-m txt-center-m">
+										<div class="bnslider-text-content-flex  container ">
+											<div class="bnslider-vert w-s-90 w-ms-100" style="padding: 0px">
+												<div class="bnslider-text order-1 mt-0 bnslider-text--lg text-right heading-font data-ini"
+													data-animation="fadeInUp" data-animation-delay="800"
+													data-fontcolor="#000000" data-fontweight="700" data-fontline="1.2">
+													فروش بزرگ</div>
+												<div class="bnslider-text order-2 mt-0 bnslider-text--xl text-right heading-font data-ini"
+													data-animation="fadeInUp" data-animation-delay="1000"
+													data-fontcolor="#fbb700" data-fontweight="700" data-fontline="1">فقط
+													امروز</div>
+												<div class="btn-wrap text-left  order-4 mt-lg" data-animation="fadeIn"
+													data-animation-delay="2000" style="opacity: 1;">
+													<a href="category.html" target="_self" class="btn btn--lg">شروع
+														خرید</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="bnslider-slide">
+								<div class="bnslider-image-mobile lazyload fade-up-fast"
+									data-bgset="/media/images/skins/fishing/slider/slide-fish-01-2-m.webp">
+								</div>
+								<div class="bnslider-image lazyload fade-up-fast"
+									data-bgset="/media/images/skins/fishing/slider/slide-fish-01-2.webp">
+								</div>
+								<div class="bnslider-text-wrap bnslider-overlay">
+									<div class="bnslider-text-content txt-middle txt-center txt-middle-m txt-center-m">
+										<div class="bnslider-text-content-flex  container ">
+											<div class="bnslider-vert w-s-90 w-ms-100" style="padding: 0px">
+												<div class="bnslider-text order-1 mt-0 bnslider-text--lg text-right heading-font data-ini"
+													data-animation="fadeInUp" data-animation-delay="800"
+													data-fontcolor="#000000" data-fontweight="700" data-fontline="1.2">
+													لوازم جانبی ماهیگیری</div>
+												<div class="bnslider-text order-2 mt-0 bnslider-text--xl text-right heading-font data-ini"
+													data-animation="fadeInUp" data-animation-delay="1000"
+													data-fontcolor="#fbb700" data-fontweight="700" data-fontline="1">
+													بهار 1400</div>
+												<div class="btn-wrap text-left  order-4 mt-lg" data-animation="fadeIn"
+													data-animation-delay="2000" style="opacity: 1;">
+													<a href="category.html" target="_self" class="btn btn--lg">شروع
+														خرید</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="bnslider-arrows container-fluid">
+							<div></div>
+						</div>
+						<div class="bnslider-dots container-fluid"></div>
+					</div>
+				</div>
+			</div>
+			<div class="holder mt-0 holder-with-bg holder-pt-medium holder-pb-medium bgcolor">
+				<div class="container">
+					<div class="row bnr-grid vert-margin-small">
+						<div class="col-18 col-sm-9">
+							<a href="category.html" class="bnr-wrap">
+								<div class="bnr custom-caption image-hover-scale bnr--bottom bnr--left"
+									data-fontratio="8.7">
+									<div class="bnr-img  image-container" style="padding-bottom: 42.32%">
+										<img class="lazyload fade-up" alt="Banner image"
+											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+											data-src="/media/images/skins/fishing/banners/banner-fish-01.webp">
+									</div>
+									<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+										viewBox="0 0 150 150" class="circle_decor circle_decor--bl"
+										style="z-index:1;enable-background:new 0 0 150 150; transform: translate(20%, 23%) rotate(-45deg); opacity:1.0; mix-blend-mode:normal; fill:#00cbf2; width:55%"
+										xml:space="preserve">
+										<path style="fill:#00cbf2;"
+											d="M 75, 75 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0">
+										</path>
+									</svg>
+									<div class="bnr-caption w-100" style="padding: 9% 8%;">
+										<div class="bnr-text3 heading-font mt-sm order-1"
+											style="color:#ffffff; font-size:0.55em; font-weight:400; line-height:1em">
+											ماهیگیری</div>
+										<div class="bnr-text3 heading-font mt-xs order-2"
+											style="color:#ffffff; font-size:0.65em; font-weight:700; line-height:1.2em;">
+											سرگرمی<br>برای کودکان</div>
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="col-9 col-sm-up-quarter"><a href="category.html" class="bnr-wrap">
+								<div class="bnr custom-caption image-hover-scale bnr--top bnr--center"
+									data-fontratio="4.2">
+									<div class="bnr-img  image-container" style="padding-bottom: 88.48%">
+										<img class="lazyload fade-up" alt="Banner image"
+											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+											data-src="/media/images/skins/fishing/banners/banner-fish-02.webp">
+									</div>
+									<div class="bnr-caption " style="padding: 10% 4%; width: 100%;">
+										<div class="bnr-text3 heading-font mt-sm order-1"
+											style=" font-size:0.375em; font-weight:700; line-height:1em">
+											پیشهاد داغ</div>
+										<div class="bnr-text3 heading-font mt-xs order-2"
+											style=" font-size:0.225em; font-weight:500; line-height:1.3em;">
+											ماهیگیری بهاری
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="col-9 col-sm-up-quarter"><a href="category.html" class="bnr-wrap">
+								<div class="bnr custom-caption image-hover-scale bnr--bottom bnr--left"
+									data-fontratio="4.2">
+									<div class="bnr-img  image-container" style="padding-bottom: 88.48%">
+										<img class="lazyload fade-up" alt="Banner image"
+											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+											data-src="/media/images/skins/fishing/banners/banner-fish-03.webp">
+									</div>
+									<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+										viewBox="0 0 150 150" class="circle_decor circle_decor--bl"
+										style="z-index:1;enable-background:new 0 0 150 150; transform: translate(22%, 22%) rotate(-45deg); opacity:1.0; mix-blend-mode:normal; fill:#fbb700; width:95%"
+										xml:space="preserve">
+										<path style="fill:#fbb700;"
+											d="M 75, 75 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0">
+										</path>
+									</svg>
+									<div class="bnr-caption " style="padding: 16% 14%; width: 100%;">
+										<div class="bnr-text3 heading-font mt-0 order-1"
+											style="color:#ffffff; font-size:0.45em; font-weight:400; line-height:1em">
+											ماهیگیری</div>
+										<div class="bnr-text3 heading-font mt-sm order-2"
+											style="color:#ffffff; font-size:0.625em; font-weight:700; line-height:1.2em;">
+											خریدهای<br>داغ</div>
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="col-9 col-sm-up-quarter"><a href="category.html" class="bnr-wrap">
+								<div class="bnr custom-caption image-hover-scale bnr--bottom bnr--right"
+									data-fontratio="4.2">
+									<div class="bnr-img  image-container" style="padding-bottom: 88.48%">
+										<img class="lazyload fade-up" alt="Banner image"
+											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+											data-src="/media/images/skins/fishing/banners/banner-fish-04.webp">
+									</div>
+									<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+										viewBox="0 0 150 150" class="circle_decor circle_decor--br"
+										style="z-index:1;enable-background:new 0 0 150 150; transform: translate(-46%, 52%) rotate(-45deg); opacity:1.0; mix-blend-mode:darken; fill:#fb4b06; width:120%"
+										xml:space="preserve">
+										<path style="fill:#fb4b06;"
+											d="M 75, 75 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0">
+										</path>
+									</svg>
+									<div class="bnr-caption " style="padding: 11% 9%; width: 100%;">
+										<div class="bnr-text3 heading-font mt-sm order-1"
+											style="color:#ffffff; font-size:0.4em; font-weight:700; line-height:1.1em">
+											بزن
+											بریم<br>ماهیگیری</div>
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="col-9 col-sm-up-quarter"><a href="category.html" class="bnr-wrap">
+								<div class="bnr custom-caption image-hover-scale bnr--top bnr--center"
+									data-fontratio="4.2">
+									<div class="bnr-img  image-container" style="padding-bottom: 88.48%">
+										<img class="lazyload fade-up" alt="Banner image"
+											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+											data-src="/media/images/skins/fishing/banners/banner-fish-05.webp">
+									</div>
+									<div class="bnr-caption " style="padding: 14% 4%; width: 100%;">
+										<div class="bnr-text3 heading-font mt-sm order-1"
+											style=" font-size:0.35em; font-weight:700; line-height:1em">
+											فروش ویژه 50%</div>
+										<div class="bnr-text3 heading-font mt-xs order-2"
+											style=" font-size:0.225em; font-weight:400; line-height:1.2em;">
+											لوازم جانبی چرخش</div>
+									</div>
+								</div>
+							</a>
+						</div>
+						<div class="col-18 col-sm-9"><a href="category.html" class="bnr-wrap">
+								<div class="bnr custom-caption image-hover-scale bnr--bottom bnr--right"
+									data-fontratio="8.7">
+									<div class="bnr-img  image-container" style="padding-bottom: 42.32%">
+										<img class="lazyload fade-up" alt="Banner image"
+											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+											data-src="/media/images/skins/fishing/banners/banner-fish-06.webp">
+									</div>
+									<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+										viewBox="0 0 150 150" class="circle_decor circle_decor--br"
+										style="z-index:1;enable-background:new 0 0 150 150; transform: translate(-23%, 37%) rotate(-45deg); opacity:1.0; mix-blend-mode:normal; fill:#78cb36; width:65%"
+										xml:space="preserve">
+										<path style="fill:#78cb36;"
+											d="M 75, 75 m -75, 0 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0">
+										</path>
+									</svg>
+									<div class="bnr-caption " style="padding: 9% 8%; width: 100%;">
+										<div class="bnr-text3 heading-font mt-sm order-1"
+											style="color:#ffffff; font-size:0.5em; font-weight:400; line-height:1em">
+											ماهیگیری
+										</div>
+										<div class="bnr-text3 heading-font mt-xs order-2"
+											style="color:#ffffff; font-size:0.675em; font-weight:700; line-height:1.2em;">
+											فروش بزرگ<br>1400</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="holder mt-0 holder-with-bg holder-pt-small holder-pb-medium bgcolor">
+				<div class="container">
+					<div class="title-wrap text-center title-with-behind">
+						<h2 class="h1-style">دسته بندی ها</h2>
+						<div class="h-behind">تولید ما</div>
+					</div>
+					<div class="collection-grid-2 row justify-content-center">
+						<div class="collection-grid-2-item col-9 col-md-6 col-lg-up-onefive">
+							<a href="#" class="bnr-wrap collection-grid-2-item-inside">
+								<div class="collection-grid-2-img image-hover-scale">
+									<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+										data-src="/media/images/skins/fishing/categories/category-fish-01.webp"
+										class="lazyload fade-up" alt="">
+								</div>
+								<h3 class="collection-grid-2-title">حلقه های ماهیگیری</h3>
+							</a>
+						</div>
+						<div class="collection-grid-2-item col-9 col-md-6 col-lg-up-onefive">
+							<a href="#" class="bnr-wrap collection-grid-2-item-inside">
+								<div class="collection-grid-2-img image-hover-scale">
+									<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+										data-src="/media/images/skins/fishing/categories/category-fish-02.webp"
+										class="lazyload fade-up" alt="">
+								</div>
+								<h3 class="collection-grid-2-title">چرخش</h3>
+							</a>
+						</div>
+						<div class="collection-grid-2-item col-9 col-md-6 col-lg-up-onefive">
+							<a href="#" class="bnr-wrap collection-grid-2-item-inside">
+								<div class="collection-grid-2-img image-hover-scale">
+									<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+										data-src="/media/images/skins/fishing/categories/category-fish-03.webp"
+										class="lazyload fade-up" alt="">
+								</div>
+								<h3 class="collection-grid-2-title">قلاب</h3>
+							</a>
+						</div>
+						<div class="collection-grid-2-item col-9 col-md-6 col-lg-up-onefive">
+							<a href="#" class="bnr-wrap collection-grid-2-item-inside">
+								<div class="collection-grid-2-img image-hover-scale">
+									<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+										data-src="/media/images/skins/fishing/categories/category-fish-04.webp"
+										class="lazyload fade-up" alt="">
+								</div>
+								<h3 class="collection-grid-2-title">ماهی گیر</h3>
+							</a>
+						</div>
+						<div class="collection-grid-2-item col-9 col-md-6 col-lg-up-onefive">
+							<a href="#" class="bnr-wrap collection-grid-2-item-inside">
+								<div class="collection-grid-2-img image-hover-scale">
+									<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+										data-src="/media/images/skins/fishing/categories/category-fish-05.webp"
+										class="lazyload fade-up" alt="">
+								</div>
+								<h3 class="collection-grid-2-title">شناور</h3>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="holder mt-0 holder-with-bg pt-0">
+				<div class="container-fluid px-0">
+					<div class="line-divider"></div>
+				</div>
+			</div>
+			<div class="holder mt-0 section-name-products-grid holder-with-bg holder-pt-medium holder-pb-medium">
+				<div class="container">
+					<div class="title-wrap text-center">
+						<div class="title-wrap title-tabs-wrap text-center">
+							<div class="title-tabs text-center">
+								<div class="title-tabs-h h1-style mb-0 js-title-tabs">
+									<h2 class="h-lined-active h1-style">
+										<a href="ajax/ajax-product-tab-fishing-01.json" data-total="5" data-loaded="5"
+											data-grid-tab-title><span class="title-tabs-text heading-font">بهترین
+												فروشندگان</span></a>
+									</h2>
+									<h2 class="h-lined-active h1-style">
+										<a href="ajax/ajax-product-tab-fishing-02.json" data-total="5" data-loaded="5"
+											data-grid-tab-title><span class="title-tabs-text heading-font">محصولات
+												ویژه</span></a>
+									</h2>
+									<h2 class="h-lined-active h1-style">
+										<a href="ajax/ajax-product-tab-fishing-03.json" data-total="5" data-loaded="5"
+											data-grid-tab-title><span class="title-tabs-text heading-font">جدیدترین
+												محصولات</span></a>
+									</h2>
+								</div>
+								<div class="h-behind">محصولات ما</div>
+							</div>
+						</div>
+					</div>
+					<div class="prd-grid-wrap">
+						<div class="prd-grid data-to-show-5 data-to-show-md-3 data-to-show-sm-2 data-to-show-xs-2"
+							data-grid-tab-content></div>
+						<div class="loader-horizontal-sm js-loader-horizontal-sm d-none" data-loader-horizontal
+							style="opacity: 0;"><span></span></div>
+					</div>
+				</div>
+			</div>
+			<div class="holder mt-0 fullwidth full-nopad">
+				<div class="container">
+					<div class="bnr-wrap">
+						<div class="bnr custom-caption bnr--middle bnr--center bnr--fullwidth" data-fontratio="19.2">
+							<div class="bnr-img d-none d-sm-block image-container" style="padding-bottom: 31.875%">
+								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+									data-src="/media/images/skins/fishing/slider/slide-fish-02.webp"
+									class="lazyload fade-up" alt="Banner">
+							</div>
+							<div class="bnr-img d-sm-none image-container" style="padding-bottom: 46.36%">
+								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+									data-src="/media/images/skins/fishing/slider/slide-fish-02-m.webp"
+									class="lazyload fade-up" alt="Banner">
+							</div>
+							<div class="bnr-caption text-right" style="padding: 4% 4%;">
+								<div class="bnr-caption-inside w-s-80 w-ms-100">
+									<div class="bnr-text3 heading-font mt-0 order-1"
+										style="  font-size:0.85em; font-weight:700; line-height:1em">
+										تخفیف</div>
+									<div class="bnr-text3 heading-font mt-0 order-2 custom-color"
+										style="font-size:1.6em; font-weight:700; line-height:1em;">
+										30%</div>
+									<div class="bnr-text3 heading-font mt-xs order-2"
+										style="font-size:0.35em; font-weight:300; line-height:1.2em;">
+										لوازم جانبی ماهیگیری</div>
+									<div class="bnr-btn inherit mt-sm order-3"><a href="collections.html"
+											class="btn btn--lg">شروع
+											خرید</a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="holder holder-mt-medium boxed ">
+				<div class="container">
+					<div class="row product-hot ">
+						<div class="col-md-9 product-hot-img">
+							<a href="product.html" class="d-block image-container" style="padding-bottom: 76.38%">
+								<img class="fade-up lazyload img-fluid" alt="Product"
+									src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+									data-src="/media/images/skins/fishing/products/product-promo.webp">
+							</a>
+							<div class="product-hot-label">
+								<span>پیشنهاد<br>داغ</span>
+							</div>
+							<div class="product-hot-price">
+								<div class="price-text">فقط امروز</div>
+								<div class="price-new">149,000 ریال</div>
+							</div>
+						</div>
+						<div class="col-md-9 mt-3 mt-md-0">
+							<div class="product-hot-info">
+								<h2 class="product-hot-title ">
+									<a href="product.html">حلقه های طعمه گذاری متانیوم</a>
+								</h2>
+								<div class="product-hot-description d-none d-md-block">
+									<p>مدل "9'5 سایز XS بلند است و بدون هیچ زحمتی بیشتر ، ما
+										بهترین تم فروشگاهی فاکسیک را به شما می دهیم! این یک قالب
+										ظریف ، پیچیده و در عین حال استفاده بسیار آسان برای هر
+										کسی است که می خواهد وب سایت خود را در هر منطقه ایجاد کند
+										از تخصص</p>
+									<div class="mt-1"></div>
+									<div class="row vert-margin-less">
+										<div class="col-sm">
+											<ul class="list-marker">
+												<li>100% پلی استر</li>
+												<li>پوشش: 100٪ ویسکوز</li>
+											</ul>
+										</div>
+										<div class="col-sm">
+											<ul class="list-marker">
+												<li>خشک تمیز نکنید</li>
+												<li>فقط غیر کلر</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="btn-wrap">
+									<button class="btn btn--lg js-prd-addtocart"
+										data-product='{"name": "حلقه های طعمه گذاری متانیوم", "url":"product.html", "path":"/media/images/skins/fishing/products/product-01-1.webp", "aspect_ratio":"1" }'
+										title="افزودن به سبد خرید">افزودن به سبد خرید</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="holder py-4 py-md-10 bgcolor">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-11 col-md-13 right-carousel">
+							<div class="title-wrap text-center title-with-behind d-none d-sm-block">
+								<h2 class="h1-style">حلقه های ماهیگیری</h2>
+								<div class="h-behind">بهترین فروشندگان</div>
+							</div>
+							<div
+								class="prd-grid prd-carousel js-prd-carousel-dots data-to-show-4 data-to-show-md-2 data-to-show-sm-2 data-to-show-xs-1 js-product-grid-sm">
+								<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
+									<div class="prd-inside">
+										<div class="prd-img-area">
+											<a href="product.html" class="prd-img image-hover-scale image-container"
+												style="padding-bottom: 128.48%">
+												<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+													data-src="/media/images/skins/fishing/products/product-01-1.webp"
+													alt="Telescopic Fishing Rod and Reed"
+													class="js-prd-img lazyload fade-up">
+												<div class="foxic-loader"></div>
+												<div class="prd-big-circle-labels">
+													<div class="label-sale"><span>10%- <span class="sale-text">فروش
+																ویژه</span></span>
+														<div class="countdown-circle">
+															<div class="countdown js-countdown"
+																data-countdown="2021/07/01">
+															</div>
+														</div>
+													</div>
+												</div>
+											</a>
+											<div class="prd-circle-labels">
+												<a href="#"
+													class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+													title="افزودن به لیست علاقه مندی"><i
+														class="icon-heart-stroke"></i></a><a href="#"
+													class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+													title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
+												<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
+													data-src="ajax/ajax-quickview.html"><i
+														class="icon-eye"></i><span>مشاهده
+														سریع</span></a>
+											</div>
+										</div>
+										<div class="prd-info prd-info--pad">
+											<div class="prd-info-wrap">
+												<div class="prd-info-top">
+													<div class="prd-tag"><a href="#">فاکسیک</a>
+													</div>
+												</div>
+												<div class="prd-rating justify-content-center">
+													<i class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i>
+												</div>
+												<div class="prd-tag"><a href="#">فاکسیک</a>
+												</div>
+												<h2 class="prd-title"><a href="product.html">میله و نی ماهیگیری
+														تلسکوپی</a></h2>
+												<div class="prd-description">
+													لورم ایپسوم متن ساختگی با تولید سادگی
+													نامفهوم، لورم ایپسوم متن ساختگی با تولید
+													سادگی نامفهوم، لورم ایپسوم متن ساختگی با
+													تولید سادگی نامفهوم
+												</div>
+											</div>
+											<div class="prd-hovers">
+												<div class="prd-circle-labels">
+													<div><a href="#"
+															class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+															title="افزودن به لیست علاقه مندی"><i
+																class="icon-heart-stroke"></i></a><a href="#"
+															class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+															title="حذف از لیست علاقه مندی"><i
+																class="icon-heart-hover"></i></a>
+													</div>
+													<div><a href="#"
+															class="circle-label-qview prd-hide-mobile js-prd-quickview"
+															data-src="ajax/ajax-quickview.html"><i
+																class="icon-eye"></i><span>مشاهده
+																سریع</span></a></div>
+												</div>
+												<div class="prd-price">
+													<div class="price-old">200,000 ریال</div>
+													<div class="price-new">180,000 ریال</div>
+												</div>
+												<div class="prd-action">
+													<div class="prd-action-left">
+														<form action="#">
+															<button class="btn js-prd-addtocart"
+																data-product='{"name": "میله و نی ماهیگیری تلسکوپی", "path":"/media/images/skins/fishing/products/product-01-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
+																به سبد خرید</button>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
+									<div class="prd-inside">
+										<div class="prd-img-area">
+											<a href="product.html" class="prd-img image-hover-scale image-container"
+												style="padding-bottom: 128.48%">
+												<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+													data-src="/media/images/skins/fishing/products/product-02-1.webp"
+													alt="Thill Floats Pro Slip Floats"
+													class="js-prd-img lazyload fade-up">
+												<div class="foxic-loader"></div>
+												<div class="prd-big-circle-labels">
+													<div class="label-new"><span>جدید</span>
+													</div>
+												</div>
+											</a>
+											<div class="prd-circle-labels">
+												<a href="#"
+													class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+													title="افزودن به لیست علاقه مندی"><i
+														class="icon-heart-stroke"></i></a><a href="#"
+													class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+													title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
+												<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
+													data-src="ajax/ajax-quickview.html"><i
+														class="icon-eye"></i><span>مشاهده
+														سریع</span></a>
+											</div>
+										</div>
+										<div class="prd-info prd-info--pad">
+											<div class="prd-info-wrap">
+												<div class="prd-info-top">
+													<div class="prd-tag"><a href="#">فاکسیک</a>
+													</div>
+												</div>
+												<div class="prd-rating justify-content-center">
+													<i class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i>
+												</div>
+												<div class="prd-tag"><a href="#">فاکسیک</a>
+												</div>
+												<h2 class="prd-title"><a href="product.html">شناور های بلند</a>
+												</h2>
+												<div class="prd-description">
+													لورم ایپسوم متن ساختگی با تولید سادگی
+													نامفهوم، لورم ایپسوم متن ساختگی با تولید
+													سادگی نامفهوم، لورم ایپسوم متن ساختگی با
+													تولید سادگی نامفهوم
+												</div>
+											</div>
+											<div class="prd-hovers">
+												<div class="prd-circle-labels">
+													<div><a href="#"
+															class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+															title="افزودن به لیست علاقه مندی"><i
+																class="icon-heart-stroke"></i></a><a href="#"
+															class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+															title="حذف از لیست علاقه مندی"><i
+																class="icon-heart-hover"></i></a>
+													</div>
+													<div><a href="#"
+															class="circle-label-qview prd-hide-mobile js-prd-quickview"
+															data-src="ajax/ajax-quickview.html"><i
+																class="icon-eye"></i><span>مشاهده
+																سریع</span></a></div>
+												</div>
+												<div class="prd-price">
+													<div class="price-new">180,000 ریال</div>
+												</div>
+												<div class="prd-action">
+													<div class="prd-action-left">
+														<form action="#">
+															<button class="btn js-prd-addtocart"
+																data-product='{"name": "شناور های بلند", "path":"/media/images/skins/fishing/products/product-02-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
+																به سبد خرید</button>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
+									<div class="prd-inside">
+										<div class="prd-img-area">
+											<a href="product.html" class="prd-img image-hover-scale image-container"
+												style="padding-bottom: 128.48%">
+												<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+													data-src="/media/images/skins/fishing/products/product-03-1.webp"
+													alt="Eagle Claw 2X Treble Hook" class="js-prd-img lazyload fade-up">
+												<div class="foxic-loader"></div>
+												<div class="prd-big-circle-labels">
+												</div>
+											</a>
+											<div class="prd-circle-labels">
+												<a href="#"
+													class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+													title="افزودن به لیست علاقه مندی"><i
+														class="icon-heart-stroke"></i></a><a href="#"
+													class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+													title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
+												<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
+													data-src="ajax/ajax-quickview.html"><i
+														class="icon-eye"></i><span>مشاهده
+														سریع</span></a>
+											</div>
+										</div>
+										<div class="prd-info prd-info--pad">
+											<div class="prd-info-wrap">
+												<div class="prd-info-top">
+													<div class="prd-tag"><a href="#">فاکسیک</a>
+													</div>
+												</div>
+												<div class="prd-rating justify-content-center">
+													<i class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i>
+												</div>
+												<div class="prd-tag"><a href="#">فاکسیک</a>
+												</div>
+												<h2 class="prd-title"><a href="product.html">قلاب بزرگ</a>
+												</h2>
+												<div class="prd-description">
+													لورم ایپسوم متن ساختگی با تولید سادگی
+													نامفهوم، لورم ایپسوم متن ساختگی با تولید
+													سادگی نامفهوم، لورم ایپسوم متن ساختگی با
+													تولید سادگی نامفهوم
+												</div>
+											</div>
+											<div class="prd-hovers">
+												<div class="prd-circle-labels">
+													<div><a href="#"
+															class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+															title="افزودن به لیست علاقه مندی"><i
+																class="icon-heart-stroke"></i></a><a href="#"
+															class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+															title="حذف از لیست علاقه مندی"><i
+																class="icon-heart-hover"></i></a>
+													</div>
+													<div><a href="#"
+															class="circle-label-qview prd-hide-mobile js-prd-quickview"
+															data-src="ajax/ajax-quickview.html"><i
+																class="icon-eye"></i><span>مشاهده
+																سریع</span></a></div>
+												</div>
+												<div class="prd-price">
+													<div class="price-new">180,000 ریال</div>
+												</div>
+												<div class="prd-action">
+													<div class="prd-action-left">
+														<form action="#">
+															<button class="btn js-prd-addtocart"
+																data-product='{"name": "قلاب بزرگ", "path":"/media/images/skins/fishing/products/product-03-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
+																به سبد خرید</button>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
+									<div class="prd-inside">
+										<div class="prd-img-area">
+											<a href="product.html" class="prd-img image-hover-scale image-container"
+												style="padding-bottom: 128.48%">
+												<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+													data-src="/media/images/skins/fishing/products/product-04-1.webp"
+													alt="Low Profile Baitcasting Reel"
+													class="js-prd-img lazyload fade-up">
+												<div class="foxic-loader"></div>
+												<div class="prd-big-circle-labels">
+													<div class="label-sale"><span>50%- <span class="sale-text">فروش
+																ویژه</span></span>
+													</div>
+												</div>
+											</a>
+											<div class="prd-circle-labels">
+												<a href="#"
+													class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+													title="افزودن به لیست علاقه مندی"><i
+														class="icon-heart-stroke"></i></a><a href="#"
+													class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+													title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
+												<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
+													data-src="ajax/ajax-quickview.html"><i
+														class="icon-eye"></i><span>مشاهده
+														سریع</span></a>
+											</div>
+										</div>
+										<div class="prd-info prd-info--pad">
+											<div class="prd-info-wrap">
+												<div class="prd-info-top">
+													<div class="prd-tag"><a href="#">فاکسیک</a>
+													</div>
+												</div>
+												<div class="prd-rating justify-content-center">
+													<i class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i>
+												</div>
+												<div class="prd-tag"><a href="#">فاکسیک</a>
+												</div>
+												<h2 class="prd-title"><a href="product.html">حلقه چرخشی
+														Baitcasting</a></h2>
+												<div class="prd-description">
+													لورم ایپسوم متن ساختگی با تولید سادگی
+													نامفهوم، لورم ایپسوم متن ساختگی با تولید
+													سادگی نامفهوم، لورم ایپسوم متن ساختگی با
+													تولید سادگی نامفهوم
+												</div>
+											</div>
+											<div class="prd-hovers">
+												<div class="prd-circle-labels">
+													<div><a href="#"
+															class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+															title="افزودن به لیست علاقه مندی"><i
+																class="icon-heart-stroke"></i></a><a href="#"
+															class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+															title="حذف از لیست علاقه مندی"><i
+																class="icon-heart-hover"></i></a>
+													</div>
+													<div><a href="#"
+															class="circle-label-qview prd-hide-mobile js-prd-quickview"
+															data-src="ajax/ajax-quickview.html"><i
+																class="icon-eye"></i><span>مشاهده
+																سریع</span></a></div>
+												</div>
+												<div class="prd-price">
+													<div class="price-old">149,000 ریال</div>
+													<div class="price-new">299,000 ریال</div>
+												</div>
+												<div class="prd-action">
+													<div class="prd-action-left">
+														<form action="#">
+															<button class="btn js-prd-addtocart"
+																data-product='{"name": "حلقه چرخشی Baitcasting", "path":"/media/images/skins/fishing/products/product-04-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
+																به سبد خرید</button>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
+									<div class="prd-inside">
+										<div class="prd-img-area">
+											<a href="product.html" class="prd-img image-hover-scale image-container"
+												style="padding-bottom: 128.48%">
+												<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+													data-src="/media/images/skins/fishing/products/product-05-1.webp"
+													alt="Fishing Night Float Ball" class="js-prd-img lazyload fade-up">
+												<div class="foxic-loader"></div>
+												<div class="prd-big-circle-labels">
+												</div>
+											</a>
+											<div class="prd-circle-labels">
+												<a href="#"
+													class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+													title="افزودن به لیست علاقه مندی"><i
+														class="icon-heart-stroke"></i></a><a href="#"
+													class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+													title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
+												<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
+													data-src="ajax/ajax-quickview.html"><i
+														class="icon-eye"></i><span>مشاهده
+														سریع</span></a>
+											</div>
+										</div>
+										<div class="prd-info prd-info--pad">
+											<div class="prd-info-wrap">
+												<div class="prd-info-top">
+													<div class="prd-tag"><a href="#">فاکسیک</a>
+													</div>
+												</div>
+												<div class="prd-rating justify-content-center">
+													<i class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i>
+												</div>
+												<div class="prd-tag"><a href="#">فاکسیک</a>
+												</div>
+												<h2 class="prd-title"><a href="product.html">توپ
+														شناور ماهیگیری در شب</a>
+												</h2>
+												<div class="prd-description">
+													لورم ایپسوم متن ساختگی با تولید سادگی
+													نامفهوم، لورم ایپسوم متن ساختگی با تولید
+													سادگی نامفهوم، لورم ایپسوم متن ساختگی با
+													تولید سادگی نامفهوم
+												</div>
+											</div>
+											<div class="prd-hovers">
+												<div class="prd-circle-labels">
+													<div><a href="#"
+															class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+															title="افزودن به لیست علاقه مندی"><i
+																class="icon-heart-stroke"></i></a><a href="#"
+															class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+															title="حذف از لیست علاقه مندی"><i
+																class="icon-heart-hover"></i></a>
+													</div>
+													<div><a href="#"
+															class="circle-label-qview prd-hide-mobile js-prd-quickview"
+															data-src="ajax/ajax-quickview.html"><i
+																class="icon-eye"></i><span>مشاهده
+																سریع</span></a></div>
+												</div>
+												<div class="prd-price">
+													<div class="price-new">280,000 ریال</div>
+												</div>
+												<div class="prd-action">
+													<div class="prd-action-left">
+														<form action="#">
+															<button class="btn js-prd-addtocart"
+																data-product='{"name": "توپ شناور ماهیگیری در شب", "path":"/media/images/skins/fishing/products/product-05-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
+																به سبد خرید</button>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
+									<div class="prd-inside">
+										<div class="prd-img-area">
+											<a href="product.html" class="prd-img image-hover-scale image-container"
+												style="padding-bottom: 128.48%">
+												<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+													data-src="/media/images/skins/fishing/products/product-06-1.webp"
+													alt="Metanium Baitcasting Reels"
+													class="js-prd-img lazyload fade-up">
+												<div class="foxic-loader"></div>
+												<div class="prd-big-circle-labels">
+												</div>
+											</a>
+											<div class="prd-circle-labels">
+												<a href="#"
+													class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+													title="افزودن به لیست علاقه مندی"><i
+														class="icon-heart-stroke"></i></a><a href="#"
+													class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+													title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
+												<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
+													data-src="ajax/ajax-quickview.html"><i
+														class="icon-eye"></i><span>مشاهده
+														سریع</span></a>
+											</div>
+										</div>
+										<div class="prd-info prd-info--pad">
+											<div class="prd-info-wrap">
+												<div class="prd-info-top">
+													<div class="prd-tag"><a href="#">فاکسیک</a>
+													</div>
+												</div>
+												<div class="prd-rating justify-content-center">
+													<i class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i>
+												</div>
+												<div class="prd-tag"><a href="#">فاکسیک</a>
+												</div>
+												<h2 class="prd-title"><a href="product.html">حلقه های طعمه گذاری
+														متانیوم</a>
+												</h2>
+												<div class="prd-description">
+													لورم ایپسوم متن ساختگی با تولید سادگی
+													نامفهوم، لورم ایپسوم متن ساختگی با تولید
+													سادگی نامفهوم، لورم ایپسوم متن ساختگی با
+													تولید سادگی نامفهوم
+												</div>
+											</div>
+											<div class="prd-hovers">
+												<div class="prd-circle-labels">
+													<div><a href="#"
+															class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+															title="افزودن به لیست علاقه مندی"><i
+																class="icon-heart-stroke"></i></a><a href="#"
+															class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+															title="حذف از لیست علاقه مندی"><i
+																class="icon-heart-hover"></i></a>
+													</div>
+													<div><a href="#"
+															class="circle-label-qview prd-hide-mobile js-prd-quickview"
+															data-src="ajax/ajax-quickview.html"><i
+																class="icon-eye"></i><span>مشاهده
+																سریع</span></a></div>
+												</div>
+												<div class="prd-price">
+													<div class="price-new">149,000 ریال</div>
+												</div>
+												<div class="prd-action">
+													<div class="prd-action-left">
+														<form action="#">
+															<button class="btn js-prd-addtocart"
+																data-product='{"name": "حلقه های طعمه گذاری متانیوم", "path":"/media/images/skins/fishing/products/product-06-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
+																به سبد خرید</button>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
+									<div class="prd-inside">
+										<div class="prd-img-area">
+											<a href="product.html" class="prd-img image-hover-scale image-container"
+												style="padding-bottom: 128.48%">
+												<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+													data-src="/media/images/skins/fishing/products/product-07-1.webp"
+													alt="Fishing Rod and Reel Combos"
+													class="js-prd-img lazyload fade-up">
+												<div class="foxic-loader"></div>
+												<div class="prd-big-circle-labels">
+													<div class="label-new"><span>جدید</span>
+													</div>
+												</div>
+											</a>
+											<div class="prd-circle-labels">
+												<a href="#"
+													class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+													title="افزودن به لیست علاقه مندی"><i
+														class="icon-heart-stroke"></i></a><a href="#"
+													class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+													title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
+												<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
+													data-src="ajax/ajax-quickview.html"><i
+														class="icon-eye"></i><span>مشاهده
+														سریع</span></a>
+											</div>
+										</div>
+										<div class="prd-info prd-info--pad">
+											<div class="prd-info-wrap">
+												<div class="prd-info-top">
+													<div class="prd-tag"><a href="#">فاکسیک</a>
+													</div>
+												</div>
+												<div class="prd-rating justify-content-center">
+													<i class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i>
+												</div>
+												<div class="prd-tag"><a href="#">فاکسیک</a>
+												</div>
+												<h2 class="prd-title"><a href="product.html">میله ماهیگیری و دسته
+														های حلقه ای</a>
+												</h2>
+												<div class="prd-description">
+													لورم ایپسوم متن ساختگی با تولید سادگی
+													نامفهوم، لورم ایپسوم متن ساختگی با تولید
+													سادگی نامفهوم، لورم ایپسوم متن ساختگی با
+													تولید سادگی نامفهوم
+												</div>
+											</div>
+											<div class="prd-hovers">
+												<div class="prd-circle-labels">
+													<div><a href="#"
+															class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+															title="افزودن به لیست علاقه مندی"><i
+																class="icon-heart-stroke"></i></a><a href="#"
+															class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+															title="حذف از لیست علاقه مندی"><i
+																class="icon-heart-hover"></i></a>
+													</div>
+													<div><a href="#"
+															class="circle-label-qview prd-hide-mobile js-prd-quickview"
+															data-src="ajax/ajax-quickview.html"><i
+																class="icon-eye"></i><span>مشاهده
+																سریع</span></a></div>
+												</div>
+												<div class="prd-price">
+													<div class="price-new">43,000 ریال</div>
+												</div>
+												<div class="prd-action">
+													<div class="prd-action-left">
+														<form action="#">
+															<button class="btn js-prd-addtocart"
+																data-product='{"name": "میله ماهیگیری و دسته های حلقه ای", "path":"/media/images/skins/fishing/products/product-07-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
+																به سبد خرید</button>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
+									<div class="prd-inside">
+										<div class="prd-img-area">
+											<a href="product.html" class="prd-img image-hover-scale image-container"
+												style="padding-bottom: 128.48%">
+												<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+													data-src="/media/images/skins/fishing/products/product-08-1.webp"
+													alt="Speed Spool Baitcasting Reels"
+													class="js-prd-img lazyload fade-up">
+												<div class="foxic-loader"></div>
+												<div class="prd-big-circle-labels">
+												</div>
+											</a>
+											<div class="prd-circle-labels">
+												<a href="#"
+													class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+													title="افزودن به لیست علاقه مندی"><i
+														class="icon-heart-stroke"></i></a><a href="#"
+													class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+													title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
+												<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
+													data-src="ajax/ajax-quickview.html"><i
+														class="icon-eye"></i><span>مشاهده
+														سریع</span></a>
+											</div>
+										</div>
+										<div class="prd-info prd-info--pad">
+											<div class="prd-info-wrap">
+												<div class="prd-info-top">
+													<div class="prd-tag"><a href="#">فاکسیک</a>
+													</div>
+												</div>
+												<div class="prd-rating justify-content-center">
+													<i class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i>
+												</div>
+												<div class="prd-tag"><a href="#">فاکسیک</a>
+												</div>
+												<h2 class="prd-title"><a href="product.html">قرقره های طعمه گذاری
+														Speed Spool</a></h2>
+												<div class="prd-description">
+													لورم ایپسوم متن ساختگی با تولید سادگی
+													نامفهوم، لورم ایپسوم متن ساختگی با تولید
+													سادگی نامفهوم، لورم ایپسوم متن ساختگی با
+													تولید سادگی نامفهوم
+												</div>
+											</div>
+											<div class="prd-hovers">
+												<div class="prd-circle-labels">
+													<div><a href="#"
+															class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+															title="افزودن به لیست علاقه مندی"><i
+																class="icon-heart-stroke"></i></a><a href="#"
+															class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+															title="حذف از لیست علاقه مندی"><i
+																class="icon-heart-hover"></i></a>
+													</div>
+													<div><a href="#"
+															class="circle-label-qview prd-hide-mobile js-prd-quickview"
+															data-src="ajax/ajax-quickview.html"><i
+																class="icon-eye"></i><span>مشاهده
+																سریع</span></a></div>
+												</div>
+												<div class="prd-price">
+													<div class="price-new">18,000 ریال</div>
+												</div>
+												<div class="prd-action">
+													<div class="prd-action-left">
+														<form action="#">
+															<button class="btn js-prd-addtocart"
+																data-product='{"name": "قرقره های طعمه گذاری Speed Spool", "path":"/media/images/skins/fishing/products/product-08-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
+																به سبد خرید</button>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
+									<div class="prd-inside">
+										<div class="prd-img-area">
+											<a href="product.html" class="prd-img image-hover-scale image-container"
+												style="padding-bottom: 128.48%">
+												<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+													data-src="/media/images/skins/fishing/products/product-09-1.webp"
+													alt="Stans Slip Fishing Bobber" class="js-prd-img lazyload fade-up">
+												<div class="foxic-loader"></div>
+												<div class="prd-big-circle-labels">
+													<div class="label-new"><span>جدید</span>
+													</div>
+												</div>
+											</a>
+											<div class="prd-circle-labels">
+												<a href="#"
+													class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+													title="افزودن به لیست علاقه مندی"><i
+														class="icon-heart-stroke"></i></a><a href="#"
+													class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+													title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
+												<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
+													data-src="ajax/ajax-quickview.html"><i
+														class="icon-eye"></i><span>مشاهده
+														سریع</span></a>
+											</div>
+										</div>
+										<div class="prd-info prd-info--pad">
+											<div class="prd-info-wrap">
+												<div class="prd-info-top">
+													<div class="prd-tag"><a href="#">فاکسیک</a>
+													</div>
+												</div>
+												<div class="prd-rating justify-content-center">
+													<i class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i>
+												</div>
+												<div class="prd-tag"><a href="#">فاکسیک</a>
+												</div>
+												<h2 class="prd-title"><a href="product.html">شناورهای
+														ماهیگیری</a>
+												</h2>
+												<div class="prd-description">
+													لورم ایپسوم متن ساختگی با تولید سادگی
+													نامفهوم، لورم ایپسوم متن ساختگی با تولید
+													سادگی نامفهوم، لورم ایپسوم متن ساختگی با
+													تولید سادگی نامفهوم
+												</div>
+											</div>
+											<div class="prd-hovers">
+												<div class="prd-circle-labels">
+													<div><a href="#"
+															class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+															title="افزودن به لیست علاقه مندی"><i
+																class="icon-heart-stroke"></i></a><a href="#"
+															class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+															title="حذف از لیست علاقه مندی"><i
+																class="icon-heart-hover"></i></a>
+													</div>
+													<div><a href="#"
+															class="circle-label-qview prd-hide-mobile js-prd-quickview"
+															data-src="ajax/ajax-quickview.html"><i
+																class="icon-eye"></i><span>مشاهده
+																سریع</span></a></div>
+												</div>
+												<div class="prd-price">
+													<div class="price-new">15,000 ریال</div>
+												</div>
+												<div class="prd-action">
+													<div class="prd-action-left">
+														<form action="#">
+															<button class="btn js-prd-addtocart"
+																data-product='{"name": "شناورهای ماهیگیری", "path":"/media/images/skins/fishing/products/product-09-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
+																به سبد خرید</button>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
+									<div class="prd-inside">
+										<div class="prd-img-area">
+											<a href="product.html" class="prd-img image-hover-scale image-container"
+												style="padding-bottom: 128.48%">
+												<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+													data-src="/media/images/skins/fishing/products/product-10-1.webp"
+													alt="Telescopic Fishing Rod and Reed"
+													class="js-prd-img lazyload fade-up">
+												<div class="foxic-loader"></div>
+												<div class="prd-big-circle-labels">
+													<div class="label-sale"><span>-33% <span class="sale-text">فروش
+																ویژه</span></span>
+													</div>
+												</div>
+											</a>
+											<div class="prd-circle-labels">
+												<a href="#"
+													class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+													title="افزودن به لیست علاقه مندی"><i
+														class="icon-heart-stroke"></i></a><a href="#"
+													class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+													title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
+												<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
+													data-src="ajax/ajax-quickview.html"><i
+														class="icon-eye"></i><span>مشاهده
+														سریع</span></a>
+											</div>
+										</div>
+										<div class="prd-info prd-info--pad">
+											<div class="prd-info-wrap">
+												<div class="prd-info-top">
+													<div class="prd-tag"><a href="#">فاکسیک</a>
+													</div>
+												</div>
+												<div class="prd-rating justify-content-center">
+													<i class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i><i
+														class="icon-star-fill fill"></i>
+												</div>
+												<div class="prd-tag"><a href="#">فاکسیک</a>
+												</div>
+												<h2 class="prd-title"><a href="product.html">میله ماهیگیری
+														تلسکوپی</a></h2>
+												<div class="prd-description">
+													لورم ایپسوم متن ساختگی با تولید سادگی
+													نامفهوم، لورم ایپسوم متن ساختگی با تولید
+													سادگی نامفهوم، لورم ایپسوم متن ساختگی با
+													تولید سادگی نامفهوم
+												</div>
+											</div>
+											<div class="prd-hovers">
+												<div class="prd-circle-labels">
+													<div><a href="#"
+															class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
+															title="افزودن به لیست علاقه مندی"><i
+																class="icon-heart-stroke"></i></a><a href="#"
+															class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
+															title="حذف از لیست علاقه مندی"><i
+																class="icon-heart-hover"></i></a>
+													</div>
+													<div><a href="#"
+															class="circle-label-qview prd-hide-mobile js-prd-quickview"
+															data-src="ajax/ajax-quickview.html"><i
+																class="icon-eye"></i><span>مشاهده
+																سریع</span></a></div>
+												</div>
+												<div class="prd-price">
+													<div class="price-old">59,000 ریال</div>
+													<div class="price-new">39,000 ریال</div>
+												</div>
+												<div class="prd-action">
+													<div class="prd-action-left">
+														<form action="#">
+															<button class="btn js-prd-addtocart"
+																data-product='{"name": "میله و نی ماهیگیری تلسکوپی", "path":"/media/images/skins/fishing/products/product-10-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
+																به سبد خرید</button>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-7 col-md-5 right-carousel-image">
+							<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+								data-src="/media/images/skins/fishing/recent-right-image.webp" class="lazyload fade-up"
+								alt="Banner">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="holder holder-mt-medium">
+				<div class="container">
+					<div class="row vert-margin">
+						<div class="col">
+							<div class="title-wrap text-center">
+								<h2 class="lookbook-bnr-title1">چرخش خود را به روز کنید</h2>
+								<h3 class="lookbook-bnr-title2">1400</h3>
+							</div>
+							<div class="lookbook-bnr">
+								<div class="lookbook-bnr-image image-container" style="padding-bottom: 18.72%">
+									<img class="fade-up w-100 lazyload"
+										src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+										data-src="/media/images/skins/fishing/lookbook-fish.webp" alt="Product">
+								</div>
+								<div class="lookbook-bnr-point" style="left: 39%; top: 22%;">
+									<span data-toggle="popover" class="lookbook-popup-btn-lg" data-original-title=""><i
+											class="icon-close-bold"></i></span>
+									<div class="lookbook-popup js-popover-content">
+										<div class="prd-lookbook d-flex flex-column">
+											<a href="product.html" class="prd-img" title="میله ماهیگیری سبک وزن">
+												<img src="/media/images/skins/fishing/products/product-lookbook-01.webp"
+													alt="میله ماهیگیری سبک وزن">
+											</a>
+											<div class="prd-info">
+												<h2 class="prd-title"><a title="میله ماهیگیری سبک وزن"
+														href="product.html">میله ماهیگیری سبک
+														وزن</a></h2>
+												<div class="prd-price">
+													<div class="price-old">359,000 ریال</div>
+													<div class="price-new">289,000 ریال</div>
+												</div>
+												<button class="btn js-prd-addtocart"
+													data-product='{"name": "میله ماهیگیری سبک وزن", "url":"product.html", "path":"/media/images/skins/fishing/products/product-lookbook-01.webp", "aspect_ratio":"1.0"}'
+													title="افزودن به سبد خرید">افزودن به سبد
+													خرید</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="lookbook-bnr-point" style="left: 65%; top: 51%;">
+									<span data-toggle="popover" class="lookbook-popup-btn-lg" data-original-title=""><i
+											class="icon-close-bold"></i></span>
+									<div class="lookbook-popup js-popover-content">
+										<div class="prd-lookbook d-flex flex-column">
+											<a href="product.html" class="prd-img" title="حلقه های طعمه گذاری متانیوم">
+												<img src="/media/images/skins/fishing/products/product-lookbook-02.webp"
+													alt="Metanium Baitcasting Reels">
+											</a>
+											<div class="prd-info">
+												<h2 class="prd-title"><a title="حلقه های طعمه گذاری متانیوم"
+														href="product.html">حلقه های طعمه گذاری
+														متانیوم</a></h2>
+												<div class="prd-price">
+													<div class="price-new">149,000 ریال</div>
+												</div>
+												<button class="btn js-prd-addtocart"
+													data-product='{"name": "حلقه های طعمه گذاری متانیوم", "url":"product.html", "path":"/media/images/skins/fishing/products/product-lookbook-02.webp", "aspect_ratio":"1.0"}'
+													title="افزودن به سبد خرید">افزودن به سبد
+													خرید</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="lookbook-bnr-point" style="left: 79%; top: 22%;">
+									<span data-toggle="popover" class="lookbook-popup-btn-lg" data-original-title=""><i
+											class="icon-close-bold"></i></span>
+									<div class="lookbook-popup js-popover-content">
+										<div class="prd-lookbook d-flex flex-column">
+											<a href="product.html" class="prd-img"
+												title="میله قابل حمل ماهیگیری تلسکوپی">
+												<img src="/media/images/skins/fishing/products/product-lookbook-03.webp"
+													alt="میله قابل حمل ماهیگیری تلسکوپی">
+											</a>
+											<div class="prd-info">
+												<h2 class="prd-title"><a title="میله قابل حمل ماهیگیری تلسکوپی"
+														href="product.html">میله قابل حمل
+														ماهیگیری تلسکوپی</a></h2>
+												<div class="prd-price">
+													<div class="price-new">389,000 ریال</div>
+												</div>
+												<button class="btn js-prd-addtocart"
+													data-product='{"name": "میله قابل حمل ماهیگیری تلسکوپی", "url":"product.html", "path":"/media/images/skins/fishing/products/product-lookbook-03.webp", "aspect_ratio":"1.0"}'
+													title="افزودن به سبد خرید">افزودن به سبد
+													خرید</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="holder holder-mt-medium holder-with-bg holder-pt-medium holder-pb-medium bgcolor">
+				<div class="container">
+					<div class="title-wrap text-center title-with-behind">
+						<h2 class="h1-style text-center"><a href="blog.html" title="View all">جدیدترین اخبار</a></h2>
+						<div class="h-behind">ماهیگیر برتر</div>
+						<div class="carousel-arrows" style="margin:0 auto 65px; width:50px;">
+						</div>
+					</div>
+					<div class="post-prws post-prws-carousel post-prws--row js-post-prws-carousel"
+						data-slick='{"slidesToShow": 4, "responsive": [{"breakpoint": 992,"settings": {"slidesToShow": 3 }},{"breakpoint": 480,"settings": {"slidesToShow": 1 }}]}'>
+						<div class="post-prw-vert col">
+							<a href="blog-post.html" class="post-prw-img image-hover-scale image-container"
+								style="padding-bottom: 47.16%">
+								<img class="lazyload fade-up w-100"
+									src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+									data-src="/media/images/skins/fishing/blog/blog-01.webp"
+									alt="How to Organize Your Fishing Gear">
+							</a>
+							<h4 class="post-prw-title"><a href="blog-post.html">چگونه دنده
+									ماهیگیری خود را سازماندهی کنیم</a></h4>
+							<div class="post-prw-links">
+								<div class="post-prw-date"><i class="icon-calendar1"></i>
+									28 اسفند 1399
+								</div>
+								<a href="#" class="post-prw-comments"><i class="icon-chat"></i>2
+									دیدگاه</a>
+							</div>
+						</div>
+						<div class="post-prw-vert col">
+							<a href="blog-post.html" class="post-prw-img image-hover-scale image-container"
+								style="padding-bottom: 47.16%">
+								<img class="lazyload fade-up w-100"
+									src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+									data-src="/media/images/skins/fishing/blog/blog-02.webp"
+									alt="How to Get Hooked on Ice Fishing">
+							</a>
+							<h4 class="post-prw-title"><a href="blog-post.html">چگونه می توان در
+									ماهیگیری روی یخ گیر کرد</a></h4>
+							<div class="post-prw-links">
+								<div class="post-prw-date"><i class="icon-calendar1"></i>
+									28 اسفند 1399
+								</div>
+								<a href="#" class="post-prw-comments"><i class="icon-chat"></i>3
+									دیدگاه</a>
+							</div>
+						</div>
+						<div class="post-prw-vert col">
+							<a href="blog-post.html" class="post-prw-img image-hover-scale image-container"
+								style="padding-bottom: 47.16%">
+								<img class="lazyload fade-up w-100"
+									src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+									data-src="/media/images/skins/fishing/blog/blog-03.webp"
+									alt="How to Get Hooked on Ice Fishing">
+							</a>
+							<h4 class="post-prw-title"><a href="blog-post.html">چگونه در هنگام
+									ماهیگیری در یخ ایمن بمانیم</a></h4>
+							<div class="post-prw-links">
+								<div class="post-prw-date"><i class="icon-calendar1"></i>
+									28 اسفند 1399
+								</div>
+								<a href="#" class="post-prw-comments"><i class="icon-chat"></i>5
+									دیدگاه</a>
+							</div>
+						</div>
+						<div class="post-prw-vert col">
+							<a href="blog-post.html" class="post-prw-img image-hover-scale image-container"
+								style="padding-bottom: 47.16%">
+								<img class="lazyload fade-up w-100"
+									src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+									data-src="/media/images/skins/fishing/blog/blog-04.webp"
+									alt="How to Get Hooked on Ice Fishing">
+							</a>
+							<h4 class="post-prw-title"><a href="blog-post.html">برنامه ریزی سفر
+									ماهیگیری با کودکان</a>
+							</h4>
+							<div class="post-prw-links">
+								<div class="post-prw-date"><i class="icon-calendar1"></i>
+									28 اسفند 1399
+								</div>
+								<a href="#" class="post-prw-comments"><i class="icon-chat"></i>2
+									دیدگاه</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="page-footer footer-style-3 mt-0">
+			<div class="footer-top footer-top--bg footer--dark">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-4">
+							<div class="footer-block">
+								<div class="footer-logo">
+									<a href="/" class="logo"><img
+											src="/media/images/skins/fishing/logo-fishing-footer.webp" alt="Logo"></a>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-10">
+							<div class="footer-block">
+								<ul class="footer-list-inline">
+									<li><a href="account-details.html">حساب کاربری</a></li>
+									<li><a href="{% url 'CartView' %}">مشاهده سبد خرید</a></li>
+									<li><a href="account-wishlist.html">لیست علاقه مندی</a></li>
+									<li><a href="account-history.html">وضعیت سفارش</a></li>
+									<li><a href="account-history.html">تاریخچه سفارشات</a></li>
+									<li><a href="account-history.html">تاریخچه سفارشات</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="footer-block">
+								<ul class="social-list">
+									<li>
+										<a href="#" class="icon icon-facebook"></a>
+									</li>
+									<li>
+										<a href="#" class="icon icon-twitter"></a>
+									</li>
+									<li>
+										<a href="#" class="icon icon-google"></a>
+									</li>
+									<li>
+										<a href="#" class="icon icon-vimeo"></a>
+									</li>
+									<li>
+										<a href="#" class="icon icon-youtube"></a>
+									</li>
+									<li>
+										<a href="#" class="icon icon-pinterest"></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom footer-bottom--bg">
+				<div class="container text-center">
+					<ul class="payment-link payment-link--sm">
+						<li><i class="icon-amazon-logo"></i></li>
+						<li><i class="icon-visa-pay-logo"></i></li>
+						<li><i class="icon-skrill-logo"></i></li>
+						<li><i class="icon-master-card-logo"></i></li>
+						<li><i class="icon-paypal-logo"></i></li>
+						<li><i class="icon-apple-pay-logo"></i></li>
+					</ul>
+					<div class="footer-copyright">
+						<a href="#">تمامی حقوق محفوظ است،</a> کپی رایت ©2020
+					</div>
+				</div>
+			</div>
+		</footer>
+		<div class="footer-sticky">
+			<div class="sticky-addcart js-stickyAddToCart closed">
+				<div class="container">
+					<div class="row">
+						<div class="col-auto sticky-addcart_image">
+							<a href="product.html">
+								<img src="/media/images/skins/fashion/products/product-01-1.webp" alt="" />
+							</a>
+						</div>
+						<div class="col col-sm-5 col-lg-4 col-xl-5 sticky-addcart_info">
+							<h1 class="sticky-addcart_title">شلوار چرمی</h1>
+							<div class="sticky-addcart_price">
+								<span class="sticky-addcart_price--actual">180,000 ریال</span>
+								<span class="sticky-addcart_price--old">210,000 ریال</span>
+							</div>
+						</div>
+						<div class="col-auto sticky-addcart_options  prd-block prd-block_info--style1">
+							<div class="select-wrapper">
+								<select class="form-control form-control--sm">
+									<option value="">-- لطفا یک گزینه را انتخاب کنید --</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-auto sticky-addcart_actions">
+							<div class="prd-block_qty">
+								<span class="option-label">تعداد : </span>
+								<div class="qty qty-changer">
+									<button class="decrease"></button>
+									<input type="number" class="qty-input" value="1" data-min="1" data-max="1000">
+									<button class="increase"></button>
+								</div>
+							</div>
+							<div class="btn-wrap">
+								<button class="btn js-prd-addtocart" data-fancybox data-src="#modalCheckOut">افزودن به
+									سبد
+									خرید
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="popup-addedtocart js-popupAddToCart closed" data-close="50000">
+				<div class="container">
+					<div class="row">
+						<div class="popup-addedtocart-close js-popupAddToCart-close"><i class="icon-close"></i></div>
+						<div class="popup-addedtocart-cart js-open-drop" data-panel="#dropdnMinicart"><i
+								class="icon-basket"></i></div>
+						<div class="col-auto popup-addedtocart_logo">
+							<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+								data-src="/media/images/logo-white-sm.webp" class="lazyload fade-up" alt="">
+						</div>
+						<div class="col popup-addedtocart_info">
+							<div class="row">
+								<a href="product.html" class="col-auto popup-addedtocart_image">
+									<span class="image-container w-100">
+										<img src="/media/images/skins/fashion/products/product-01-1.webp" alt="" />
+									</span>
+								</a>
+								<div class="col popup-addedtocart_text">
+									<a href="product.html" class="popup-addedtocart_title"></a>
+									<span class="popup-addedtocart_message">افزودن به <a href="{% url 'CartView' %}"
+											class="underline">سبد
+											خرید</a></span>
+									<span class="popup-addedtocart_error_message"></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-auto popup-addedtocart_actions">
+							<span>شما می توانید ادامه دهید به</span> <a href="#"
+								class="btn btn--grey btn--sm js-open-drop" data-panel="#dropdnMinicart"><i
+									class="icon-basket"></i><span>خرید</span></a>
+							<span>یا</span> <a href="{% url 'CheckoutView' %}" class="btn btn--invert btn--sm"><i
+									class="icon-envelope-1"></i><span>پرداخت</span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="sticky-addcart popup-selectoptions js-popupSelectOptions closed" data-close="500000">
+				<div class="container">
+					<div class="row">
+						<div class="popup-selectoptions-close js-popupSelectOptions-close"><i class="icon-close"></i>
+						</div>
+						<div class="col-auto sticky-addcart_image sticky-addcart_image--zoom">
+							<a href="#" data-caption="">
+								<span class="image-container"><img src="#" alt="" /></span>
+							</a>
+						</div>
+						<div class="col col-sm-5 col-lg-4 col-xl-5 sticky-addcart_info">
+							<h1 class="sticky-addcart_title"><a href="#">&nbsp;</a></h1>
+							<div class="sticky-addcart_price">
+								<span class="sticky-addcart_price--actual"></span>
+								<span class="sticky-addcart_price--old"></span>
+							</div>
+							<div class="sticky-addcart_error_message">پیغام خطا</div>
+						</div>
+						<div class="col-auto sticky-addcart_options prd-block prd-block_info--style1">
+							<div class="select-wrapper">
+								<select class="form-control form-control--sm sticky-addcart_options_select">
+									<option value="none">لطفا یک گزینه را انتخاب کنید ...
+									</option>
+								</select>
+								<div class="invalid-feedback">نمی تواند خالی باشد</div>
+							</div>
+						</div>
+						<div class="col-auto sticky-addcart_actions">
+							<div class="prd-block_qty">
+								<span class="option-label">تعداد : </span>
+								<div class="qty qty-changer">
+									<button class="decrease"></button>
+									<input type="number" class="qty-input" value="2" data-min="1" data-max="10000">
+									<button class="increase"></button>
+								</div>
+							</div>
+							<div class="btn-wrap">
+								<button class="btn js-prd-addtocart">افزودن به سبد خرید</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a class="back-to-top js-back-to-top compensate-for-scrollbar" href="#" title="Scroll To Top">
+				<i class="icon icon-angle-up"></i>
+			</a>
+			<div class="loader-horizontal js-loader-horizontal">
+				<div class="progress">
+					<div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-sticky">
+			<div class="payment-notification-wrap js-pn" data-visible-time="3000" data-hidden-time="3000"
+				data-delay="500" data-from="تهران ,مشهد ,تبریز ,مازندران ,شیراز"
+				data-products='[{"productname":"شلوار چرمی", "productlink":"product.html","productimage":"/media/images/skins/fashion/products/product-01-1.webp"},{"productname":"کوله پشتی پارچه ای مشکی", "productlink":"product.html","productimage":"/media/images/skins/fashion/products/product-28-1.webp"},{"productname":"کفش های کتانی", "productlink":"product.html","productimage":"/media/images/skins/fashion/products/product-23-1.webp"}]'>
+				<div class="payment-notification payment-notification--squared">
+					<div class="payment-notification-inside">
+						<div class="payment-notification-container">
+							<a href="#" class="payment-notification-image js-pn-link">
+								<img src="/media/images/products/product-01.webp" class="js-pn-image" alt="">
+							</a>
+							<div class="payment-notification-content-wrapper">
+								<div class="payment-notification-content">
+									<div class="payment-notification-text">دیگران خریداری کردند
+									</div>
+									<a href="product.html" class="payment-notification-name js-pn-name js-pn-link">ساعت
+										اپل</a>
+									<div class="payment-notification-bottom">
+										<div class="payment-notification-when"><span class="js-pn-time">32</span> دقیقه
+											پیش
+										</div>
+										<div class="payment-notification-from">از <span class="js-pn-from">شهر کنار
+												رودخانه</span></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="payment-notification-close"><i class="icon-close-bold"></i>
+						</div>
+						<div class="payment-notification-qw prd-hide-mobile js-prd-quickview"
+							data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="{% static 'main/vendor-special/lazysizes.min.js' %}"></script>
+		<script src="{% static 'main/vendor-special/ls.bgset.min.js' %}"></script>
+		<script src="{% static 'main/vendor-special/ls.aspectratio.min.js' %}"></script>
+		<script src="{% static 'main/vendor-special/jquery.min.js' %}"></script>
+		<script src="{% static 'main/vendor-special/jquery.ez-plus.js' %}"></script>
+		<script src="{% static 'main/vendor/vendor.min.js' %}"></script>
+		<script src="{% static 'main/app-html.js' %}"></script>
+	</body>
+
+</html>

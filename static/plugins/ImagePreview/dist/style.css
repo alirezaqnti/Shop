@@ -1,0 +1,342 @@
+@charset "UTF-8";
+
+button,
+hr,
+input {
+  overflow: visible
+}
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block
+}
+
+progress,
+sub,
+sup {
+  vertical-align: baseline
+}
+
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%
+}
+
+body {
+  margin: 0
+}
+
+menu,
+article,
+aside,
+details,
+footer,
+header,
+nav,
+section {
+  display: block
+}
+
+h1 {
+  font-size: 2em;
+  margin: .67em 0
+}
+
+figcaption,
+figure,
+main {
+  display: block
+}
+
+figure {
+  margin: 1em 40px
+}
+
+hr {
+  box-sizing: content-box;
+  height: 0
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em
+}
+
+a {
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects
+}
+
+a:active,
+a:hover {
+  outline-width: 0
+}
+
+abbr[title] {
+  border-bottom: none;
+  text-decoration: underline;
+  text-decoration: underline dotted
+}
+
+b,
+strong {
+  font-weight: bolder
+}
+
+dfn {
+  font-style: italic
+}
+
+mark {
+  background-color: #ff0;
+  color: #000
+}
+
+small {
+  font-size: 80%
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative
+}
+
+sub {
+  bottom: -.25em
+}
+
+sup {
+  top: -.5em
+}
+
+audio:not([controls]) {
+  display: none;
+  height: 0
+}
+
+img {
+  border-style: none
+}
+
+svg:not(:root) {
+  overflow: hidden
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: sans-serif;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0
+}
+
+button,
+input {}
+
+button,
+select {
+  text-transform: none
+}
+
+[type=submit],
+[type=reset],
+button,
+html [type=button] {
+  -webkit-appearance: button
+}
+
+[type=button]::-moz-focus-inner,
+[type=reset]::-moz-focus-inner,
+[type=submit]::-moz-focus-inner,
+button::-moz-focus-inner {
+  border-style: none;
+  padding: 0
+}
+
+[type=button]:-moz-focusring,
+[type=reset]:-moz-focusring,
+[type=submit]:-moz-focusring,
+button:-moz-focusring {
+  outline: ButtonText dotted 1px
+}
+
+fieldset {
+  border: 1px solid silver;
+  margin: 0 2px;
+  padding: .35em .625em .75em
+}
+
+legend {
+  box-sizing: border-box;
+  color: inherit;
+  display: table;
+  max-width: 100%;
+  padding: 0;
+  white-space: normal
+}
+
+progress {}
+
+textarea {
+  overflow: auto
+}
+
+[type=checkbox],
+[type=radio] {
+  box-sizing: border-box;
+  padding: 0
+}
+
+[type=number]::-webkit-inner-spin-button,
+[type=number]::-webkit-outer-spin-button {
+  height: auto
+}
+
+[type=search] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px
+}
+
+[type=search]::-webkit-search-cancel-button,
+[type=search]::-webkit-search-decoration {
+  -webkit-appearance: none
+}
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit
+}
+
+summary {
+  display: list-item
+}
+
+[hidden],
+template {
+  display: none
+}
+
+/*# sourceMappingURL=normalize.min.css.map */
+#wrapper {
+  width: 100%;
+  height: auto;
+  max-width: 800px;
+  min-width: 360px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+section {
+  position: relative;
+  width: 90%;
+  height: auto;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 5% 0%;
+  box-sizing: border-box;
+  font-size: 0;
+}
+
+section p {
+  color: #333;
+  font-size: 1.5rem;
+  line-height: 3;
+}
+
+section h1 {
+  font-size: 2rem;
+  line-height: 2;
+  color: #333;
+  text-align: center;
+}
+
+section hr {
+  margin: 2% auto 0 auto;
+}
+
+section label {
+  display: inline-block;
+  vertical-align: top;
+  width: 30%;
+  max-width: 100px;
+  height: auto;
+  border: 3px solid #333;
+  box-sizing: border-box;
+  border-radius: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+section label input {
+  display: none;
+}
+
+section label span {
+  display: inline-block;
+  vertical-align: middle;
+  transition: all 0.5s;
+  width: 50px;
+  height: 50px;
+  opacity: 0.5;
+  background-image: url(https://img.icons8.com/color/48/000000/google-images.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+section label:after {
+  display: inline-block;
+  vertical-align: middle;
+  content: "";
+  padding-top: 100%;
+}
+
+section label:hover,
+section label.on {
+  border: 3px solid #ccc;
+}
+
+section label:hover span,
+section label.on span {
+  opacity: 1;
+}
+
+section #img_preview {
+  float: right;
+  width: 70%;
+  max-width: 500px;
+  border: 2px dashed #333;
+  box-sizing: border-box;
+  border-radius: 20px;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+section #img_preview img {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+section #img_preview:after {
+  display: inline-block;
+  vertical-align: middle;
+  content: "";
+  padding-top: 100%;
+}

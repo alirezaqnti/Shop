@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Drag Image &amp; Preview Image Use Jquery</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+  <!-- partial:index.partial.html -->
+  <div id="wrapper">
+    <section>
+      <h1>Show Image Preview Before Upload</h1>
+      <hr />
+      <p>It's also surpport drag image~</p><br />
+      <label id="img_upload">
+        <input type="file" onchange="img_load(this);" accept="image/*" /><span></span>
+      </label>
+      <div id="img_preview"><img src="https://img.icons8.com/material-rounded/48/000000/upload-2.png"></div>
+    </section>
+  </div>
+  <!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src="./script.js"></script>
+
+</body>
+
+</html>

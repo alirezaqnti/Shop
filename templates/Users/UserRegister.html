@@ -1,0 +1,144 @@
+{% extends 'Main/Master.html' %}
+{% load static %}
+
+{% block head %}
+
+{% endblock head %}
+
+{% block content %}
+
+<div class="page-content">
+    <div class="holder breadcrumbs-wrap mt-0">
+        <div class="container">
+            <ul class="breadcrumbs">
+                <li><a href="/">خانه</a></li>
+                <li><span>ایجاد حساب کاربری</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="holder">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-18 col-lg-12">
+                    <h2 class="text-center">ایجاد یک حساب کاربری</h2>
+                    <div class="form-wrapper">
+                        <form action="#" method="post" id="PHRegForm">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" class="form-control Phone" placeholder="شماره تلفن همراه" required>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn PHReg">دریافت کد</button>
+                            </div>
+                        </form>
+                        <form action="#" method="post" id="PHCodeForm" class="d-none">
+                            {% csrf_token %}
+                            <p class="text-center">کد اعتبار سنجی برا شماره ی <b id="CodePhone"></b> ارسال شد.</p>
+                            <div class="form-group ValidationField">
+                                <input type="text" class="form-control Code" placeholder="کد اعتبار سنجی" required>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn PHReg">اعتبارسنجی</button>
+                            </div>
+                        </form>
+                        <form action="#" method="post" class="d-none" id="UIForm">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="Name" placeholder="نام و نام خانوادگی"
+                                    required>
+                            </div>
+                            <div class="row">
+                                <div class="clearfix">
+                                    <input id="GenderCheckMale" value="1" name="GenderCheck" class="GenderCheck" checked
+                                        type="radio">
+                                    <label for="GenderCheckMale">آقا</label>
+                                </div>
+                                <div class="clearfix">
+                                    <input id="GenderCheckFemale" value="2" name="GenderCheck" class="GenderCheck"
+                                        type="radio">
+                                    <label for="GenderCheckFemale">خانم</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="password" placeholder="رمز عبور"
+                                    required>
+                                <small class="passexam"> رمز عبور شما باید بین 8-15 رقم باشد و حداقل یک حرف بزرگ ،یک حرف
+                                    کوچک و یک عدد را شامل شود </small>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="passwordValid"
+                                    placeholder="تکرار رمز عبور" required>
+                                <small id="message"></small>
+                            </div>
+
+                            <div class="clearfix">
+                                <input id="ConditionCheck" name="ConditionCheck" type="checkbox">
+                                <label for="ConditionCheck">با ثبت نام و ثبت مشخصات خود، شما با <a href="#"
+                                        class="custom-color" data-fancybox data-src="#modalTerms">قوانین و
+                                        مقررات</a> و <a href="#" class="custom-color" data-fancybox
+                                        data-src="#modalCookies">ساسیت حریم خصوصی</a> ما موافقت می کنید</label>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn UIReg" disabled>ایجاد یک حساب کاربری</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalTerms" style="display: none;" class="modal-info-content modal-info-content-lg">
+    <div class="modal-info-heading">
+        <h2>قوانین و مقررات</h2>
+    </div>
+    <p>این وب سایت توسط مدیر اداره می شود. در کل سایت ، اصطلاحات "ما" به مدیر اشاره دارد. مدیر این وب سایت را شامل
+        می شود ، شامل کلیه اطلاعات ، ابزارها و خدمات موجود در این سایت به شما کاربر ، مشروط بر پذیرفتن کلیه شرایط ،
+        ضوابط ، خط مشی ها و اطلاعیه های ذکر شده در اینجا.</p>
+    <p>با مراجعه به سایت ما و / یا خرید چیزی از ما ، شما در "خدمات" ما شرکت می کنید و می پذیرید که به شرایط و ضوابط
+        زیر ("شرایط خدمات" ، "شرایط") ، از جمله آن شرایط و ضوابط و سیاست های اضافی ، متعهد باشید. در اینجا ارجاع
+        داده می شود و / یا توسط هایپر لینک در دسترس است. این شرایط خدمات برای همه کاربران سایت اعمال می شود ، از
+        جمله بدون محدودیت کاربرانی که مرورگر ، فروشنده ، مشتری ، بازرگان و / یا همکار محتوا هستند.</p>
+    <p>لطفاً قبل از دسترسی یا استفاده از وب سایت ما ، این شرایط خدمات را با دقت مطالعه کنید. با دسترسی یا استفاده از
+        هر بخشی از سایت ، موافقت می کنید که به این شرایط خدمات ملزم شوید. اگر با تمام شرایط و ضوابط این توافق نامه
+        موافق نیستید ، ممکن است به وب سایت دسترسی پیدا نکنید یا از هیچ خدماتی استفاده نکنید. اگر این شرایط خدمات به
+        عنوان یک پیشنهاد در نظر گرفته شود ، پذیرش صریحاً به این شرایط خدمات محدود می شود.</p>
+    <p>هر ویژگی یا ابزار جدیدی که به فروشگاه فعلی اضافه شود نیز مشمول شرایط خدمات خواهد بود. شما می توانید جدیدترین
+        نسخه شرایط خدمات را در هر زمان در این صفحه مرور کنید. ما با ارسال به روزرسانی ها و / یا تغییرات در وب سایت
+        خود ، حق به روزرسانی ، تغییر یا جایگزینی هر قسمت از این شرایط خدمات را برای خود محفوظ می داریم. این مسئولیت
+        شماست که به طور دوره ای این صفحه را برای تغییرات بررسی کنید. ادامه استفاده یا دسترسی شما به وب سایت پس از
+        ارسال هرگونه تغییر به منزله پذیرش آن تغییرات است.</p>
+    <p>فروشگاه ما آنلاین میزبانی می شود. آنها پلت فرم تجارت الکترونیکی آنلاین را به ما ارائه می دهند که به ما امکان
+        می دهد محصولات و خدمات خود را به شما بفروشیم.</p>
+</div>
+<div id="modalCookies" style="display: none;" class="modal-info-content modal-info-content-lg">
+    <div class="modal-info-heading">
+        <h2>سیاست حریم خصوصی</h2>
+    </div>
+    <p>این وب سایت توسط مدیر اداره می شود. در کل سایت ، اصطلاحات "ما" به مدیر اشاره دارد. مدیر این وب سایت را شامل
+        می شود ، شامل کلیه اطلاعات ، ابزارها و خدمات موجود در این سایت به شما کاربر ، مشروط بر پذیرفتن کلیه شرایط ،
+        ضوابط ، خط مشی ها و اطلاعیه های ذکر شده در اینجا.</p>
+    <p>با مراجعه به سایت ما و / یا خرید چیزی از ما ، شما در "خدمات" ما شرکت می کنید و می پذیرید که به شرایط و ضوابط
+        زیر ("شرایط خدمات" ، "شرایط") ، از جمله آن شرایط و ضوابط و سیاست های اضافی ، متعهد باشید. در اینجا ارجاع
+        داده می شود و / یا توسط هایپر لینک در دسترس است. این شرایط خدمات برای همه کاربران سایت اعمال می شود ، از
+        جمله بدون محدودیت کاربرانی که مرورگر ، فروشنده ، مشتری ، بازرگان و / یا همکار محتوا هستند.</p>
+    <p>لطفاً قبل از دسترسی یا استفاده از وب سایت ما ، این شرایط خدمات را با دقت مطالعه کنید. با دسترسی یا استفاده از
+        هر بخشی از سایت ، موافقت می کنید که به این شرایط خدمات ملزم شوید. اگر با تمام شرایط و ضوابط این توافق نامه
+        موافق نیستید ، ممکن است به وب سایت دسترسی پیدا نکنید یا از هیچ خدماتی استفاده نکنید. اگر این شرایط خدمات به
+        عنوان یک پیشنهاد در نظر گرفته شود ، پذیرش صریحاً به این شرایط خدمات محدود می شود.</p>
+    <p>هر ویژگی یا ابزار جدیدی که به فروشگاه فعلی اضافه شود نیز مشمول شرایط خدمات خواهد بود. شما می توانید جدیدترین
+        نسخه شرایط خدمات را در هر زمان در این صفحه مرور کنید. ما با ارسال به روزرسانی ها و / یا تغییرات در وب سایت
+        خود ، حق به روزرسانی ، تغییر یا جایگزینی هر قسمت از این شرایط خدمات را برای خود محفوظ می داریم. این مسئولیت
+        شماست که به طور دوره ای این صفحه را برای تغییرات بررسی کنید. ادامه استفاده یا دسترسی شما به وب سایت پس از
+        ارسال هرگونه تغییر به منزله پذیرش آن تغییرات است.</p>
+    <p>فروشگاه ما آنلاین میزبانی می شود. آنها پلت فرم تجارت الکترونیکی آنلاین را به ما ارائه می دهند که به ما امکان
+        می دهد محصولات و خدمات خود را به شما بفروشیم.</p>
+</div>
+
+{% endblock content %}
+
+
+{% block js %}
+<script src="{% static 'custom/userRegister.js' %}"></script>
+<script src="{% static 'custom/pwdCheck.js' %}"></script>
+{% endblock js %}

@@ -1,0 +1,88 @@
+h1 {
+    font-size: 1.5em;
+    color: #222;
+}
+
+h2 {
+    font-size: .9em;
+}
+
+h3 {
+    font-size: 1.2em;
+    font-weight: 300;
+    line-height: 2em;
+}
+
+p {
+    font-size: .7em;
+    color: #666;
+    line-height: 1.2em;
+}
+
+#invoiceholder {
+    width: 100%;
+    height: 100%;
+}
+
+table {
+    text-align: center !important;
+}
+
+.invoice {
+    min-height: 120px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+#invoice-bot {
+    min-height: 250px;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 5px;
+    border: 1px solid #EEE;
+    text-align: center !important;
+}
+
+tfoot td {
+    text-align: center !important;
+}
+
+th {
+    text-align: center !important;
+}
+
+.tabletitle {
+    padding: 5px;
+    background: #EEE;
+}
+
+.service {
+    border: 1px solid #EEE;
+}
+
+.item {
+    width: 50%;
+}
+
+.itemtext {
+    font-size: .9em;
+    margin: 10px auto
+}
+
+#invoice .logo {
+    border-radius: 50%;
+}
+
+#invoice .logo img {
+    max-width: 115px;
+}

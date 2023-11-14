@@ -1,0 +1,693 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}"> {% trans 'Home' %}</a> /
+    <a href="/admin/Warehouse/cart/"><b> سبد خرید</b></a>
+</div>
+{% endblock %}
+
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'main/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'custom/Invoice.css' %}">
+<link rel="stylesheet" href="{% static 'main/style.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/ImagePreview/dist/style.css' %}">
+<script src="{% static 'main/vendor-special/jquery.min.js' %}"></script>
+<script src="{% static 'main/popper.min.js' %}"></script>
+<script src="{% static 'main/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'main/vendor-special/nice-select.min.css' %}" />
+<script src="{% static 'main/vendor-special/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'plugins/ImagePreview/dist/script.js' %}"></script>
+<script src="{% static 'custom/thousands.js' %}"></script>
+<link rel="stylesheet" href="{% static 'plugins/fontawesome/all.min.css' %}" />
+<script src="{% static 'ckeditor/ckeditor-init.js' %}" data-ckeditor-basepath="/static/ckeditor/ckeditor/"
+    id="ckeditor-init-script"></script>
+<script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+<style>
+    p,
+    b,
+    span {
+        font-size: 0.9rem;
+    }
+
+    #table,
+    #table p,
+    #table h2 {
+        color: #fff !important;
+    }
+
+
+
+    .nice-select {
+        width: 100%;
+        line-height: 30px;
+        float: unset;
+    }
+
+    .form-control {
+        background-color: #fff !important;
+        color: #495057 !important;
+        border-color: #ced4da !important;
+    }
+
+    button[data-target="#ExchangeModal"] {
+        color: #fff;
+    }
+
+    #SearchEngine {
+        width: 100%;
+        padding: 15px 20px;
+        top: 38px;
+    }
+</style>
+{% endblock extrastyle %}
+
+{% block content %}
+
+<div style="position: absolute; top: 0; right: 22px;left: 22px;z-index: 9999;">
+    <div class="toast toast-success fade hide" role="alert" data-delay="6000" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            تغییرات با موفقیت ثبت شد
+        </div>
+    </div>
+</div>
+<div style="position: absolute; top: 0; right: 22px;left: 22px;z-index: 9999;">
+    <div class="toast toast-danger fade hide" role="alert" data-delay="6000" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            تغییرات با موفقیت ثبت شد
+        </div>
+    </div>
+</div>
+<div style="position: absolute; top: 0; right: 22px;left: 22px;z-index: 9999;">
+    <div class="toast toast-dark fade hide" role="alert" data-delay="6000" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            تغییرات با موفقیت ثبت شد
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div id="invoice">
+
+        <div class="invoice">
+            <div class="info">
+                <b>
+                    نام گیرنده:
+                    <h2>{{Cart.User.Name}} </h2>
+                </b>
+                <b>
+                    شماره تماس:
+                    <p> {{Cart.User.Phone}}
+                    </p>
+                </b>
+            </div><!--End Info-->
+            <div class="info">
+                <b>
+                    وضعیت سفارش:
+                    <h2>
+
+                        {% if Cart.status == 0 %}
+                        فاکتور باز
+                        {% elif Cart.status == 1 %}
+                        در حال آماده سازی
+                        {% elif Cart.status == 2 %}
+                        لغو شده
+                        {% elif Cart.status == 3 %}
+                        ارسال شده
+                        {% elif Cart.status == 4 %}
+                        درخواست تعویض
+                        {% elif Cart.status == 5 %}
+                        تعویض شده
+                        {% endif %}
+
+                    </h2>
+                </b>
+
+            </div>
+            <div class="title">
+                <b>
+                    شماره سفارش:
+                    <h1>{{Cart.RC}}</h1>
+                </b>
+                <b>
+                    تاریخ:
+                    <p>
+                        {{Cart.PaymentDate}}
+                    </p>
+                </b>
+            </div><!--End Title-->
+        </div>
+
+        {% if Cart.shipping_cart %}
+
+        <div class="invoice">
+            <div class="info">
+                <h2>نحوه ارسال:</h2>
+                <b>
+
+                    {% if Cart.shipping_cart == 0 %}
+                    پیک
+                    {% else %}
+                    پست
+                    {% endif %}
+
+                </b>
+                <h2>کد رهگیری پستی:
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#EditTrackNumber"
+                        title="ویرایش کد رهگیری پستی">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+
+                    <!-- Modal -->
+                </h2>
+                <b>
+                    {{Cart.shipping_cart.TrackNumber}}
+                </b>
+            </div>
+
+
+            <div id="project">
+                <h2>آدرس پستی:
+                    <button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#EditAddress"
+                        title="ویرایش ادرس">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </button>
+                </h2>
+                <p>
+                    {{Cart.shipping_cart.State}}، {{Cart.shipping_cart.City}}،
+                    {{Cart.shipping_cart.Address}} ، پلاک {{Cart.shipping_cart.No}}، واحد
+                    {{Cart.shipping_cart.Unit}}
+                </p>
+
+                <h2>کد پستی:
+                </h2>
+                <p>
+                    {{Cart.shipping_cart.PostalCode}}
+                </p>
+
+            </div>
+            <!-- Button trigger modal -->
+
+        </div>
+        {% endif %}
+
+
+        <div id="invoice-bot">
+            <div id="table">
+                <table class="data-table-default data-table display " style="width: 100%;">
+                    <thead>
+                        <tr class="tabletitle">
+                            <th data-priority="1">
+                                <h2>#</h2>
+                            </th>
+                            <th>
+                                <h2>نام محصول</h2>
+                            </th>
+                            <th>
+                                <h2>کد محصول</h2>
+                            </th>
+                            <th>
+                                <h2>کد سفارش</h2>
+                            </th>
+                            <th>
+                                <h2>تعداد</h2>
+                            </th>
+                            <th>
+                                <h2>فی</h2>
+                            </th>
+                            <th>
+                                <h2>تخفیف</h2>
+                            </th>
+                            <th>
+                                <h2>قیمت نهایی</h2>
+                            </th>
+                            <th>
+                                <h2>
+                                    وضعیت
+                                </h2>
+                            </th>
+                            <th>
+                                <h2>توضیحات</h2>
+                            </th>
+                            {% if Cart.status != 3 and Cart.status != 5 %}
+                            <th></th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for item in Cart.cartproduct_cart.all %}
+                        <tr class="service">
+                            <td>{{forloop.counter}}</td>
+                            <td class="tableitem">
+                                <p class="itemtext">{{item.Variety.Variety.Product.Name}}</p>
+                            </td>
+                            <td class="tableitem">
+                                <p class="itemtext">{{item.Variety.RPVS}} </p>
+                            </td>
+                            <td class="tableitem">
+                                <p class="itemtext">{{item.RCP}} </p>
+                            </td>
+                            <td class="tableitem">
+                                <p class="itemtext">{{item.Quantity}}</p>
+                            </td>
+                            <td class="tableitem">
+                                <p class="itemtext pr">{{item.Fee}}</p>
+                            </td>
+                            <td class="tableitem">
+                                <p class="itemtext pr">{{item.discount}}</p>
+                            </td>
+                            <td class="tableitem">
+                                <p class="itemtext pr">{{item.Amount}}</p>
+                            </td>
+                            <td class="tableitem">
+                                <p class="itemtext">
+
+                                    {% if item.status == 0 %}
+                                    جدید
+                                    {% elif item.status == 1 %}
+                                    تایید شده
+                                    {% elif item.status == 2 %}
+                                    رد شده
+                                    {% elif item.status == 3 %}
+                                    تعویض شده
+                                    {% elif item.status == 4 %}
+                                    لغو شده
+                                    {% else %}
+                                    در حال تعویض
+                                    {% endif %}
+                                </p>
+                            </td>
+                            <td>
+                                <p>{{item.Describtion}}</p>
+                            </td>
+                            {% if Cart.status != 3 and Cart.status != 5 and item.status != 3 and item.status != 5 %}
+
+                            <td>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-sm" data-target="#ExchangeModal"
+                                    data-rcp="{{item.RCP}}" data-Name="{{item.Variety.Variety.Product.Name}}"
+                                    data-color="{{item.Variety.Variety.ColorCode}}" data-Size="{{item.Variety.Size}}"
+                                    data-Quantity="{{item.Quantity}}" data-Amount="{{item.Amount}}">
+                                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                            {% else %}
+                            <td></td>
+                            {% endif %}
+
+                        </tr>
+
+                        {% endfor %}
+
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>#</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>
+                                سفارشات:
+                                <span class="pr">
+                                    {{Cart.Amount}}
+                                </span>
+                            </td>
+                            <td>
+                                تخفیف:
+                                <span class="pr">
+                                    {{Cart.TotalDiscount}}
+                                </span>
+                            </td>
+
+                            <td>
+                                هزینه ارسال:
+                                <span class="pr">
+                                    {{Cart.ShippingPrice}}
+                                </span>
+                            </td>
+                            <td>
+                                جمع کل:
+                                <b class="pr">
+                                    {{Cart.TotalPrice}}
+                                </b>
+                            </td>
+                            <td>-</td>
+
+                        </tr>
+                    </tfoot>
+
+                </table>
+            </div>
+            <!--End Table-->
+        </div><!--End InvoiceBot-->
+    </div>
+</div>
+
+<div class="modal fade" id="EditTrackNumber" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">کد رهگیری پستی</h5>
+                <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="modal-body pb-1">
+                    <div class="form-group">
+                        <label for="TrackNumber">کد رهگیری</label>
+                        <input type="text" name="TrackNumber" id="TrackNumber" class="form-control"
+                            value="{{Cart.shipping_cart.TrackNumber}}">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                    <button type="submit" name="TrackNumberBtn" class="btn btn-primary">ذخیره</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="EditAddress" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ویرایش ادرس</h5>
+                <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="modal-body pb-1">
+                    <div class="form-group">
+                        <label for="State">استان</label>
+                        <select required class="form-control form-control-sm" name="State" id="State">
+                            {% for item in City %}
+
+                            {% if Cart.shipping_cart.State.pk == item.pk %}
+                            <option value="{{item.id}}" selected>{{item.title}}</option>
+                            {% else %}
+                            <option value="{{item.id}}">{{item.title}}</option>
+                            {% endif %}
+
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="City">شهر</label>
+                        <select required class="form-control form-control-sm" name="City" id="City">
+                            <option value="{{Cart.shipping_cart.city.pk}}">
+                                {{Cart.shipping_cart.City.title}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">کد پستی</label>
+                        <input required type="text" name="PostalCode" class="form-control"
+                            value="{{Cart.shipping_cart.PostalCode}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">پلاک</label>
+                        <input required type="text" name="No" class="form-control" value="{{Cart.shipping_cart.No}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">واحد</label>
+                        <input type="text" name="Unit" class="form-control" value="{{Cart.shipping_cart.Unit}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">آدرس پستی</label>
+                        <textarea required name="Address" class="form-control"
+                            rows="3">{{Cart.shipping_cart.Address}}</textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                    <button type="submit" name="AddressBtn" class="btn btn-primary">ذخیره</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ExchangeModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">تعویض سفارش</h5>
+                <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <h3>محصول فعلی:</h3>
+                    <hr>
+                    <div class="row justify-content-between px-1">
+                        <div class="col-6 col-md-4">
+                            <b>
+                                شماره سفارش:
+                                <h2 class="Exchange-RCP"></h2>
+                            </b>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <b>
+                                نام محصول:
+                                <h2 class="Exchange-Name"></h2>
+                            </b>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <b>
+                                تعداد:
+                                <h2 class="Exchange-Quantity"></h2>
+                            </b>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <b>
+                                رنگ:
+                                <h2 class="Exchange-Color"></h2>
+                            </b>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <b>
+                                سایز:
+                                <h2 class="Exchange-Size"></h2>
+                            </b>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <b>
+                                مبلغ نهایی:
+                                <h2 class="Exchange-Amount"></h2>
+                            </b>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <h3>محصول جایگزین:</h3>
+                    <hr>
+
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="NewCPTxt"
+                            placeholder="کد و یا نام محصول را وارد کنید... ">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary" type="button" id="NewCPSearch">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div id="SearchEngine" class="SearchEngine">
+                            <ul></ul>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                <button type="button" class="btn btn-primary">ثبت</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="NewCPModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    تایید اطلاعات
+                </h5>
+                <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="RPVS" class="NewCP-RPVS">
+                <input type="hidden" name="CP" class="NewCP-CP">
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row justify-content-between px-1">
+
+                            <div class="col-6 col-md-4">
+                                <b>
+                                    نام محصول:
+                                    <h2 class="NewCP-Name"></h2>
+                                </b>
+                            </div>
+                            <div class="col-6 col-md-2">
+                                <b>
+                                    تعداد:
+                                    <input type="number" name="Quantity" class="form-control" min="1" value="1">
+                                </b>
+                            </div>
+                            <div class="col-6 col-md-1">
+                                <b>
+                                    رنگ:
+                                    <h2 class="NewCP-Color"></h2>
+                                </b>
+                            </div>
+                            <div class="col-6 col-md-2">
+                                <b>
+                                    سایز:
+                                    <h2 class="NewCP-Size"></h2>
+                                </b>
+                            </div>
+                            <div class="col-6 col-md-2">
+                                <b>
+                                    قیمت پایه:
+                                    <h2 class="NewCP-Price"></h2>
+                                </b>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                    <button type="submit" name="NewCPForm" class="btn btn-primary">ثبت</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script src="{% static 'custom/main.js' %}"></script>
+<script src="{% static 'custom/Cookie.js' %}"></script>
+<script src="//cdn.ckeditor.com/4.23.0-lts/standard/ckeditor.js"></script>
+
+<script>
+    $('select').niceSelect();
+    $('button[data-target="#ExchangeModal"]').click(function (e) {
+        e.preventDefault();
+        let RCP = $(this).attr('data-rcp')
+        let Name = $(this).attr('data-Name')
+        let Quantity = $(this).attr('data-Quantity')
+        let Amount = $(this).attr('data-Amount')
+        let Color = $(this).attr('data-color')
+        let Size = $(this).attr('data-Size')
+
+        $('.Exchange-RCP').html(RCP);
+        $('.NewCP-CP').val(RCP);
+        $('.Exchange-Name').html(Name);
+        $('.Exchange-Color').html(`
+        <div class="color-item" style="background-color: ${Color};"></div>
+        `);
+        $('.Exchange-Size').html(Size);
+        $('.Exchange-Quantity').html(Quantity);
+        $('.Exchange-Amount').html(getThousands(Amount));
+        $('#ExchangeModal').modal('show')
+    });
+    $('#NewCPSearch').click(async function (e) {
+        e.preventDefault();
+        let Txt = $('#NewCPTxt').val()
+        let res = await fetch('/products/getproduct-varieties/', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ Txt: Txt }),
+        });
+        let info = await res.json();
+        console.log(info);
+        let Prs = info.Products
+        $('#SearchEngine ul').empty()
+        for (let i = 0; i < Prs.length; i++) {
+            const element = Prs[i];
+            $('#SearchEngine ul').append(
+                `<li>
+                    <div class='row justify-content-between px-1'>
+                        <b>
+                            نام:
+                            <h2>${element.Name_}</h2>
+                        </b>
+                        <b>
+                            سایز:
+                            <h2>${element.Size}</h2>
+                        </b>
+                        <b>
+                            رنگ:
+                            <div class="color-item" style="background-color: ${element.ColorCode};"></div>
+                        </b>
+                        <b>
+                            مبلغ نهایی:
+                            <h2>${element.FinalPrice}</h2>
+                        </b>
+                        <button class='btn btn-dark btn-sm NewCPButton ' type='button' 
+                            data-cp='${element.RPVS}'
+                            data-rpvs='${element.RPVS}'
+                            data-Name='${element.Name_}'
+                            data-Color='${element.ColorCode}'
+                            data-Size='${element.Size}'
+                            data-Price='${element.FinalPrice}'>
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </button>
+                    </div>    
+                </li>`
+            );
+            $('#SearchEngine').css('display', 'block');
+        }
+
+    });
+    $('#SearchEngine').on('click', '.NewCPButton', function () {
+        let RPVS = $(this).attr('data-rpvs');
+        let Name = $(this).attr('data-Name');
+        let Color = $(this).attr('data-Color');
+        let Size = $(this).attr('data-Size');
+        let Price = $(this).attr('data-Price');
+        $('.NewCP-RPVS').val(RPVS)
+        $('.NewCP-Name').html(Name)
+        $('.NewCP-Color').html(`
+        <div class="color-item" style="background-color: ${Color};"></div>`)
+        $('.NewCP-Size').html(Size)
+        $('.NewCP-Price').html(getThousands(Price))
+        $('#ExchangeModal').modal('hide')
+        $('#NewCPModal').modal('show')
+    })
+</script>
+
+
+{% endblock %}

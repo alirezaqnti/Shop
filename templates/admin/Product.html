@@ -1,0 +1,1461 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}"> {% trans 'Home' %}</a> /
+    <a href="/admin/Products/product/"> محصولات</a>
+</div>
+{% endblock %}
+
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static 'main/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'main/style.css' %}">
+<link rel="stylesheet" href="{% static 'plugins/ImagePreview/dist/style.css' %}">
+<script src="{% static 'main/vendor-special/jquery.min.js' %}"></script>
+<script src="{% static 'main/popper.min.js' %}"></script>
+<script src="{% static 'main/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'main/vendor-special/nice-select.min.css' %}" />
+<script src="{% static 'main/vendor-special/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'plugins/ImagePreview/dist/script.js' %}"></script>
+<script src="{% static 'custom/thousands.js' %}"></script>
+<link rel="stylesheet" href="{% static 'plugins/fontawesome/all.min.css' %}" />
+<script src="{% static 'ckeditor/ckeditor-init.js' %}" data-ckeditor-basepath="/static/ckeditor/ckeditor/"
+    id="ckeditor-init-script"></script>
+<script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<style>
+    .form-control {
+        color: #495057 !important;
+        background-color: #fff !important;
+        border: 1px solid #ced4da !important;
+        border-radius: 0.25rem !important;
+    }
+
+    .img-wrapper img {
+        border-radius: 10px;
+
+    }
+
+    #img_preview .image-item {
+        text-align: center !important;
+    }
+
+    #img_preview .image-item .img-wrapper {
+        position: relative;
+        z-index: 5;
+
+    }
+
+    .image-item a {
+        width: 100%;
+        height: 100%;
+        background-color: #ffffff60;
+        color: #495057;
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 6;
+        vertical-align: middle;
+    }
+
+    .image-item:hover a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    @media(min-width:768px) {
+
+        .Size-wrapper {
+            border-right: 1px solid #7a7c80;
+        }
+
+        .tech-item:nth-child(even) {
+            border-right: 1px solid #6c757d;
+        }
+    }
+
+    .Size-data hr {
+        width: 95%;
+        margin: 0 auto;
+        background-color: #7a7c80;
+    }
+
+    #cke_id_Description {
+        max-width: 100%;
+        width: 100% !important;
+    }
+
+    caption {
+        caption-side: top !important;
+    }
+
+
+    .filter-data {
+        border-radius: 2px;
+        color: #000;
+        border: 1px solid #17c6aa;
+        min-height: 50px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+</style>
+{% endblock extrastyle %}
+
+{% block content %}
+
+<div style="position: absolute; top: 0; right: 22px;left: 22px;z-index: 9999;">
+    <div class="toast toast-success fade hide" role="alert" data-delay="6000" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            تغییرات با موفقیت ثبت شد
+        </div>
+    </div>
+</div>
+<div style="position: absolute; top: 0; right: 22px;left: 22px;z-index: 9999;">
+    <div class="toast toast-danger fade hide" role="alert" data-delay="6000" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            تغییرات با موفقیت ثبت شد
+        </div>
+    </div>
+</div>
+<div style="position: absolute; top: 0; right: 22px;left: 22px;z-index: 9999;">
+    <div class="toast toast-dark fade hide" role="alert" data-delay="6000" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            تغییرات با موفقیت ثبت شد
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <form action="" method="post" id="ProductForm" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row mb-3">
+            <h3>محصول جدید</h3>
+        </div>
+        <div class="row">
+            <div class="col-18 col-md-9">
+                <div class="col-18">
+                    <div class="form-group">
+                        <label for="">
+                            {{form.Name.label_tag}}
+                        </label>
+                        {{form.Name}}
+
+                        {% if form.errors %}
+                        <small class="text-danger d-none">*این فیلد الزامی است</small>
+                        <small class="text-danger">{{form.Name.error}}</small>
+                        {% else %}
+                        <small class="text-danger d-none">*این فیلد الزامی است</small>
+                        {% endif %}
+
+                    </div>
+                </div>
+                <div class="col-18">
+                    <div class="form-group">
+                        <label for="">
+                            {{form.Category.label_tag}}
+                        </label>
+                        {{form.Category}}
+                        <small class="text-danger d-none">*این فیلد الزامی است</small>
+                    </div>
+                </div>
+                <div class="col-18">
+                    <div class="form-group">
+                        <label for="">
+                            {{form.Brand.label_tag}}
+                        </label>
+                        {{form.Brand}}
+                    </div>
+                </div>
+                <div class="col-18">
+                    <div class="form-group">
+                        <label for="">
+                            {{form.Guarantee.label_tag}}
+                        </label>
+                        {{form.Guarantee}}
+                    </div>
+                </div>
+                <div class="col-18">
+                    <div class="form-group">
+                        <label for="">
+                            {{form.BasePrice.label_tag}}
+                        </label>
+                        {{form.BasePrice}}
+                        <small class="text-danger d-none">*این فیلد الزامی است</small>
+                    </div>
+                </div>
+                <div class="col-18">
+                    <div class="form-group">
+                        <label for="">
+                            {{form.Discount.label_tag}}
+                        </label>
+                        {{form.Discount}}
+                        <small class="text-danger d-none">*این فیلد الزامی است</small>
+                    </div>
+                </div>
+                <div class="row justify-content-between mt-1">
+                    <div class="col-9">
+                        <label for="">مشخصات فنی:</label>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btn btn-dark NewTech" title="مشخصه فنی جدید">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row technical-wrapper">
+
+                    {% for tc in Techs %}
+                    <div class="col-18 col-md-9 tech-item">
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="form-group">
+                                    <label for="">نام:</label>
+                                    <input type="text" name="key" class="form-control" value="{{tc.Name}}">
+                                </div>
+                            </div>
+                            <div class="col-9 value">
+                                <div class="form-group">
+                                    <label for="">مقدار:</label>
+                                    <input type="text" name="value" class="form-control" value="{{tc.Value}}">
+                                </div>
+                            </div>
+                        </div>
+                        <small class="text-danger d-none">*این فیلد الزامی است</small>
+                    </div>
+                    {% empty %}
+                    <div class="col-18 col-md-9 tech-item">
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="form-group">
+                                    <label for="">نام:</label>
+                                    <input type="text" name="key" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-9 value">
+                                <div class="form-group">
+                                    <label for="">مقدار:</label>
+                                    <input type="text" name="value" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <small class="text-danger d-none">*این فیلد الزامی است</small>
+                    </div>
+                    <div class="col-18 col-md-9 tech-item">
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="form-group">
+                                    <label for="">نام:</label>
+                                    <input type="text" name="key" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-9 value">
+                                <div class="form-group">
+                                    <label for="">مقدار:</label>
+                                    <input type="text" name="value" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <small class="text-danger d-none">*این فیلد الزامی است</small>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+            <div class="col-18 col-md-9">
+                <div class="col-18">
+                    <div class="form-group">
+                        <label for="" class="d-block">توضیحات محصول:</label>
+                        {{form.Description}}
+                        <small class="text-danger d-none">*این فیلد الزامی است</small>
+                    </div>
+                </div>
+                <div class="col-18">
+                    <div class="form-group">
+                        <label for="">
+                            {{form.Demo.label_tag}}
+                        </label>
+                        {{form.Demo}}
+                        <small class="text-danger d-none">*این فیلد الزامی است</small>
+                    </div>
+                </div>
+                <div class="col-18">
+                    <div class="form-group">
+                        <label for="">کلمات کلیدی:</label>
+                        <textarea name="tags" class="form-control"
+                            rows="5">{% for tg in Tags %}{{tg.Title|safe}}-{% endfor %}</textarea>
+                        <small id="helpId" class="text-muted">حداقل ۳ کلمه کلیدی وارد کنید، کلمات کلیدی را به وسیله ی
+                            ویرگول از هم جدا کنید </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-18 col-md-4">
+                <div class="form-group">
+                    <label for="">
+                        {{form.MetaDescription.label_tag}}
+                    </label>
+                    {{form.MetaDescription}}
+                </div>
+            </div>
+            <div class="col-18 col-md-4">
+                <div class="form-group">
+                    <label for="">
+                        {{form.MetaTitle.label_tag}}
+                    </label>
+                    {{form.MetaTitle}}
+                </div>
+            </div>
+            <div class="col-18 col-md-4">
+                <div class="form-group">
+                    <label for="">
+                        {{form.MetaKeywords.label_tag}}
+                    </label>
+                    {{form.MetaKeywords}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h5>
+                تصاویر محصول:
+            </h5>
+        </div>
+        <div class="row">
+            <section>
+                <label id="img_upload">
+                    <input type="file" onchange="img_load(this);" id="IMGInput" name="PRD_Images" accept="image/*"
+                        multiple required max="5" />
+                    <span></span>
+                </label>
+            </section>
+            <div class="col-18">
+                <small class="text-danger d-none">*این فیلد الزامی است</small>
+            </div>
+            <div class="container">
+                <div class="row" id="img_preview">
+                    {% for item in PRD.image_prd.all %}
+                    <div class="col-9 col-md-4 image-item saved-image" data-No='{{forloop.counter}}'>
+                        <input type="hidden" name="PRD_Image" value="{{item.RPI}}">
+                        <div class="img-wrapper">
+                            <img class='img-fluid' src='{{ MEDIA_URL }}{{item.Image}}' />
+                            <small>{{forloop.counter}}</small>
+                            <a href="javascript:void(0)" class="image-del" data-RPI="{{item.RPI}}">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row justify-content-between mb-4">
+        <h5>
+            فیلتر های محصول
+        </h5>
+        <button class="btn btn-dark NewFilter" type="button" data-toggle="modal" data-target="#NewFilterModal">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            جدید
+        </button>
+        <div class="row justify-content-start align-items-center FilterWrapper">
+
+            {% for fil in PRD.fil_prd.all %}
+            <div class="filter-data col-6 col-md-3 mx-1">
+                {% with fil.Filter as Filter %}
+                <div class="row align-items-center justify-content-between px-1 py-2">
+                    <div class="col-7">{{ Filter.Filter.Name }}</div>
+                    :
+                    <div class="col-7">{{Filter.Title}}</div>
+                    <div class="col-2">
+                        <a href="javascript:void(0)" class="fil-remove">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                <input type="hidden" value="{{Filter.pk}}" name="PK">
+                <input type="hidden" value="{{Filter.Filter.Name}}" name="Name">
+                <input type="hidden" value="{{Filter.Title}}" name="Value">
+                {% endwith %}
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    <div class=" row justify-content-between mb-4">
+        <h5>
+            تنوعات محصول
+        </h5>
+        <button class="btn btn-dark NewVariety" type="button">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            تنوع جدید
+        </button>
+    </div>
+    <div class="row">
+        <div class="Variety-Wrapper w-100">
+            {% for var in PRD.variety_product.all %}
+            <div class="var-item w-100 mb-3">
+                <div class="row w-100">
+
+                    <div class="col-18 col-md-9 var-data">
+                        <input type="hidden" name="RPV" value="{{var.RPV}}">
+                        <div class="row">
+                            <div class="col-18 col-md-9">
+                                <div class="form-group">
+                                    <label for="">کد رنگ</label>
+                                    <input type="color" name="ColorCode" id="" class="form-control" required
+                                        value="{{var.ColorCode}}">
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                            <div class="col-18 col-md-9">
+                                <div class="form-group">
+                                    <label for="">نام رنگ</label>
+                                    <input type="text" name="ColorName" id="" class="form-control" required
+                                        value="{{var.ColorName}}">
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-18 col-md-9 Size-wrapper">
+
+                        {% if var.Active %}
+
+                        {% for item in VarietySubS %}
+
+                        {% for si in item %}
+
+                        {% if si.Variety == var %}
+
+                        <div class="row Size-data mb-3">
+                            <input type="hidden" name="RPVS" value="{{si.RPVS}}">
+
+
+                            {% if si.Active %}
+                            {% if forloop.counter == 1 %}
+                            <div class="col-18 col-md-4">
+                                <div class="form-group">
+                                    <label for="">سایز:</label>
+                                    <input type="text" class="form-control num-input" name="Size" value="{{si.Size}}">
+                                </div>
+                            </div>
+                            <div class="col-18 col-md-5">
+                                <div class="form-group">
+                                    <label for="">موجودی:</label>
+                                    <input type="text" class="form-control num-input" name="Quantity" required
+                                        value="{{si.Quantity}}">
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                            <div class="col-18 col-md-5">
+                                <div class="form-group">
+                                    <label for="">درصد تخفیف:</label>
+                                    <input type="text" class="form-control num-input" name="Discount" required
+                                        value="{{si.Discount}}">
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label for="">
+                                        حذف کل:
+                                    </label>
+                                    <button class="btn btn-danger DeleteVar d-block" data-rpv="{{var.RPV}}"
+                                        type="button">
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label for="">
+                                        اضافه:
+                                    </label>
+                                    <button class="btn btn-dark NewSize" type="button">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="col-18 col-md-4">
+
+                                <div class="form-group">
+                                    <label for="">سایز:</label>
+                                    <input type="text" class="form-control num-input" name="Size" value="{{si.Size}}">
+                                </div>
+                            </div>
+                            <div class="col-18 col-md-6">
+                                <div class="form-group">
+                                    <label for="">موجودی:</label>
+                                    <input type="text" class="form-control num-input" name="Quantity" required
+                                        value="{{si.Quantity}}">
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                            <div class="col-18 col-md-6">
+                                <div class="form-group">
+                                    <label for="">درصد تخفیف:</label>
+                                    <input type="text" class="form-control num-input" name="Discount" required
+                                        value="{{si.Discount}}">
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label for="">
+                                        حذف:
+                                    </label>
+                                    <button class="btn btn-danger DeleteSize" data-rpvs="{{si.RPVS}}" type="button">
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            {% else %}
+                            <div class="col-18 col-md-4">
+
+                                <div class="form-group">
+                                    <label for="">سایز:</label>
+                                    <input type="text" class="form-control num-input" name="Size" value="{{si.Size}}">
+                                </div>
+                            </div>
+                            <div class="col-18 col-md-5">
+                                <div class="form-group">
+                                    <label for="">موجودی:</label>
+                                    <input type="text" class="form-control num-input" name="Quantity" required
+                                        value="{{si.Quantity}}">
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                            <div class="col-18 col-md-6">
+                                <div class="form-group">
+                                    <label for="">درصد تخفیف:</label>
+                                    <input type="text" class="form-control num-input" name="Discount" required
+                                        value="{{si.Discount}}">
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="">
+                                        فعالسازی:
+                                    </label>
+                                    <button class="btn btn-success ActiveSize" data-rpvs="{{si.RPVS}}" type="button">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            {% endif %}
+
+                            <hr class="mt-1">
+                        </div>
+
+                        {% endif %}
+
+                        {% endfor %}
+
+                        {% endfor %}
+                        {% else %}
+                        {% for item in VarietySubS %}
+
+                        {% for si in item %}
+
+                        {% if si.Variety == var %}
+                        <div class="row Size-data mb-3">
+                            <input type="hidden" name="RPVS" value="{{si.RPVS}}">
+
+
+                            {% if forloop.counter == 1 %}
+                            <div class="col-18 col-md-4">
+                                <div class="form-group">
+                                    <label for="">سایز:</label>
+                                    <input type="text" class="form-control num-input" name="Size" value="{{si.Size}}">
+                                </div>
+                            </div>
+                            <div class="col-18 col-md-5">
+                                <div class="form-group">
+                                    <label for="">موجودی:</label>
+                                    <input type="text" class="form-control num-input" name="Quantity" required
+                                        value="{{si.Quantity}}">
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                            <div class="col-18 col-md-6">
+                                <div class="form-group">
+                                    <label for="">درصد تخفیف:</label>
+                                    <input type="text" class="form-control num-input" name="Discount" required
+                                        value="{{si.Discount}}">
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="">
+                                        فعالسازی:
+                                    </label>
+                                    <button class="btn btn-success ActiveVar" data-rpv="{{var.RPV}}" type="button">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="col-18 col-md-4">
+
+                                <div class="form-group">
+                                    <label for="">سایز:</label>
+                                    <input type="text" class="form-control num-input" name="Size" value="{{si.Size}}">
+                                </div>
+                            </div>
+                            <div class="col-18 col-md-6">
+                                <div class="form-group">
+                                    <label for="">موجودی:</label>
+                                    <input type="text" class="form-control num-input" name="Quantity" required
+                                        value="{{si.Quantity}}">
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                            <div class="col-18 col-md-6">
+                                <div class="form-group">
+                                    <label for="">درصد تخفیف:</label>
+                                    <input type="text" class="form-control num-input" name="Discount" required
+                                        value="{{si.Discount}}">
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+
+                            {% endif %}
+
+                            <hr class="mt-1">
+                        </div>
+                        {% endif %}
+
+                        {% endfor %}
+
+                        {% endfor %}
+                        {% endif %}
+
+                    </div>
+
+                </div>
+            </div>
+            {% empty %}
+            <div class="var-item w-100 mb-3">
+                <div class="row w-100">
+                    <div class="col-18 col-md-9 var-data">
+                        <div class="row">
+                            <div class="col-18 col-md-9">
+                                <div class="form-group">
+                                    <label for="">کد رنگ</label>
+                                    <input type="color" name="ColorCode" id="" class="form-control" required>
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                            <div class="col-18 col-md-9">
+                                <div class="form-group">
+                                    <label for="">نام رنگ</label>
+                                    <input type="text" name="ColorName" id="" class="form-control" required>
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-18 col-md-9 Size-wrapper">
+                        <div class="row Size-data mb-3">
+                            <div class="col-18 col-md-4">
+                                <div class="form-group">
+                                    <label for="">سایز:</label>
+                                    <input type="text" class="form-control num-input" name="Size">
+                                </div>
+                            </div>
+                            <div class="col-18 col-md-6">
+                                <div class="form-group">
+                                    <label for="">موجودی:</label>
+                                    <input type="text" class="form-control num-input" name="Quantity" required>
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                            <div class="col-18 col-md-6">
+                                <div class="form-group">
+                                    <label for="">درصد تخفیف:</label>
+                                    <input type="text" class="form-control num-input" name="Discount" required>
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label for="">
+                                        اضافه:
+                                    </label>
+                                    <button class="btn btn-dark NewSize" type="button">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <hr class="mt-1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row justify-content-end">
+        <div class="col-sm-2 text-left">
+            <button class="btn btn-success FormSubmit" type="button">
+                ثبت محصول
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="NewFilterModal" tabindex="-1" role="dialog" aria-labelledby="NewFilterModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">فیلتر جدید</h5>
+                <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary" type="button" id="FilterSearchBtn"><i
+                                    class="fa fa-search" aria-hidden="true"></i></button>
+                        </div>
+                        <input type="text" class="form-control" id="FilterSearchInp" placeholder="فیلتر را جستجو کنید"
+                            aria-describedby="FilterSearchBtn">
+                    </div>
+                    <div class="form-group">
+                        <label for="FilterSelect">عنوان</label>
+                        <select class="form-control" name="Filter" id="FilterSelect" size="4">
+                            <option value="0" disabled selected>فیلتر موجود نیست</option>
+                        </select>
+                        <small class="text-danger d-none">*این فیلد الزامی است</small>
+
+                    </div>
+                    <div class="form-group d-none">
+                        <label for="">مقدار:</label>
+                        <input type="text" name="Title" id="FilterValueInp" class="form-control" required>
+                        <small class="text-danger d-none">*این فیلد الزامی است</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-secondary">بستن</button>
+                    <button type="button" class="btn btn-dark NewFilterBtn">ثبت</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="DeleteSizeModal" tabindex="-1" role="dialog" aria-labelledby="DeleteSizeModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">حذف تنوع</h5>
+                <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="RPVS" class="DeleteSizeInp">
+                <div class="modal-body">
+                    <p>
+                        از حذف تنوع <b class="DeleteSizeRPVS"></b> مطمئن هستید؟
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="DeleteSizeDeactive" class="btn btn-secondary">غیرفعال
+                        کردن</button>
+                    <button type="submit" name="DeleteSizeDelete" class="btn btn-danger">حذف</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ImageDeleteModal" tabindex="-1" role="dialog" aria-labelledby="ImageDeleteModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">حذف / ویرایش تصویر</h5>
+                <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="" method="post" enctype="multipart/form-data" id="ImageForm">
+                {% csrf_token %}
+                <input type="hidden" name="ImageEdit">
+                <input type="hidden" name="RPI" class="ImageDeleteInp">
+                <input type="file" name="Image_File" class="ImageFile">
+                <div class="modal-body">
+                    <p>
+                        از حذف / ویرایش تصویر مطمئن هستید؟
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary ImageEditSubmit">ویرایش</button>
+                    <button type="submit" name="ImageDelete" class="btn btn-danger">حذف</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="DeleteVarModal" tabindex="-1" role="dialog" aria-labelledby="DeleteVarModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">حذف تنوع</h5>
+                <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="RPV" class="DeleteVarInp">
+                <div class="modal-body">
+                    <p>
+                        از حذف تنوع <b class="DeleteVarRPV"></b> مطمئن هستید؟
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="DeleteVarDeactive" class="btn btn-secondary">غیرفعال
+                        کردن</button>
+                    <button type="submit" name="DeleteVarDelete" class="btn btn-danger">حذف</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ActiveSizeModal" tabindex="-1" role="dialog" aria-labelledby="ActiveSizeModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">حذف تنوع</h5>
+                <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="RPVS" class="ActiveSizeInp">
+                <div class="modal-body">
+                    <p>
+                        از فعالسازی تنوع <b class="ActiveSizeRPVS"></b> مطمئن هستید؟
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                    <button type="submit" name="ActiveSize" class="btn btn-primary">بله</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ActiveVarModal" tabindex="-1" role="dialog" aria-labelledby="ActiveVarModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">حذف تنوع</h5>
+                <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="RPV" class="ActiveVarInp">
+                <div class="modal-body">
+                    <p>
+                        از فعالسازی تنوع <b class="ActiveVarRPV"></b> مطمئن هستید؟
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">خیر</button>
+                    <button type="submit" name="ActiveVar" class="btn btn-primary">بله</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="{% static 'custom/main.js' %}"></script>
+<script src="{% static 'custom/Cookie.js' %}"></script>
+<script src="//cdn.ckeditor.com/4.23.0-lts/standard/ckeditor.js"></script>
+<script>
+    $(document).ready(function () {
+        let val = $('#id_Category').val()
+        if (val != undefined || val != '') {
+            console.log(val)
+            $('#id_Category').trigger('change')
+        }
+    });
+    var FilterData
+    $('#id_Category').addClass('form-control')
+    $('#id_Brand').addClass('form-control')
+    $('#id_Guarantee').addClass('form-control')
+    $('#id_Description').addClass('form-control')
+    $('#id_Discount').removeAttr('required')
+    $('.NewVariety').click(function () {
+        $('.Variety-Wrapper').append(`
+        <div class="var-item w-100 mb-3">
+                <div class="row w-100">
+                    <div class="col-18 col-md-9 var-data">
+                        <div class="row">
+                            <div class="col-18 col-md-9">
+                                <div class="form-group">
+                                    <label for="">کد رنگ</label>
+                                    <input type="color" name="ColorCode" id="" class="form-control" required>
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                            <div class="col-18 col-md-9">
+                                <div class="form-group">
+                                    <label for="">نام رنگ</label>
+                                    <input type="text" name="ColorName" id="" class="form-control" required>
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-18 col-md-9 Size-wrapper">
+                        <div class="row Size-data mb-3">
+                            <div class="col-18 col-md-4">
+                                <div class="form-group">
+                                    <label for="">سایز:</label>
+                                    <input type="text" class="form-control num-input" name="Size">
+                                </div>
+                            </div>
+                            <div class="col-18 col-md-5">
+                                <div class="form-group">
+                                    <label for="">موجودی:</label>
+                                    <input type="text" class="form-control num-input" name="Quantity" required>
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                            <div class="col-18 col-md-5">
+                                <div class="form-group">
+                                    <label for="">درصد تخفیف:</label>
+                                    <input type="text" class="form-control num-input" name="Discount" required>
+                                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label for="">
+                                        اضافه:
+                                    </label>
+                                    <button class="btn btn-dark NewSize" type="button">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label for="">
+                                        حذف تنوع:
+                                    </label>
+                                    <button class="btn btn-outline-danger RemoveVar d-block" type="button">
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <hr class="mt-1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `);
+    });
+    $('#id_Category').change(async function (e) {
+        e.preventDefault();
+        let val = $(this).val();
+        let res = await fetch('/products/getfilters/', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ PK: val }),
+        });
+        let info = await res.json();
+        FilterData = info.Data
+        $('#FilterSelect').empty()
+        for (let i = 0; i < FilterData.length; i++) {
+            const element = FilterData[i];
+            $('#FilterSelect').append(`
+            <option value='${element.PK}'>${element.Title}</option>
+            `);
+        }
+    });
+    $('#FilterSearchBtn').click(function (e) {
+        e.preventDefault();
+        let inp = $('#FilterSearchInp').val();
+        if (inp != '') {
+            $('#FilterSelect').empty()
+            $('#FilterSelect').append(`
+                <option value='new'>${inp}</option>
+            `);
+            for (let i = 0; i < FilterData.length; i++) {
+                const element = FilterData[i];
+                if (element.Title.includes(inp)) {
+                    $('#FilterSelect').append(`
+                        <option value='${element.PK}'>${element.Title}</option>
+                    `);
+                }
+            }
+        }
+    });
+    $('#FilterSearchInp').keyup(function (e) {
+        let inp = $(this).val();
+        $('#FilterSelect').empty()
+        $('#FilterValueInp').parent().addClass('d-none')
+        $('#FilterValueInp').val('')
+        if (inp != '') {
+            $('#FilterSelect').append(`
+                <option value='new'>${inp}</option>
+            `);
+            for (let i = 0; i < FilterData.length; i++) {
+                const element = FilterData[i];
+                let Title = element.Title
+                if (Title.includes(inp)) {
+                    $('#FilterSelect').append(`
+                        <option value='${element.PK}'>${element.Title}</option>
+                    `);
+                }
+            }
+        } else {
+
+            for (let i = 0; i < FilterData.length; i++) {
+                const element = FilterData[i];
+                $('#FilterSelect').append(`
+                        <option value='${element.PK}'>${element.Title}</option>
+                    `);
+            }
+        }
+    });
+    $('#FilterSelect').change(function (e) {
+        let val = $(this).val()
+        if (val == 'new') {
+            $('#FilterValueInp').parent().removeClass('d-none')
+        }
+    });
+    $('.NewFilterBtn').click(function (e) {
+        e.preventDefault();
+        let PK = $('#FilterSelect').val()
+        let Name = $('#FilterSelect option:selected').html()
+        let Val = $('#FilterValueInp').val()
+        if (PK == 'new') {
+            if (Val != '') {
+                $('.FilterWrapper').append(`
+                <div class="filter-data col-6 col-md-3 mx-1">
+                    <div class="row align-items-center justify-content-between px-1 py-2">
+                        <div class="col-7">${Name}</div>
+                        :
+                        <div class="col-7">${Val}</div>
+                        <div class="col-2">
+                            <a href="javascript:void(0)" class="fil-remove">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <input type="hidden" value="new" name="PK">
+                    <input type="hidden" value="${Name}" name="Name">
+                    <input type="hidden" value="${Val}" name="Value">
+                </div>
+                `);
+                $('#NewFilterModal').modal('hide')
+                $('#FilterValueInp').val('')
+                $('#FilterValueInp').parent().addClass('d-none')
+                $('#FilterSearchInp').empty()
+                for (let i = 0; i < FilterData.length; i++) {
+                    const element = FilterData[i];
+                    $('#FilterSelect').append(`
+                    <option value='${element.PK}'>${element.Title}</option>
+                `);
+
+                }
+                $('#FilterValueInp').next().addClass('d-none')
+                $('#FilterSelect').next().addClass('d-none')
+
+
+            }
+            else {
+                $('#FilterValueInp').next().removeClass('d-none')
+            }
+        }
+        else {
+            console.log(Name)
+            if (Name != undefined) {
+
+                let sp = Name.split('/')
+                Val = sp[1]
+                Name = sp[0]
+                $('.FilterWrapper').append(`
+                    <div class="filter-data col-6 col-md-3 mx-1">
+                        <div class="row align-items-center justify-content-between px-1 py-2">
+                            <div class="col-7">${Name}</div>
+                            :
+                            <div class="col-7">${Val}</div>
+                            <div class="col-2">
+                                <a href="javascript:void(0)" class="fil-remove">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <input type="hidden" value="${PK}" name="PK">
+                        <input type="hidden" value="${Name}" name="Name">
+                        <input type="hidden" value="${Val}" name="Value">
+                    </div>
+                    `);
+                $('#NewFilterModal').modal('hide')
+                $('#FilterValueInp').val('')
+                $('#FilterValueInp').parent.addClass('d-none')
+                $('#FilterSearchInp').empty()
+                for (let i = 0; i < FilterData.length; i++) {
+                    const element = FilterData[i];
+                    $('#FilterSelect').append(`
+                    <option value='${element.PK}'>${element.Title}</option>
+                `);
+                }
+                $('#FilterValueInp').next().addClass('d-none')
+                $('#FilterSelect').next().addClass('d-none')
+
+            } else {
+                $('#FilterSelect').next().removeClass('d-none')
+            }
+        }
+
+    });
+    $('.FilterWrapper').on('click', '.fil-remove', function (e) {
+        console.log($(this))
+        $(this).parents().eq(2).remove()
+    });
+    $('.Variety-Wrapper').on('click', '.NewSize', function (e) {
+        e.preventDefault();
+        let SW = $(this).parents().eq(3)
+        SW.append(`
+        <div class="row Size-data mb-3">
+            <div class="col-18 col-md-4">
+                <div class="form-group">
+                    <label for="">سایز:</label>
+                    <input type="text" class="form-control num-input" name="Size">
+                </div>
+            </div>
+            <div class="col-18 col-md-6">
+                <div class="form-group">
+                    <label for="">موجودی:</label>
+                    <input type="text" class="form-control num-input" name="Quantity" required>
+                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                </div>
+            </div>
+            <div class="col-18 col-md-6">
+                <div class="form-group">
+                    <label for="">درصد تخفیف:</label>
+                    <input type="text" class="form-control num-input" name="Discount" required>
+                    <small class="text-danger d-none">*این فیلد الزامی است</small>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="">
+                        حذف:
+                    </label>
+                    <button class="btn btn-danger RemoveSize" type="button">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+            <hr class="mt-1">
+        </div>
+        `);
+
+    });
+    $('.Variety-Wrapper').on('click', '.RemoveSize', function () {
+        let pr = $(this).parents().eq(2)
+        pr.remove()
+    });
+    $('.Variety-Wrapper').on('click', '.DeleteVar', function () {
+        let RPV = $(this).attr('data-rpv')
+        $('.DeleteVarInp').val(RPV)
+        $('.DeleteVarRPV').html(RPV)
+        $('#DeleteVarModal').modal('show')
+
+    });
+    $('.Variety-Wrapper').on('click', '.DeleteSize', function () {
+        let RPVS = $(this).attr('data-rpvs')
+        $('.DeleteSizeInp').val(RPVS)
+        $('.DeleteSizeRPVS').html(RPVS)
+        $('#DeleteSizeModal').modal('show')
+
+    });
+    $('.Variety-Wrapper').on('click', '.ActiveVar', function () {
+        let RPV = $(this).attr('data-rpv')
+        $('.ActiveVarInp').val(RPV)
+        $('.ActiveVarRPV').html(RPV)
+        $('#ActiveVarModal').modal('show')
+
+    });
+    $('.Variety-Wrapper').on('click', '.ActiveSize', function () {
+        let RPVS = $(this).attr('data-rpvs')
+        $('.ActiveSizeInp').val(RPVS)
+        $('.ActiveSizeRPVS').html(RPVS)
+        $('#ActiveSizeModal').modal('show')
+
+    });
+    $('.image-del').on('click', function () {
+        let RPI = $(this).attr('data-RPI')
+        $('.ImageDeleteInp').val(RPI)
+        $('#ImageDeleteModal').modal('show')
+
+    });
+    $('.ImageEditSubmit').click(function (e) {
+        e.preventDefault();
+        let inp = $('.ImageFile')[0]
+        let files = inp.files
+        if (files.length > 0) {
+            $('#ImageForm').submit()
+        } else {
+            alert('تصویر انتخاب نشده است')
+        }
+    });
+    $('.Variety-Wrapper').on('click', '.RemoveVar', function () {
+        let pr = $(this).parents().eq(4)
+        pr.fadeOut()
+        setTimeout(() => pr.remove(), 1000)
+
+    });
+    $('.FormSubmit').click(function (e) {
+        e.preventDefault();
+        let valid = Validator()
+        if (valid) {
+            let form = $('#ProductForm')[0]
+            let form_ = new FormData(form)
+            let Description = CKEDITOR.instances.id_Description.getData();
+            form_.append('Description', Description)
+            let fils = $('.filter-data')
+            let filItems = []
+            let vars = $('.var-item')
+            let varItems = []
+            let techs = $('.tech-item')
+            let Tech = []
+            for (let i = 0; i < vars.length; i++) {
+                const element = vars[i];
+                let varData = $(element).find('.var-data')[0]
+                let varInp = $(varData).find('input')
+                let sizeWrapper = $(element).find('.Size-wrapper')[0]
+                let sizeItem = $(sizeWrapper).find('.Size-data')
+                let item = {}
+                let sizes = []
+                for (let j = 0; j < varInp.length; j++) {
+                    const inp = varInp[j];
+                    let name = $(inp).attr('name')
+                    let val = $(inp).val()
+                    item[name] = val
+                }
+                for (let i = 0; i < sizeItem.length; i++) {
+                    const SI = sizeItem[i];
+                    let sizeInps = $(SI).find('input')
+                    let SizeItem = {}
+                    for (let j = 0; j < sizeInps.length; j++) {
+                        const S_input = sizeInps[j];
+                        let name = $(S_input).attr('name')
+                        let val = $(S_input).val()
+                        SizeItem[name] = val
+                    }
+                    sizes.push(SizeItem)
+                }
+                item.VarietySubs = sizes
+                varItems.push(item)
+            }
+
+            for (let i = 0; i < techs.length; i++) {
+                const element = techs[i];
+                let key = $(element).find('input[name="key"]').val()
+                let value = $(element).find('input[name="value"]').val()
+                Tech.push({
+                    key: key,
+                    value: value,
+                })
+            }
+            for (let i = 0; i < fils.length; i++) {
+                const element = fils[i];
+                let PK = $(element).find('input[name="PK"]').val()
+                let Name = $(element).find('input[name="Name"]').val()
+                let Value = $(element).find('input[name="Value"]').val()
+                filItems.push({
+                    PK: PK,
+                    Name: Name,
+                    Value: Value,
+                })
+            }
+
+            let data = {
+                vars: varItems,
+                Techs: Tech,
+                Filters: filItems,
+            }
+            var settings = {
+                url: "",
+                method: "POST",
+                timeout: 0,
+                processData: false,
+                mimeType: "multipart/form-data",
+                contentType: false,
+                data: form_
+            };
+            $.ajax(settings).done(function (response) {
+                let res = JSON.parse(response)
+                data.RP = res.RP
+                RegisterVars(data)
+            });
+
+        }
+    });
+    $('.NewTech').click(function (e) {
+        e.preventDefault();
+        $('.technical-wrapper').append(`
+                <div class="col-18 col-md-9 tech-item">
+                    <div class="row">
+                        <div class="col-9">
+                            <div class="form-group">
+                                <label for="">نام:</label>
+                                <input type="text" name="key" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-9 value">
+                            <div class="form-group">
+                                <label for="">مقدار:</label>
+                                <input type="text" name="value" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>`);
+
+    });
+    function RegisterVars(data) {
+        data = JSON.stringify(data)
+        var csrftoken = jQuery('[name=csrfmiddlewaretoken]').val();
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader('X-CSRFToken', csrftoken);
+                }
+            },
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '',
+            data: { 'data': data },
+            dataType: 'json',
+            success: function (res, status) {
+                window.location.href = '/admin/Products/product/'
+
+            },
+            error: function (res, status) {
+                $('#LOADER').addClass('d-none');
+                $('#alertError').html('مشکلی پیش آمده است لطفا مجددا تلاش کنید');
+                $('#alertError').removeClass('d-none');
+                setTimeout(() => {
+                    $('#alertError').addClass('d-none');
+                }, 5000);
+            },
+        });
+
+    }
+    function Validator() {
+        let valid = true
+        let inp = $('#ProductForm input')
+        let sel = $('#ProductForm select')
+        let text = $('#ProductForm textarea')
+        for (let i = 0; i < inp.length; i++) {
+            const element = inp[i];
+            if (($(element).val() == '' || $(element).val() == 0) && $(element).attr('required') == 'required') {
+                $(element).next().removeClass('d-none')
+                valid = false
+
+                if ($(element).attr('type') == 'file') {
+                    if ((window.location.href).includes('change')) {
+                        valid = true
+                    } else {
+                        $(element).parent().parent().next().children('small').removeClass('d-none')
+                        valid = false
+                    }
+                }
+
+            }
+        }
+        for (let i = 0; i < sel.length; i++) {
+            const element = sel[i];
+
+            if ($(element).val() == '' & $(element).attr('required') == 'required') {
+                $(element).next().removeClass('d-none')
+                valid = false
+            }
+        }
+        for (let i = 0; i < text.length; i++) {
+            const element = text[i];
+            if ($(element).val() == '' & $(element).attr('required') == 'required') {
+                $(element).next().removeClass('d-none')
+                valid = false
+            }
+        }
+        let vars = $('.var-item')
+        let var_inp = $('.var-item input')
+        for (let i = 0; i < var_inp.length; i++) {
+            const element = var_inp[i];
+            if ($(element).attr('required') == 'required' & $(element).val() == '') {
+                $(element).next().removeClass('d-none')
+                valid = false
+            }
+
+        }
+        let techs = $('.tech-item')
+        for (let i = 0; i < techs.length; i++) {
+            const element = techs[i];
+            let key = $(element).find('input[name="key"]').val()
+            let value = $(element).find('input[name="value"]').val()
+            if (key == '' & value == '') {
+                let sm = $(element).find('.text-danger')[0]
+                $(sm).removeClass('d-none')
+                valid = false
+            }
+        }
+
+
+        return valid
+
+    }
+</script>
+{% endblock %}

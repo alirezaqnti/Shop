@@ -1,0 +1,87 @@
+
+.select-menu {
+    width: 80px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .select-menu > .select span{
+    display: flex;
+  }
+  span.value {
+    width: 20px;
+    height: 20px;
+    display: block;
+    border-radius: 5px;
+
+  }
+  .select-menu > .select {
+    border: 1px solid #bcbbbf;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px;
+    transition: all 350ms ease-in-out;
+  }
+  
+  .select-menu > .select:hover {
+    border-color: #bcbbbf;
+    color: #414141;
+  }
+  
+  .select-menu > .select.active {
+    border-color: #bcbbbf;
+    color: #414141;
+  }
+  
+  .select-menu > .options-list {
+    background-color: #fff;
+    position: absolute;
+    width: 100%;
+    border: 2px solid #bcbbbf;
+    border-radius: 12px;
+    padding: 10px;
+    margin-top: 10px;
+    max-height: 180px;
+    overflow-y: auto;
+    transition: 0.4s linear 0.2s;
+    display: none;
+  }
+  
+  .select-menu > .options-list.active {
+    display: block;
+  }
+  
+  .select-menu > .options-list > .option {
+    padding: 6px 0;
+    border-bottom: 2px solid #bcbbbf;
+    color: #1b1b1c;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 350ms ease-in-out;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  .select-menu > .options-list > .option:hover,
+  .select-menu > .options-list > .option.selected {
+    color: #0a0a0a;
+    font-weight: bold;
+    border-bottom: 2px solid #0a0a0a;
+  }
+  
+  .select-menu > .options-list::-webkit-scrollbar {
+    background-color: #bcbbbf;
+    width: 4px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+  
+  .select-menu > .options-list::-webkit-scrollbar-thumb {
+    background-color: #bcbbbf;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+  
