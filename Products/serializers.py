@@ -9,6 +9,9 @@ from .models import (
     Category,
     VarietySub,
 )
+from Warehouse.models import WishList
+from Analytic.views import DateDiffrence
+from Main.context_processors import getActiveUser
 import json
 
 
@@ -55,39 +58,41 @@ class ProductToPreviewSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     Varities = serializers.SerializerMethodField()
     Images = serializers.SerializerMethodField()
-    Default = serializers.SerializerMethodField()
-    Labels = serializers.SerializerMethodField()
-
-    def get_Labels(self, obj):
-        return
-
-    def get_Default(self, obj):
-        vr = obj.variety_product.first()
-        if VarietySub.objects.filter(Variety=vr, Quantity__gte=0).exists():
-            Sub = VarietySub.objects.filter(Variety=vr, Quantity__gte=0).first()
-        else:
-            Sub = VarietySub.objects.filter(Variety=vr).first()
-        return {
-            "RPV": vr.RPV,
-            "ColorCode": vr.ColorCode,
-            "ColorName": vr.ColorName,
-            "Size": Sub.Size,
-            "Quantity": Sub.Quantity,
-            "Discount": Sub.Discount,
-            "OffPrice": Sub.OffPrice,
-            "FinalPrice": Sub.FinalPrice,
-            "RPVS": Sub.RPVS,
-        }
 
     def get_Varities(self, obj):
+        D = DateDiffrence(obj.Created_at_g)
+        Lables = []
+        if D < 7:
+            Lables.append({"Lable": "label-new"})
         vrs = obj.variety_product.filter(Active=True, Status=ProductStat.valid)
-        data = []
-        for item in vrs:
-            if VarietySub.objects.filter(Variety=vrs, Quantity__gte=0).exists():
-                Sub = VarietySub.objects.filter(Variety=vrs, Quantity__gte=0).first()
+        Vars = []
+        Default = {}
+        for index, item in enumerate(vrs):
+            if VarietySub.objects.filter(Variety=item, Quantity__gte=0).exists():
+                Sub = VarietySub.objects.filter(Variety=item, Quantity__gte=0).first()
+                if index == 0:
+                    Default = {
+                        "RPV": item.RPV,
+                        "ColorCode": item.ColorCode,
+                        "ColorName": item.ColorName,
+                        "Size": Sub.Size,
+                        "Quantity": Sub.Quantity,
+                        "Discount": Sub.Discount,
+                        "OffPrice": Sub.OffPrice,
+                        "FinalPrice": Sub.FinalPrice,
+                        "RPVS": Sub.RPVS,
+                    }
+                if Sub.Discount > 0:
+                    Lables.append(
+                        {
+                            "Lable": "label-sale",
+                            "Value": Sub.Discount,
+                        }
+                    )
             else:
                 Sub = VarietySub.objects.filter(Variety=vrs).first()
-            data.append(
+                Lables.append({"Lable": "prd-outstock"})
+            Vars.append(
                 {
                     "RPV": item.RPV,
                     "ColorCode": item.ColorCode,
@@ -95,7 +100,11 @@ class ProductSerializer(serializers.ModelSerializer):
                     "RPVS": Sub.RPVS,
                 }
             )
-        data = json.dumps(data)
+        data = {
+            "Lables": Lables,
+            "Vars": Vars,
+            "Default": Default,
+        }
         return data
 
     def get_Images(self, obj):
@@ -116,7 +125,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "Varities",
             "RP",
             "Visit",
-            "Default",
+            "Demo",
         ]
 
 

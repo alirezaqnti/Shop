@@ -246,235 +246,229 @@ GetSearchResult = async function (URL) {
 };
 RenderSearchResult = function (URL) {
 	let products = GetSearchResult(URL);
+
 	products.then((x) => {
-		console.log(x);
+		if (x.next) {
+			$('#MoreProd').attr('data-target', x.next);
+			if ($('#MoreProd').hasClass('d-none')) {
+				$('#MoreProd').removeClass('d-none');
+			}
+		} else {
+			$('#MoreProd').addClass('d-none');
+		}
+		let result = x.results;
+		// const params = new Proxy(new URLSearchParams(window.location.search), {
+		// 	get: (searchParams, prop) => searchParams.get(prop),
+		// });
+		// let sort = params.sort;
+		// const sortByKeyA = (key) => (a, b) => b[key] - a[key];
+		// const sortByKeyD = (key) => (a, b) => a[key] - b[key];
+		// const sortByVisit = sortByKeyA('Visit');
+		// const sortByminPrice = sortByKeyD('FinalPrice');
+		// const sortBymaxPrice = sortByKeyA('FinalPrice');
+		// if (sort == 'view') {
+		// 	PRD.sort(sortByVisit);
+		// }
+		// if (sort == 'minPrice') {
+		// 	PRD.sort(sortByminPrice);
+		// }
+		// if (sort == 'maxPrice') {
+		// 	PRD.sort(sortBymaxPrice);
+		// }
+		// let S = [];
+		// let RE = [];
+		// V.forEach((v) => {
+		// 	S.push(v.map(({ Size }) => Size));
+		// });
+		// S.forEach((s) => {
+		// 	s.forEach((element) => {
+		// 		RE.push(element.map(({ Size }) => Size));
+		// 	});
+		// });
+		// for (let i = 1; i < RE.length; i++) {
+		// 	const element = RE[i];
+		// 	let a = RE[0].concat(element);
+		// 	RE[0] = a;
+		// }
+		// const SizeFilter = [...new Set(RE[0])].sort();
+		// $('#Size').empty();
+		// SizeFilter.forEach((element) => {
+		// 	$('#Size').append(`
+		// 		<option value="${element}">${element}</option>
+		// 	`);
+		// });
+		// $('#Size').niceSelect('update');
+		result.forEach((PRD) => {
+			let vars = PRD.Varities;
+			let Images = PRD.Images;
+			let Default = vars.Default;
+			let Lables = vars.Lables;
+			let Vars = vars.Vars;
+			console.log('Images:', Images);
+			console.log('Default:', Default);
+			console.log('Lables:', Lables);
+			console.log('Vars:', Vars);
+			let Price = '';
+			if (Default.Discount > 0) {
+				Price = `
+				<div class="price-old">${getThousands(PRD.BasePrice)} ریال
+				</div>
+				<div class="price-new">${getThousands(Default.FinalPrice)} ریال
+				</div>
+				`;
+			} else {
+				`
+				<div class="price-new">${getThousands(Default.FinalPrice)} تومان
+				</div>
+				`;
+			}
+			let Label = '';
+			let OS = '';
+			for (let i = 0; i < Lables.length; i++) {
+				const element = Lables[i];
+				if (element.Label == 'label-new') {
+					Label += `<div class="label-new"><span>جدید</span></div>`;
+				} else if (element.Label == 'label-sale') {
+					Label = `
+					<div class="label-sale"><span>${element.Value}%- <span class="sale-text">فروش
+								ویژه</span></span>
+						<div class="countdown-circle">
+							<div class="countdown js-countdown" data-countdown="2021/07/01">
+							</div>
+						</div>
+					</div>
+					`;
+				} else if (element.Label == 'prd-outstock') {
+					OS = 'prd-outstock';
+				}
+			}
+			let Colors = '';
+			for (let i = 0; i < Vars.length; i++) {
+				const element = Vars[i];
+				Colors += `
+					<li>
+						<a class="#" data-toggle="tooltip" data-placement="right" title="${element.ColorName}" style='background-color:${element.ColorCode}'>
+						</a>
+					</li>
+					`;
+			}
+			let Imgs = '';
+			for (let i = 0; i < Images.length; i++) {
+				const element = Images[i];
+				if (i == 0) {
+					Imgs += `
+					<li data-image="/media/${element.Image}" class="active">
+						<a href="#" class="js-color-toggle" data-toggle="tooltip" data-placement="left">
+							<img
+								src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+								data-src="/media/${element.Image}"
+								class="lazyload fade-up" alt="Color Name">
+						</a>
+					</li>
+					`;
+				} else {
+					Imgs += `
+					<li data-image="/media/${element.Image}" >
+						<a href="#" class="js-color-toggle" data-toggle="tooltip" data-placement="left">
+							<img
+								src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+								data-src="/media/${element.Image}"
+								class="lazyload fade-up" alt="Color Name">
+						</a>
+					</li>
+					`;
+				}
+			}
+			$('.SearchResult').append(`
+				<div class="prd prd--style2 prd-labels--max prd-labels-shadow ${OS}">
+				<div class="prd-inside">
+					<div class="prd-img-area">
+						<a href="/products/${PRD.Slug}" class="prd-img image-hover-scale image-container"
+							style="padding-bottom: 128.48%">
+							<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+								data-src="/media/${Images[0].Image}"
+								alt="${PRD.Name}" class="js-prd-img lazyload fade-up">
+							<div class="foxic-loader"></div>
+							<div class="prd-big-squared-labels">
+								${Label}
+							</div>
+						</a>
+						<div class="prd-circle-labels">
+							<a 
+								href="#" 
+								class="circle-label-qview js-prd-quickview prd-hide-mobile"
+								data-src="ajax/ajax-quickview.html">
+								<i class="icon-eye"></i>
+								<span>مشاهده سریع</span>
+							</a>
+							<div
+								class="colorswatch-label colorswatch-label--variants js-prd-colorswatch">
+								<i class="icon-palette"><span class="path1"></span><span
+										class="path2"></span><span class="path3"></span><span
+										class="path4"></span><span class="path5"></span><span
+										class="path6"></span><span class="path7"></span><span
+										class="path8"></span><span class="path9"></span><span
+										class="path10"></span></i>
+								<ul>
+									${Colors}
+								</ul>
+							</div>
+						</div>
+						<ul class="list-options color-swatch">
+							${Imgs}
+						</ul>
+					</div>
+					<div class="prd-info">
+						<div class="prd-info-wrap">
+							<div class="prd-info-top">
+								<div class="prd-rating"><i class="icon-star-fill fill"></i><i
+										class="icon-star-fill fill"></i><i
+										class="icon-star-fill fill"></i><i
+										class="icon-star-fill fill"></i><i
+										class="icon-star-fill fill"></i>
+								</div>
+							</div>
+							<div class="prd-rating justify-content-center">
+								<i class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i><i
+									class="icon-star-fill fill"></i><i
+									class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i>
+							</div>
+							</div>
+							<h2 class="prd-title"><a href="/products/${PRD.Slug}">${PRD.Name}</a>
+							</h2>
+							<div class="prd-description">
+								${PRD.Demo}
+							</div>
+							
+						</div>
+						<div class="prd-hovers">
+							<div class="prd-circle-labels">
+								
+								<div class="prd-hide-mobile"><a href="#"
+										class="circle-label-qview js-prd-quickview"
+										data-src="ajax/ajax-quickview.html"><i
+											class="icon-eye"></i><span>مشاهده
+											سریع</span></a></div>
+							</div>
+							<div class="prd-price">
+								${Price}
+							</div>
+							<div class="prd-action">
+								<div class="prd-action-left">
+									<form action="#">
+										<button class="btn js-prd-addtocart AddtoCart"
+											data-product='${Default.RPVS}'>افزودن
+											به سبد خرید</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			`);
+		});
 	});
-	// products.then((x) => {
-	// 	if (x.next) {
-	// 		$('#MoreProd').attr('data-target', x.next);
-	// 		if ($('#MoreProd').hasClass('d-none')) {
-	// 			$('#MoreProd').removeClass('d-none');
-	// 		}
-	// 	} else {
-	// 		$('#MoreProd').addClass('d-none');
-	// 	}
-	// 	let result = x.results;
-	// 	const params = new Proxy(new URLSearchParams(window.location.search), {
-	// 		get: (searchParams, prop) => searchParams.get(prop),
-	// 	});
-	// 	let sort = params.sort;
-	// 	const sortByKeyA = (key) => (a, b) => b[key] - a[key];
-	// 	const sortByKeyD = (key) => (a, b) => a[key] - b[key];
-	// 	const sortByVisit = sortByKeyA('Visit');
-	// 	const sortByminPrice = sortByKeyD('FinalPrice');
-	// 	const sortBymaxPrice = sortByKeyA('FinalPrice');
-	// 	if (sort == 'view') {
-	// 		result.sort(sortByVisit);
-	// 	}
-	// 	if (sort == 'minPrice') {
-	// 		result.sort(sortByminPrice);
-	// 	}
-	// 	if (sort == 'maxPrice') {
-	// 		result.sort(sortBymaxPrice);
-	// 	}
-	// 	let S = [];
-	// 	let RE = [];
-	// 	const V = x.results.map(({ Varities }) => JSON.parse(Varities));
-	// 	V.forEach((v) => {
-	// 		S.push(v.map(({ Size }) => Size));
-	// 	});
-	// 	S.forEach((s) => {
-	// 		s.forEach((element) => {
-	// 			RE.push(element.map(({ Size }) => Size));
-	// 		});
-	// 	});
-	// 	for (let i = 1; i < RE.length; i++) {
-	// 		const element = RE[i];
-	// 		let a = RE[0].concat(element);
-	// 		RE[0] = a;
-	// 	}
-	// 	const SizeFilter = [...new Set(RE[0])].sort();
-	// 	$('#Size').empty();
-	// 	SizeFilter.forEach((element) => {
-	// 		$('#Size').append(`
-	// 			<option value="${element}">${element}</option>
-	// 		`);
-	// 	});
-	// 	$('#Size').niceSelect('update');
-	// 	result.forEach((element) => {
-	// 		let vars = JSON.parse(element.Varities);
-	// 		let var_ = vars[0];
-	// 		let sizes = var_.Size;
-	// 		console.log(sizes);
-	// 		let tag = ``;
-	// 		if (parseInt(sizes[0].OffPrice) > 0) {
-	// 			tag = `<a class="product-type two" href="#">ویژه</a>`;
-	// 			var price = `
-	// 				<div class='d-flex justify-content-evenly align-items-center'>
-	// 				<span>${getThousands(sizes[0].FinalPrice)} ریال</span>
-	// 				<small class='mr-1'>
-	// 				<del>
-	// 				${getThousands(element.BasePrice)} ریال
-	// 				</del>
-	// 				</small>
-	// 				</div>
-	// 				`;
-	// 		} else {
-	// 			var price = `<span>${getThousands(
-	// 				sizes[0].FinalPrice
-	// 			)} ریال</span>
-	//     `;
-	// 		}
-	// 		let sel = ``;
-	// 		for (let i = 0; i < sizes.length; i++) {
-	// 			const Si = sizes[i];
-	// 			let d;
-	// 			if (i == 0) {
-	// 				d = `
-	// 				<div class="option selected" data-value="${Si.RPVS}">
-	// 				<span class="value" style="background-color: ${var_.Color};">
-	// 				</span>
-	// 				${Si.Size}
-	// 				</div>
-	// 				`;
-	// 			} else {
-	// 				d = `
-	// 					<div class="option" data-value="${Si.RPVS}">
-	// 					<span class="value" style="background-color: ${var_.Color};">
-	// 					</span>
-	// 					${Si.Size}
-	// 					</div>
-	// 					`;
-	// 			}
-	// 			sel += d;
-	// 		}
-	// 		$('.SearchResult').append(`
-	// 		<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
-	// 		<div class="prd-inside">
-	// 			<div class="prd-img-area">
-	// 				<a href="product.html" class="prd-img image-hover-scale image-container"
-	// 					style="padding-bottom: 128.48%">
-	// 					<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-	// 						data-src="/media/images/skins/fashion/products/product-03-1.webp"
-	// 						alt="بلوز نخی بزرگ" class="js-prd-img lazyload fade-up">
-	// 					<div class="foxic-loader"></div>
-	// 					<div class="prd-big-squared-labels">
-	// 						<div class="label-new"><span>جدید</span>
-	// 						</div>
-	// 						<div class="label-sale"><span>10%- <span class="sale-text">فروش
-	// 									ویژه</span></span>
-	// 							<div class="countdown-circle">
-	// 								<div class="countdown js-countdown" data-countdown="2021/07/01">
-	// 								</div>
-	// 							</div>
-	// 						</div>
-	// 					</div>
-	// 				</a>
-	// 				<div class="prd-circle-labels">
-	// 					<a href="#"
-	// 						class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-	// 						title="افزودن به لیست علاقه مندی"><i
-	// 							class="icon-heart-stroke"></i></a><a href="#"
-	// 						class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-	// 						title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
-	// 					<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
-	// 						data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i><span>مشاهده
-	// 							سریع</span></a>
-	// 				</div>
-	// 				<ul class="list-options color-swatch">
-	// 					<li data-image="/media/images/skins/fashion/products/product-03-1.webp"
-	// 						class="active"><a href="#" class="js-color-toggle" data-toggle="tooltip"
-	// 							data-placement="left" title="نام رنگ"><img
-	// 								src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-	// 								data-src="/media/images/skins/fashion/products/product-03-1.webp"
-	// 								class="lazyload fade-up" alt="Color Name"></a></li>
-	// 					<li data-image="/media/images/skins/fashion/products/product-03-2.webp">
-	// 						<a href="#" class="js-color-toggle" data-toggle="tooltip"
-	// 							data-placement="left" title="نام رنگ"><img
-	// 								src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-	// 								data-src="/media/images/skins/fashion/products/product-03-2.webp"
-	// 								class="lazyload fade-up" alt="Color Name"></a>
-	// 					</li>
-	// 					<li data-image="/media/images/skins/fashion/products/product-03-3.webp">
-	// 						<a href="#" class="js-color-toggle" data-toggle="tooltip"
-	// 							data-placement="left" title="نام رنگ"><img
-	// 								src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-	// 								data-src="/media/images/skins/fashion/products/product-03-3.webp"
-	// 								class="lazyload fade-up" alt="Color Name"></a>
-	// 					</li>
-	// 				</ul>
-	// 			</div>
-	// 			<div class="prd-info">
-	// 				<div class="prd-info-wrap">
-	// 					<div class="prd-info-top">
-	// 						<div class="prd-rating"><i class="icon-star-fill fill"></i><i
-	// 								class="icon-star-fill fill"></i><i
-	// 								class="icon-star-fill fill"></i><i
-	// 								class="icon-star-fill fill"></i><i
-	// 								class="icon-star-fill fill"></i>
-	// 						</div>
-	// 					</div>
-	// 					<div class="prd-rating justify-content-center">
-	// 						<i class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i><i
-	// 							class="icon-star-fill fill"></i><i
-	// 							class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i>
-	// 					</div>
-	// 					<div class="prd-tag"><a href="#">بانیتا</a>
-	// 					</div>
-	// 					<h2 class="prd-title"><a href="product.html">بلوز کتان سایز
-	// 							بزرگ</a>
-	// 					</h2>
-	// 					<div class="prd-description">
-	// 						لورم ایپسوم متن ساختگی با تولید سادگی
-	// 						نامفهوم، لورم ایپسوم متن ساختگی با تولید
-	// 						سادگی نامفهوم
-	// 					</div>
-	// 					<div class="prd-action">
-	// 						<form action="#">
-	// 							<button class="btn js-prd-addtocart"
-	// 								data-product='{"name": "بلوز نخی بزرگ", "path":"/media/images/skins/fashion/products/product-03-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
-	// 								به سبد خرید</button>
-	// 						</form>
-	// 					</div>
-	// 				</div>
-	// 				<div class="prd-hovers">
-	// 					<div class="prd-circle-labels">
-	// 						<div><a href="#"
-	// 								class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-	// 								title="افزودن به لیست علاقه مندی"><i
-	// 									class="icon-heart-stroke"></i></a><a href="#"
-	// 								class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-	// 								title="حذف از لیست علاقه مندی"><i
-	// 									class="icon-heart-hover"></i></a>
-	// 						</div>
-	// 						<div class="prd-hide-mobile"><a href="#"
-	// 								class="circle-label-qview js-prd-quickview"
-	// 								data-src="ajax/ajax-quickview.html"><i
-	// 									class="icon-eye"></i><span>مشاهده
-	// 									سریع</span></a></div>
-	// 					</div>
-	// 					<div class="prd-price">
-	// 						<div class="price-old">200,000 تومان
-	// 						</div>
-	// 						<div class="price-new">180,000 تومان
-	// 						</div>
-	// 					</div>
-	// 					<div class="prd-action">
-	// 						<div class="prd-action-left">
-	// 							<form action="#">
-	// 								<button class="btn js-prd-addtocart"
-	// 									data-product='{"name": "بلوز نخی بزرگ", "path":"/media/images/skins/fashion/products/product-03-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
-	// 									به سبد خرید</button>
-	// 							</form>
-	// 						</div>
-	// 					</div>
-	// 				</div>
-	// 			</div>
-	// 		</div>
-	// 	</div>
-	//     `);
-	// 	});
-	// });
 };
 RenderSearchResult(ResultsFetchURL);
 $('#MoreProd').click(function () {
