@@ -506,13 +506,13 @@ cat = (id, level) => {
 		},
 	});
 };
-$('#searchBox').click(function () {
+$('#SearchInput').click(function () {
 	let val = $(this).val();
 	if (val != '') {
-		$('#searchBox').trigger('keyup');
+		$('#SearchInput').trigger('keyup');
 	}
 });
-$('#searchBox').on('keyup', async function () {
+$('#SearchInput').on('keyup', async function () {
 	let val = $(this).val();
 	let res = await fetch('/products/getsearchengine/', {
 		method: 'POST',
@@ -523,7 +523,7 @@ $('#searchBox').on('keyup', async function () {
 		body: JSON.stringify({ Txt: val }),
 	});
 	let info = await res.json();
-	$('#SearchEngine ul').empty();
+	$('#SearchEngine').empty();
 	if (info.length != 0) {
 		info.forEach((element) => {
 			$('#SearchEngine ul').append(`
@@ -533,7 +533,7 @@ $('#searchBox').on('keyup', async function () {
 			`);
 		});
 	}
-	$('#SearchEngine ul').append(`
+	$('#SearchEngine .ResultWrapper').append(`
 		<li>
 		<a href='/products/results/?txt=${val}&'>
 		<b>
@@ -545,41 +545,6 @@ $('#searchBox').on('keyup', async function () {
 		</li>
 		`);
 	$('#SearchEngine').fadeIn();
-});
-
-$(function () {
-	var init = 0;
-	$('#searchBox').keyup(function (event) {
-		if (event.keyCode == 13) {
-			let val = $('#searchBox').val();
-			window.location.href = `/products/results/?txt=${val}`;
-		}
-	});
-	$('.SearchEngineBtn').click(function () {
-		if (init == 0) {
-			$('#wiki').animate({
-				width: '300px',
-			});
-			setTimeout(() => {
-				$('#searchBox').css('display', 'inline-block');
-			}, 500);
-			$('#NavBarScearchBox').fadeIn();
-
-			init = 1;
-		} else {
-			$('#NavBarScearchBox').fadeOut();
-			$('#searchBox').css({
-				display: 'none',
-			});
-			$('#wiki').animate({
-				width: '60px',
-			});
-			$('#SearchEngine').fadeOut();
-			$('#searchBox').val('');
-
-			init = 0;
-		}
-	});
 });
 
 $('.products-area').on('click', '.menuToggle', function () {

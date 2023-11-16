@@ -2,3 +2,4 @@ venv/*
 */migrations/
 *.pyc
 static/ckeditor
+media/images

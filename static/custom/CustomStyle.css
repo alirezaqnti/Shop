@@ -63,3 +63,7 @@
 .Weakwrapper .form-group input {
     width: 90%;
 }
+
+.SearchEngine {
+    max-height: 50vh;
+}
