@@ -506,13 +506,13 @@ cat = (id, level) => {
 		},
 	});
 };
-$('#SearchInput').click(function () {
+$('.SearchInput').click(function () {
 	let val = $(this).val();
 	if (val != '') {
-		$('#SearchInput').trigger('keyup');
+		$('.SearchInput').trigger('keyup');
 	}
 });
-$('#SearchInput').on('keyup', async function () {
+$('.SearchInput').on('keyup', async function () {
 	let val = $(this).val();
 	let res = await fetch('/products/getsearchengine/', {
 		method: 'POST',
@@ -523,28 +523,81 @@ $('#SearchInput').on('keyup', async function () {
 		body: JSON.stringify({ Txt: val }),
 	});
 	let info = await res.json();
-	$('#SearchEngine').empty();
-	if (info.length != 0) {
-		info.forEach((element) => {
-			$('#SearchEngine ul').append(`
-			<li>
-			${element.Name}
-			</li>
-			`);
-		});
-	}
-	$('#SearchEngine .ResultWrapper').append(`
-		<li>
-		<a href='/products/results/?txt=${val}&'>
-		<b>
-		<i class="fas fa-font"></i>
-		جستجو:
-		</b>
-		<span>${val}</span>
-		</a>
-		</li>
+	console.log(info);
+	let Products = info.Products;
+	let Cats = info.Cats;
+	$('.Prd_result .search-carousel').slick('removeSlide', null, null, true);
+	for (let p = 0; p < Products.length; p++) {
+		const element = Products[p];
+		$('.Prd_result .search-carousel').append(`
+			<div class="result-item">
+				<a href="${element.URL}">
+					<div class="d-flex justify-between items-start">
+						<div class="ml-2 mt-1">
+							<img src="/media/${element.Image}"
+								class="img-fluid" alt="">
+						</div>
+						<div class="text-right">
+							<span class="font-weight-bolder">${element.Name}</span>
+
+						</div>
+					</div>
+				</a>
+			</div>
 		`);
-	$('#SearchEngine').fadeIn();
+	}
+	$('.Prd_result .search-carousel').slick('refresh');
+	$('.Cat_result').empty();
+	for (let c = 0; c < Cats.length; c++) {
+		const element = Cats[c];
+		$('.Cat_result').append(`
+			<div class="result-item">
+				<a href="${element.URL}">
+					<div class="d-flex justify-between items-start">
+						<div class="ml-2 mt-1">
+							<i class="icon-search"></i>
+						</div>
+						<div class="text-right">
+							<span class="font-weight-bolder">${element.Name}</span>
+							<div>
+								<div class="text-body1-strong">
+									<span class="">
+										در دسته</span>
+									<span
+										class="text-primary font-weight-bold">${element.Anc}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		`);
+	}
+	// if (info.length != 0) {
+	// 	info.forEach((element) => {
+	// 		$('#SearchEngine ul').append(`
+	// 		<li>
+	// 		${element.Name}
+	// 		</li>
+	// 		`);
+	// 	});
+	// }
+	$('.Txt_result').empty();
+	$('.Txt_result').append(`
+		<div class="result-item">
+			<a href="/products/results/?txt=${val}">
+				<div class="d-flex justify-between items-start">
+					<div class="ml-2 mt-1">
+						<i class="icon-search"></i>
+					</div>
+					<div class="text-right">
+						<span class="font-weight-bolder">${val}</span>
+					</div>
+				</div>
+			</a>
+		</div>
+		`);
+	// $('#SearchEngine').fadeIn();
 });
 
 $('.products-area').on('click', '.menuToggle', function () {

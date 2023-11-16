@@ -64,6 +64,18 @@
     width: 90%;
 }
 
-.SearchEngine {
-    max-height: 50vh;
+.SearchEngine .ResultWrapper .result-item {
+    border-bottom: 1px solid #a813ed73;
+    padding: 5px 10px;
+}
+
+.SearchEngine .ResultWrapper .Prd_result .result-item {
+    border: 1px solid #c2bebe;
+    border-radius: 5px;
+    margin: 2px 5px;
+}
+
+.SearchEngine .ResultWrapper .result-item:hover {
+    border-color: #a813ed;
+    border-width: 2px;
 }

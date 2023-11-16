@@ -50,7 +50,6 @@ class ProductPage(TemplateView):
         context = super().get_context_data(**kwargs)
         slug = kwargs["slug"]
         Def = VarietySub.objects.get(RPVS=slug)
-        print("DEF:", Def)
         PRD = (
             Product.objects.filter(Slug=Def.Variety.Product.Slug)
             .prefetch_related(
@@ -61,7 +60,6 @@ class ProductPage(TemplateView):
             )
             .first()
         )
-        print("PRD:", PRD)
         vars = PRD.variety_product.filter(Active=True)
         try:
             var = Def.Variety
@@ -183,7 +181,6 @@ class GetSimilarToPreview(ListAPIView):
         res = Product.objects.filter(
             Category__in=Category.objects.get(pk=Pr.Category.pk).get_descendants(include_self=True)
         ).exclude(pk=Pr.pk)
-        print(pr)
         return res
 
 
@@ -209,7 +206,6 @@ class GetProductVarieties(APIView):
                 )
                 for size in VarietySubs:
                     res.append(size.toJson())
-        print(res)
         return Response({"Products": res})
 
 
@@ -224,7 +220,11 @@ class GetSearchResult(ListAPIView):
 
     def get_queryset(self):
         kwargs = self.request.GET
-        res = Product.objects.filter(Status=ProductStat.valid).order_by("-Created_at_g")
+        res = (
+            Product.objects.filter(Status=ProductStat.valid)
+            .prefetch_related("image_prd", "variety_product")
+            .order_by("-Created_at_g")
+        )
         try:
             txt = kwargs["txt"]
             res = self.TxtFilter(res, txt)
@@ -349,8 +349,10 @@ class GetSearchResult(ListAPIView):
 
     def TxtFilter(self, list, name):
         arr = []
+        up = name.upper()
+        low = name.lower()
         for item in list:
-            if item.Name.__contains__(name):
+            if item.Name.__contains__(up) or item.Name.__contains__(low):
                 arr.append(item)
         return arr
 
@@ -785,36 +787,40 @@ class CategoryMasterAPI(ListAPIView):
 class SearchEngine(APIView):
     def post(self, request, *args, **kwargs):
         txt = request.data["Txt"]
+        res = {}
+        Products = []
+        Cats = []
         if txt != "":
-            res = []
-            pr = Product.objects.filter(Name__contains=txt)
+            up = txt.upper()
+            low = txt.lower()
+            pr = Product.objects.filter(
+                Q(Name__contains=up) | Q(Name__contains=low)
+            ).prefetch_related("image_prd")
             if pr.count() != 0:
                 for item in pr:
-                    pic = ProductImage.objects.get(Product=item, Primary=True)
-                    Name = f'<a href="/products/{item.Slug}"><img src="/media/{pic.Image}" width="50" height="50" /><b>{item.Name}</b></a>'
-                    res.append(
+                    pic = item.image_prd.filter(Primary=True).first()
+                    Products.append(
                         {
-                            "Name": Name,
+                            "URL": f"/products/{item.Slug}",
+                            "Name": item.Name,
+                            "Image": str(pic.Image),
                         }
                     )
-            cat = Category.objects.filter(Name__contains=txt)
+            cat = Category.objects.filter(Q(Name__contains=up) | Q(Name__contains=low))
             if cat.count() != 0:
                 for item in cat:
                     c = item.get_ancestors(ascending=False, include_self=False)
-                    print(c)
                     Anc = ""
                     for i, a in enumerate(c):
                         if i == (c.count() - 1):
-                            Anc += f"<small>{a.Name}<small>"
+                            Anc += a.Name
                         else:
-                            Anc += f"<small>{a.Name}،<small>"
-                    Name = f'<a href="/products/results/?cat={item.pk}"><b><i class="flaticon-square"></i> {item.Name}</b><small>/در دسته بندی </small><br>{Anc}</a>'
-                    res.append(
-                        {
-                            "Name": Name,
-                        }
+                            Anc += a.Name
+                    Cats.append(
+                        {"URL": f"/products/results/?cat={item.pk}", "Name": item.Name, "Anc": Anc}
                     )
-
+        res["Products"] = Products
+        res["Cats"] = Cats
         return Response(res)
 
 
@@ -874,13 +880,12 @@ class AddToCompare(APIView):
         data = request.data["RPVS"]
         Si = VarietySub.objects.get(RPVS=data)
         try:
-            print("DATA:", data)
+            print(Si)
         except:
             return Response({"stat": 500, "report": "اطلاعات ارسالی صحیح نیست"})
 
         if "compareList" in cache:
             CL = cache.get("compareList")
-            print("compareList", CL)
         else:
             CL = {}
         if len(CL) >= 4:
@@ -912,7 +917,6 @@ class CompareCheckView(APIView):
 def CompareCheck():
     if "compareList" in cache:
         CL = cache.get("compareList")
-        print("CL:", len(CL))
         if len(CL) > 1:
             return 200
         else:
@@ -934,13 +938,11 @@ class Compare(TemplateView):
         context = super().get_context_data(**kwargs)
 
         CL = cache.get("compareList")
-        print(CL)
         context["List"] = sorted(CL.items())
         return context
 
     def get(self, request, *args, **kwargs):
         stat = CompareCheck()
-        print("STAT:", self.request.META["HTTP_REFERER"])
         if stat == 201:
             if "products/compare/" in self.request.META["HTTP_REFERER"]:
                 url = "/products/results/"

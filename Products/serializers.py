@@ -54,58 +54,69 @@ class ProductToPreviewSerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     Varities = serializers.SerializerMethodField()
-    Image_URL = serializers.SerializerMethodField()
-    FinalPrice = serializers.SerializerMethodField()
+    Images = serializers.SerializerMethodField()
+    Default = serializers.SerializerMethodField()
+    Labels = serializers.SerializerMethodField()
 
-    def get_FinalPrice(self, obj):
-        vrs = Variety.objects.filter(Product=obj, Active=True, Status=ProductStat.valid).first()
-        VarietySubs = VarietySub.objects.filter(Variety=vrs).first()
-        return VarietySubs.FinalPrice
+    def get_Labels(self, obj):
+        return
+
+    def get_Default(self, obj):
+        vr = obj.variety_product.first()
+        if VarietySub.objects.filter(Variety=vr, Quantity__gte=0).exists():
+            Sub = VarietySub.objects.filter(Variety=vr, Quantity__gte=0).first()
+        else:
+            Sub = VarietySub.objects.filter(Variety=vr).first()
+        return {
+            "RPV": vr.RPV,
+            "ColorCode": vr.ColorCode,
+            "ColorName": vr.ColorName,
+            "Size": Sub.Size,
+            "Quantity": Sub.Quantity,
+            "Discount": Sub.Discount,
+            "OffPrice": Sub.OffPrice,
+            "FinalPrice": Sub.FinalPrice,
+            "RPVS": Sub.RPVS,
+        }
 
     def get_Varities(self, obj):
-        vrs = Variety.objects.filter(Product=obj, Active=True, Status=ProductStat.valid)
+        vrs = obj.variety_product.filter(Active=True, Status=ProductStat.valid)
         data = []
         for item in vrs:
-            VarietySubs = VarietySub.objects.filter(Variety=item).order_by("Size")
-            si = []
-            for size in VarietySubs:
-                si.append(
-                    {
-                        "Size": size.Size,
-                        "Quantity": size.Quantity,
-                        "Discount": size.Discount,
-                        "OffPrice": size.OffPrice,
-                        "FinalPrice": size.FinalPrice,
-                        "RPVS": size.RPVS,
-                    }
-                )
+            if VarietySub.objects.filter(Variety=vrs, Quantity__gte=0).exists():
+                Sub = VarietySub.objects.filter(Variety=vrs, Quantity__gte=0).first()
+            else:
+                Sub = VarietySub.objects.filter(Variety=vrs).first()
             data.append(
                 {
                     "RPV": item.RPV,
-                    "Color": item.ColorCode,
-                    "Size": si,
+                    "ColorCode": item.ColorCode,
+                    "ColorName": item.ColorName,
+                    "RPVS": Sub.RPVS,
                 }
             )
         data = json.dumps(data)
         return data
 
-    def get_Image_URL(self, obj):
-        print("OBJ:", obj)
-        image = ProductImage.objects.get(Product=obj, Primary=True)
-        return str(image.Image)
+    def get_Images(self, obj):
+        images = obj.image_prd.all().order_by("-Primary")[:3]
+        res = []
+        for item in images:
+            res.append({"Image": str(item.Image), "Primary": str(item.Primary)})
+        return res
 
     class Meta:
         model = Product
         fields = [
             "Slug",
             "Name",
-            "Image_URL",
+            "Images",
             "Created_at_g",
             "BasePrice",
             "Varities",
             "RP",
             "Visit",
-            "FinalPrice",
+            "Default",
         ]
 
 
