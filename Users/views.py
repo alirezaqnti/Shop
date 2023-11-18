@@ -58,7 +58,6 @@ class UserPhoneRegister(APIView):
                 return Response(context, status=status.HTTP_200_OK)
             except:
                 res = Code(request, request.data["Phone"], "Phone")
-                print(res)
                 context = {"report": request.data, "stat": stat}
                 return Response(context, status=status.HTTP_200_OK)
         except:
@@ -91,7 +90,6 @@ class Register(APIView):
     def post(self, request, *args, **kwargs):
         serializer = UserRegisterSerializer(data=request.data)
         stat = 500
-        print(request.data)
         if serializer.is_valid():
             obj = serializer.save()
             publicKey = rsa.PublicKey(pbKEYn, pbKEYe)
@@ -101,7 +99,6 @@ class Register(APIView):
             obj.key = rsa.encrypt(serializer.validated_data["Password"].encode("utf8"), publicKey)
             obj.save()
             stat = 200
-        print(serializer.errors)
         report = ""
         for item in serializer.errors.items():
             report += item[1][0] + "<br/>"
@@ -121,7 +118,6 @@ class Login(APIView):
                 stat = 200
                 report = ""
             else:
-                print(serializer.errors)
                 report = "نام کاربری یا رمز عبور اشتباه است"
         elif request.data["Type"] == "Phone":
             try:
@@ -197,7 +193,6 @@ class ChangePhone(APIView):
                 return Response(context, status=status.HTTP_200_OK)
             except:
                 pass
-        print(serializer.errors)
         context = {"report": report, "stat": stat}
         return Response(context)
 

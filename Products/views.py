@@ -18,22 +18,7 @@ from Products.serializers import (
     CategorySerializer,
 )
 from django.http import JsonResponse
-from Products.models import (
-    Category,
-    Product,
-    ProductImage,
-    ProductToPreview,
-    Variety,
-    ProductComment,
-    ProductTag,
-    ProductStat,
-    Filters,
-    TopSellToPreview,
-    VarietySub,
-    CommentTip,
-    QuantityNotify,
-    NotifyNumber,
-)
+from Products.models import *
 import json
 from Analytic.views import VisitPage
 from django.shortcuts import redirect, render
@@ -49,19 +34,19 @@ class ProductPage(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         slug = kwargs["slug"]
-        Def = VarietySub.objects.get(RPVS=slug)
-        PRD = (
-            Product.objects.filter(Slug=Def.Variety.Product.Slug)
-            .prefetch_related(
-                "image_prd",
-                "tech_prd",
-                "variety_product",
-                "tag_prd",
-            )
-            .first()
-        )
-        vars = PRD.variety_product.filter(Active=True)
         try:
+            Def = VarietySub.objects.get(RPVS=slug)
+            PRD = (
+                Product.objects.filter(Slug=Def.Variety.Product.Slug)
+                .prefetch_related(
+                    "image_prd",
+                    "tech_prd",
+                    "variety_product",
+                    "tag_prd",
+                )
+                .first()
+            )
+            vars = PRD.variety_product.filter(Active=True)
             var = Def.Variety
             VarietySubs = VarietySub.objects.filter(Variety=var)
         except:
@@ -226,55 +211,46 @@ class GetSearchResult(ListAPIView):
             .order_by("-Created_at_g")
         )
         try:
-            txt = kwargs["txt"]
+            txt = kwargs["متن"]
             res = self.TxtFilter(res, txt)
         except:
             pass
-        cat = kwargs.get("cat")
+        exc = [
+            "size",
+            "brand",
+            "tag",
+            "discount",
+            "exist",
+            "price",
+            "limit",
+            "دسته بندی",
+        ]
+        cat = kwargs.get("دسته بندی")
         if cat != None:
             res = self.categoryFilter(res, cat)
-
-            try:
-                mat = kwargs["mat"]
-                res = self.MaterialFilter(res, mat)
-            except:
-                pass
-            try:
-                type = kwargs["type"]
-                res = self.typeFilter(res, type)
-            except:
-                pass
-            try:
-                Usage = kwargs["usage"]
-                res = self.UsageFilter(res, Usage)
-            except:
-                pass
-            try:
-                heels = kwargs["heels"]
-                res = self.heelsFilter(res, heels)
-            except:
-                pass
-            try:
-                ties = kwargs["shoelace"]
-                res = self.tiesFilter(res, ties)
-            except:
-                pass
-            try:
-                hands = kwargs["strap"]
-                res = self.handsFilter(res, hands)
-            except:
-                pass
-            try:
-                forms = kwargs["forms"]
-                res = self.formsFilter(res, forms)
-            except:
-                pass
-
-        try:
-            color = kwargs["color"]
-            res = self.ColorFilter(res, color)
-        except:
-            pass
+            keys = []
+            Fils = []
+            for i in kwargs:
+                keys.append(i)
+            for i in keys:
+                if not i in exc:
+                    Fils.append([i, kwargs[i]])
+            print("Fils:", Fils)
+            arr = []
+            for item in Fils:
+                F = Filters.objects.filter(Name=item[0], Category__pk=cat).prefetch_related(
+                    "val_filter"
+                )
+                for fi in F:
+                    vals = fi.val_filter.filter(Title=item[1])
+                    for v in vals:
+                        for P in res:
+                            try:
+                                ProductFilter.objects.get(Filter=v, Product=P)
+                                arr.append(P)
+                            except:
+                                pass
+                res = arr
         try:
             size = kwargs["size"]
             res = self.SizeFilter(res, size)
@@ -619,127 +595,32 @@ class SearchView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        cat = self.request.GET.get("cat")
-        si = self.request.GET.get("size")
-        txt = self.request.GET.get("txt")
-        c = self.request.GET.get("color")
-        b = self.request.GET.get("brand")
-        m = self.request.GET.get("mat")
-        ty = self.request.GET.get("type")
-        u = self.request.GET.get("usage")
-        h = self.request.GET.get("heels")
-        S = self.request.GET.get("shoelace")
-        h = self.request.GET.get("strap")
-        f = self.request.GET.get("forms")
-        t = self.request.GET.get("tag")
-        d = self.request.GET.get("discount")
-        e = self.request.GET.get("exist")
-        price = self.request.GET.get("price")
-
-        Filter = []
+        cat = self.request.GET.get("دسته بندی")
         # region
-        if d != None:
-            if d == "true":
-                d = "تخفیف دار"
-            Filter.append({"key": "تخفیف", "value": d, "type": "discount"})
-
-        if e != None:
-            if e == "true":
-                e = "موحود"
-            Filter.append({"key": "موجود بودن", "value": e, "type": "exist"})
-
-        if price != None:
-            Filter.append({"key": " قیمت", "value": price, "type": "price"})
-
-        if si != None:
-            Filter.append({"key": "سایز", "value": si, "type": "size"})
-
-        if txt != None:
-            Filter.append({"key": "متن", "value": txt, "type": "txt"})
-
-        if c != None:
-            Filter.append({"key": "رنگ", "value": c, "type": "color"})
-
-        if b != None:
-            Filter.append({"key": "برند", "value": b, "type": "brand"})
-
-        if m != None:
-            Filter.append({"key": "جنس", "value": m, "type": "mat"})
-
-        if ty != None:
-            Filter.append({"key": "نوع", "value": ty, "type": "type"})
-
-        if u != None:
-            Filter.append({"key": "مورد استفاده", "value ": u, "type": "usage"})
-
-        if h != None:
-            Filter.append({"key": "پاشنه", "value": h, "type": "heels"})
-
-        if S != None:
-            Filter.append({"key": "بند", "value": S, "type": "shoelace"})
-
-        if h != None:
-            Filter.append({"key": "دستگیره", "value": h, "type": "strap"})
-
-        if f != None:
-            Filter.append({"key": "فرم", "value": f, "type": "forms"})
-
-        if t != None:
-            Filter.append({"key": "برچسب", "value": t, "type": "tag"})
+        keys = []
+        Filter = []
+        kw = self.request.GET
+        for i in kw:
+            keys.append(i)
+        for i in keys:
+            if i != "limit" and i != "دسته بندی":
+                Filter.append({"key": i, "value": kw[i]})
         context["Filter"] = Filter
         # endregion
+        Dyn = []
         if cat != None:
             Cats = Category.objects.get(Active=True, pk=cat).get_descendants(include_self=True)
             Filter.append({"key": "دسته بندی", "value": Cats[0].Name, "type": "cat"})
-            Color = []
-            Brand = []
-            Material = []
-            Type = []
-            Usage = []
-            Heels = []
-            Shoelace = []
-            Strap = []
-            Form = []
-            for c in Cats:
-                Fil = Filters.objects.filter(Category=c)
-                for item in Fil:
-                    if item.Type == 0:
-                        if not item in Color:
-                            Color.append(item)
-                    elif item.Type == 1:
-                        if not item in Brand:
-                            Brand.append(item)
-                    elif item.Type == 2:
-                        if not item in Material:
-                            Material.append(item)
-                    elif item.Type == 3:
-                        if not item in Type:
-                            Type.append(item)
-                    elif item.Type == 4:
-                        if not item in Usage:
-                            Usage.append(item)
-                    elif item.Type == 5:
-                        if not item in Heels:
-                            Heels.append(item)
-                    elif item.Type == 6:
-                        if not item in Shoelace:
-                            Shoelace.append(item)
-                    elif item.Type == 7:
-                        if not item in Strap:
-                            Strap.append(item)
-                    elif item.Type == 8:
-                        if not item in Form:
-                            Form.append(item)
-            context["Color"] = Color
-            context["Brand"] = Brand
-            context["Material"] = Material
-            context["Type"] = Type
-            context["Usage"] = Usage
-            context["Heels"] = Heels
-            context["Shoelace"] = Shoelace
-            context["Strap"] = Strap
-            context["Form"] = Form
-
+            Fils = Filters.objects.filter(Category__pk=int(cat)).prefetch_related("val_filter")
+            for item in Fils:
+                F = {"Title": item.Name}
+                F_V = []
+                vals = item.val_filter.all()
+                for v in vals:
+                    F_V.append(v.Title)
+                F["Vals"] = F_V
+                Dyn.append(F)
+        context["Dynamics"] = Dyn
         return context
 
 
@@ -751,7 +632,8 @@ class SearchView(TemplateView):
 
 class GetCategories(APIView):
     def post(self, request, *args, **kwargs):
-        cat = Category.objects.filter(parent=None)
+        id = request.data["id"]
+        cat = Category.objects.get(pk=int(id)).get_descendants(include_self=False)
         cats = []
         for item in cat:
             cats.append(

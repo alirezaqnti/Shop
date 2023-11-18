@@ -2,7 +2,6 @@ function Done(text) {
 	$('.toast-success .toast-body').html(text);
 	$('.toast-success').toast('show');
 }
-
 function Failed(text) {
 	$('.toast-danger .toast-body').html(text);
 	$('.toast-danger').toast('show');
@@ -58,7 +57,6 @@ const getDeviceType = () => {
 	}
 	return 'desktop';
 };
-
 getDeviceType();
 
 getToken = () => {

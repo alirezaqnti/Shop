@@ -263,7 +263,6 @@ class ProductAdmin(admin.ModelAdmin):
                                 SI.save()
                         techs = res["Techs"]
                         for item in techs:
-                            print(item)
                             name = item["key"]
                             value = item["value"]
                             if name != "" and value != "":
@@ -352,7 +351,6 @@ class ProductAdmin(admin.ModelAdmin):
                                     PIM.Primary = True
                                 PIM.save()
                     else:
-                        print(form.errors)
                         return render(request, self.add_form_template, context=context)
                     return JsonResponse({"RP": RP})
         context = self.get_changeform_initial_data(request)
@@ -387,7 +385,6 @@ class ProductAdmin(admin.ModelAdmin):
                     PRD = Product.objects.get(RP=RP)
                     vars = res["vars"]
                     for item in vars:
-                        print(item)
                         try:
                             VAR = Variety.objects.get(RPV=item["RPV"])
                             pass
@@ -416,7 +413,6 @@ class ProductAdmin(admin.ModelAdmin):
                             SI.save()
                     techs = res["Techs"]
                     for item in techs:
-                        print(item)
                         name = item["key"]
                         value = item["value"]
                         if name != "" and value != "":

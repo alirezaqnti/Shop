@@ -27,7 +27,6 @@ class CategorySerializer(serializers.ModelSerializer):
             for c in item.get_descendants(include_self=False):
                 child["children"].append(c.to_json())
             res.append(child)
-        print(res)
         return res
 
     class Meta:
@@ -162,9 +161,7 @@ class FiltersSerializer(serializers.ModelSerializer):
             "Name": "فرم کیف",
             "Queries": [],
         }
-        print(filters)
         for item in filters:
-            print(item.Type)
             if item.Type == 2:
                 material["Queries"].append({"Name": item.Name, "pk": item.pk})
             elif item.Type == 3:
@@ -223,7 +220,6 @@ class VarietySerializer(serializers.ModelSerializer):
                     "RPVS": item.RPVS,
                 }
             )
-        print(data)
         return data
 
     class Meta:

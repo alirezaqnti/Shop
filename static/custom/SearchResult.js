@@ -1,151 +1,89 @@
-cat = (id, level) => {
-	data = {
-		id: id,
-	};
-	var csrftoken = jQuery('[name=csrfmiddlewaretoken]').val();
-	$.ajaxSetup({
-		beforeSend: function (xhr, settings) {
-			if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-				xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken'));
-			}
-		},
-	});
+cat = async (id, level) => {
+	let len = $(`#LI_${id} #ul${level}_${id} li`).length;
+	if (!$(`#Cat_${id}`).hasClass('open') && len == 0) {
+		data = {
+			id: id,
+		};
+		let res = await fetch('/products/get-sub-categories/', {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ id: id }),
+		});
+		let info = await res.json();
 
-	$.ajax({
-		type: 'POST',
-		url: ' /products/getcategories/ ',
-		data: data,
-		dataType: 'json',
-		success: function (res, status) {
-			$('#LOADER').addClass('d-none');
-			$('#ul_' + id).empty();
-			const response = res;
+		$(`#ul${level}_${id}`).empty();
+		// const response = res;
+		let cats = info.cats;
+		cats.forEach((element) => {
+			console.log(element);
 			if (level == 1) {
-				if (response.length != 0) {
-					for (let item = 0; item < response.length; item++) {
-						const element = response[item];
-						const slide = `<li>
-                              <a  title="
-                  ${element.CategoryName}
-                  "
-                              id='${element.id}'
-                                href="javascript:void(0)"
-                                onclick="insertParam('cat','${element.id}')">
-                  ${element.CategoryName}
-                  </a>
-                              <div class="toggle-category js-toggle-category">
-                                <span><i class="icon-angle-up" onclick="cat(${element.id},2)"></i></span>
-                              </div>
-                              <ul class="category-list" style="display: none;" id='ul2_${element.id}'>
-                                
-                              </ul>
-                            </li>`;
-						$('#ul_' + id).append(slide);
-					}
-					const slide = `<li>
-                              <a  title="همه موارد این دسته"
-                                href="javascript:void(0)"
-                                onclick="insertParam('cat','${id}')">
-                                همه موارد این دسته
-                                </a>
-                            </li>`;
-					$('#ul_' + id).prepend(slide);
-				} else {
-					const slide = `<li>
-                              <a  title="همه موارد این دسته"
-                                href="javascript:void(0)"
-                                onclick="insertParam('cat','${id}')"
-      
-                                >همه موارد این دسته</a
-                              >
-                            </li>`;
-					$('#ul_' + id).append(slide);
-				}
+				const slide = `
+				<li>
+					<a title="
+						${element.name}
+						"
+						id='Cat_${element.id}'
+						href="javascript:void(0)"
+						onclick="insertParam('دسته بندی','${element.id}')">
+						${element.name}
+					</a>
+					<div class="toggle-category js-toggle-category">
+					<span>
+						<i class="icon-angle-up" onclick="cat(${element.id},2)">
+						</i>
+					</span>
+					</div>
+					<ul class="category-list" style="display: none;" id='ul2_${element.id}'>
+
+					</ul>
+				</li>`;
+				$(`#ul${level}_${id}`).append(slide);
 			} else if (level == 2) {
-				if (response.length != 0) {
-					for (let item = 0; item < response.length; item++) {
-						const element = response[item];
-						const slide = `<li>
-                              <a  title="${element.CategoryName}"
-                              id='${element.id}'
-                                href="javascript:void(0)"
-                                onclick="insertParam('cat','${element.id}')">
-                    ${element.CategoryName}
-                  </a>
-                              <div class="toggle-category js-toggle-category">
-                                <span><i class="icon-angle-up" onclick="cat(${element.id},3)"></i></span>
-                              </div>
-                              <ul class="category-list" style="display: none;" id='ul3_${element.id}'>
-                                
-                              </ul>
-                            </li>`;
-						$('#ul2_' + id).append(slide);
-					}
-					const slide = `<li>
-                              <a  title="همه موارد این دسته"
-                                href="javascript:void(0)"
-                                onclick="insertParam('cat','${id}')">
-                                همه موارد این دسته
-                                </a>
-                            </li>`;
-					$('#ul2_' + id).prepend(slide);
-				} else {
-					const slide = `<li>
-                              <a  title="همه موارد این دسته"
-                                href="javascript:void(0)"
-                                onclick="insertParam('cat','${id}')">
-                                همه موارد این دسته
-                                </a>
-                            </li>`;
-					$('#ul2_' + id).append(slide);
-				}
+				const slide = `<li>
+						  <a  title="${element.name}"
+							id='Cat_${element.id}'
+								href="javascript:void(0)"
+								onclick="insertParam('دسته بندی','${element.id}')">
+								${element.name}
+							</a>
+						  <div class="toggle-category js-toggle-category">
+							<span><i class="icon-angle-up" onclick="cat(${element.id},3)"></i></span>
+						  </div>
+						  <ul class="category-list" style="display: none;" id='ul3_${element.id}'>
+	
+						  </ul>
+						</li>`;
+				$(`#ul${level}_${id}`).append(slide);
 			} else {
-				if (response.length != 0) {
-					for (let item = 0; item < response.length; item++) {
-						const element = response[item];
-						const slide = `<li>
-                              <a  title="${element.CategoryName}"
-                              id='${element.id}'
-                                href="javascript:void(0)"
-                                onclick="insertParam('cat','${element.id}')"
-                                >
-                                ${element.CategoryName}
-                  </a>
-                              <div class="toggle-category js-toggle-category">
-                                <span><i class="icon-angle-up"></i></span>
-                              </div>
-                            </li>`;
-						$('#ul3_' + id).append(slide);
-					}
-					const slide = `<li>
-                              <a  title="همه موارد این دسته"
-                                href="javascript:void(0)"
-                                onclick="insertParam('cat','${id}')"
-                                >
-                                همه موارد این دسته
-                                </a>
-                            </li>`;
-					$('#ul3_' + id).append(slide);
-				} else {
-					const slide = `<li>
-                              <a  title="همه موارد این دسته"
-                                href="javascript:void(0)"
-                                onclick="insertParam('cat','${id}')"
-                                >همه موارد این دسته</a>
-                            </li>`;
-					$('#ul3_' + id).prepend(slide);
-				}
+				const slide = `<li>
+					<a title="${element.name}"
+						id='Cat_${element.id}'
+						href="javascript:void(0)"
+						onclick="insertParam('دسته بندی','${element.id}')"
+						>
+						${element.name}
+					</a>
+						<div class="toggle-category js-toggle-category">
+						<span><i class="icon-angle-up"></i></span>
+						</div>
+					</li>`;
+
+				$(`#ul${level}_${id}`).append(slide);
 			}
-		},
-		error: function (res, status) {
-			$('#LOADER').addClass('d-none');
-			$('#alertError').html('مشکلی پیش آمده است لطفا مجددا تلاش کنید');
-			$('#alertError').removeClass('d-none');
-			setTimeout(() => {
-				$('#alertError').addClass('d-none');
-			}, 5000);
-		},
-	});
+		});
+		const slide = `<li>
+			  <a  title="همه موارد این دسته"
+				href="javascript:void(0)"
+				onclick="insertParam('دسته بندی','${id}')"
+
+				>همه موارد این دسته</a
+			  >
+			</li>`;
+		$(`#ul${level}_${id}`).prepend(slide);
+	}
 };
 function insertParam(key, value) {
 	key = encodeURIComponent(key);
@@ -160,7 +98,13 @@ function insertParam(key, value) {
 		for (; i < kvp.length; i++) {
 			if (kvp[i].startsWith(key + '=')) {
 				let pair = kvp[i].split('=');
-				if (kvp[i].includes('cat=') || kvp[i].includes('txt=')) {
+				if (
+					kvp[i].includes('دسته بندی=') ||
+					kvp[i].includes('txt=') ||
+					kvp[i].includes('sort=') ||
+					kvp[i].includes('price=') ||
+					kvp[i].includes('limit=')
+				) {
 					pair[1] = value;
 					kvp[i] = pair.join('=');
 				} else {
@@ -248,6 +192,8 @@ RenderSearchResult = function (URL) {
 	let products = GetSearchResult(URL);
 
 	products.then((x) => {
+		console.log(x);
+		$('.items-count span').html(x.count);
 		if (x.next) {
 			$('#MoreProd').attr('data-target', x.next);
 			if ($('#MoreProd').hasClass('d-none')) {
@@ -257,57 +203,38 @@ RenderSearchResult = function (URL) {
 			$('#MoreProd').addClass('d-none');
 		}
 		let result = x.results;
-		// const params = new Proxy(new URLSearchParams(window.location.search), {
-		// 	get: (searchParams, prop) => searchParams.get(prop),
-		// });
-		// let sort = params.sort;
-		// const sortByKeyA = (key) => (a, b) => b[key] - a[key];
-		// const sortByKeyD = (key) => (a, b) => a[key] - b[key];
-		// const sortByVisit = sortByKeyA('Visit');
-		// const sortByminPrice = sortByKeyD('FinalPrice');
-		// const sortBymaxPrice = sortByKeyA('FinalPrice');
-		// if (sort == 'view') {
-		// 	PRD.sort(sortByVisit);
-		// }
-		// if (sort == 'minPrice') {
-		// 	PRD.sort(sortByminPrice);
-		// }
-		// if (sort == 'maxPrice') {
-		// 	PRD.sort(sortBymaxPrice);
-		// }
-		// let S = [];
-		// let RE = [];
-		// V.forEach((v) => {
-		// 	S.push(v.map(({ Size }) => Size));
-		// });
-		// S.forEach((s) => {
-		// 	s.forEach((element) => {
-		// 		RE.push(element.map(({ Size }) => Size));
-		// 	});
-		// });
-		// for (let i = 1; i < RE.length; i++) {
-		// 	const element = RE[i];
-		// 	let a = RE[0].concat(element);
-		// 	RE[0] = a;
-		// }
-		// const SizeFilter = [...new Set(RE[0])].sort();
-		// $('#Size').empty();
-		// SizeFilter.forEach((element) => {
-		// 	$('#Size').append(`
-		// 		<option value="${element}">${element}</option>
-		// 	`);
-		// });
-		// $('#Size').niceSelect('update');
+		for (let i = 0; i < result.length; i++) {
+			const element = result[i];
+			let F = element.Varities.Default.FinalPrice;
+			element.FinalPrice = F;
+		}
+		const params = new Proxy(new URLSearchParams(window.location.search), {
+			get: (searchParams, prop) => searchParams.get(prop),
+		});
+		let sort = params.sort;
+		const sortByKeyA = (key) => (a, b) => b[key] - a[key];
+		const sortByKeyD = (key) => (a, b) => a[key] - b[key];
+		const sortByVisit = sortByKeyA('Visit');
+		const sortByminPrice = sortByKeyD('FinalPrice');
+		const sortBymaxPrice = sortByKeyA('FinalPrice');
+		if (sort == 'view') {
+			result.sort(sortByVisit);
+			$('#Sort option[value="view"]').attr('selected', true);
+		}
+		if (sort == 'minPrice') {
+			result.sort(sortByminPrice);
+			$('#Sort option[value="minPrice"]').attr('selected', true);
+		}
+		if (sort == 'maxPrice') {
+			result.sort(sortBymaxPrice);
+			$('#Sort option[value="maxPrice"]').attr('selected', true);
+		}
 		result.forEach((PRD) => {
 			let vars = PRD.Varities;
 			let Images = PRD.Images;
 			let Default = vars.Default;
 			let Lables = vars.Lables;
 			let Vars = vars.Vars;
-			console.log('Images:', Images);
-			console.log('Default:', Default);
-			console.log('Lables:', Lables);
-			console.log('Vars:', Vars);
 			let Price = '';
 			if (Default.Discount > 0) {
 				Price = `
@@ -317,7 +244,7 @@ RenderSearchResult = function (URL) {
 				</div>
 				`;
 			} else {
-				`
+				Price = `
 				<div class="price-new">${getThousands(Default.FinalPrice)} تومان
 				</div>
 				`;
@@ -433,13 +360,18 @@ RenderSearchResult = function (URL) {
 									class="icon-star-fill fill"></i><i
 									class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i>
 							</div>
-							</div>
 							<h2 class="prd-title"><a href="/products/${PRD.Slug}">${PRD.Name}</a>
 							</h2>
 							<div class="prd-description">
 								${PRD.Demo}
 							</div>
-							
+							<div class="prd-action">
+								<form action="#">
+									<button class="btn js-prd-addtocart AddtoCart"
+										data-product='${Default.RPVS}'>افزودن
+										به سبد خرید</button>
+								</form>
+							</div>
 						</div>
 						<div class="prd-hovers">
 							<div class="prd-circle-labels">

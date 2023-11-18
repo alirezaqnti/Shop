@@ -28,7 +28,6 @@ def create_FortunePrize(sender, instance, created, *args, **kwargs):
 
 @receiver(post_save, sender=WishList)
 def create_WishList(sender, instance, created, *args, **kwargs):
-    print(instance)
     if created:
         d = datetime.now().strftime("%M%S")
         RC = f"RW-{d}{str(randint(1000,9999))}"
@@ -38,7 +37,6 @@ def create_WishList(sender, instance, created, *args, **kwargs):
 
 @receiver(post_save, sender=Cart)
 def create_Cart(sender, instance, created, *args, **kwargs):
-    print(instance)
     if created:
         d = datetime.now().strftime("%M%S")
         RC = f"RC-{d}{str(randint(1000,9999))}"
@@ -48,7 +46,6 @@ def create_Cart(sender, instance, created, *args, **kwargs):
 
 @receiver(post_save, sender=CartProduct)
 def create_CartProduct(sender, instance, created, *args, **kwargs):
-    print(instance)
     if created:
         Count = CartProduct.objects.filter(Cart=instance.Cart).count()
         RC = instance.Cart.RC

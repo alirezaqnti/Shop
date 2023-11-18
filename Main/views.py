@@ -47,7 +47,6 @@ from Warehouse.serializers import WheelSerializer
 def get_csrf(request):
     response = JsonResponse({"Info": "Success - Set CSRF cookie"})
     response["X-CSRFToken"] = get_token(request)
-    print(response["X-CSRFToken"])
     return response
 
 
@@ -64,9 +63,7 @@ def SendSMS(Phone, Message):
         },
         headers={"Content-Type": "application/json"},
     )
-    print(data)
     res = data.json()
-    print(res)
     if res["Status"] == 1:
         return True
     else:
@@ -98,7 +95,6 @@ def Code(request, phone, type):
     #     request.session["code"] = number
     #     stat = 200
     #     return JsonResponse({"stat": stat})
-    print(phone, text)
     return number
 
 
@@ -116,7 +112,6 @@ def RetriveURLSession(request):
     if "URL" in request.session:
         url = request.session["URL"]
     else:
-        print(request.headers)
         url = request.headers["Host"]
     return JsonResponse({"URL": url})
 
@@ -223,7 +218,6 @@ class CheckoutView(TemplateView):
     def post(self, request, *args, **kwargs):
         context = self.get_context_data()
         Cr = context["cart"]
-        print(request.POST)
         Name = request.POST.get("Name", False)
         Phone = request.POST.get("Phone", False)
         State = request.POST.get("State", False)

@@ -12,11 +12,11 @@
 		<div class="container">
 			<ul class="breadcrumbs">
 				<li><a href="/">خانه</a></li>
-				<li><span>دسته بندی</span></li>
+				<li><span>محصولات</span></li>
 			</ul>
 		</div>
 	</div>
-	<div class="holder holder-mt-medium">
+	<!-- <div class="holder holder-mt-medium">
 		<div class="container">
 			<div class="row vert-margin-small">
 				<div class="col-sm">
@@ -49,32 +49,33 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<div class="holder">
 		<div class="container">
 			<div class="page-title text-center">
-				<h1>زنانه</h1>
+				<h1>محصولات</h1>
 			</div>
 			<div class="filter-row">
 				<div class="row">
-					<div class="items-count">30 مورد (ها)</div>
+					<div class="items-count"><span></span> مورد (ها)</div>
 					<div class="select-wrap d-none d-md-flex">
 						<div class="select-label">مرتب سازی بر اساس : </div>
 						<div class="select-wrapper select-wrapper-xxs">
-							<select class="form-control input-sm">
-								<option value="featured">جدیدترین محصولات</option>
-								<option value="rating">امتیاز محصولات</option>
-								<option value="price">بهترین قیمت</option>
+							<select class="form-control input-sm" id="Sort">
+								<option value="latest">جدیدترین محصولات</option>
+								<option value="view">پر بازدیدترین</option>
+								<option value="minPrice">ارزان ترین</option>
+								<option value="maxPrice">گران ترین</option>
 							</select>
 						</div>
 					</div>
 					<div class="select-wrap d-none d-md-flex">
 						<div class="select-label">تعداد نمایش : </div>
 						<div class="select-wrapper select-wrapper-xxs">
-							<select class="form-control input-sm">
-								<option value="featured">12</option>
-								<option value="rating">36</option>
-								<option value="price">100</option>
+							<select class="form-control input-sm" id="SortCount">
+								<option value="15">15</option>
+								<option value="30">30</option>
+								<option value="50">50</option>
 							</select>
 						</div>
 					</div>
@@ -91,6 +92,7 @@
 				<div class="col-lg-4 aside aside--left filter-col filter-mobile-col filter-col--sticky js-filter-col filter-col--opened-desktop"
 					data-grid-tab-content>
 					<div class="filter-col-content filter-mobile-content">
+						{% if Filter|length != 0 %}
 						<div class="sidebar-block">
 							<div class="sidebar-block_title">
 								<span>موارد انتخاب شده</span>
@@ -98,23 +100,29 @@
 							<div class="sidebar-block_content">
 								<div class="selected-filters-wrap">
 									<ul class="selected-filters">
-										<li><a href="javascript:void(0)">خاکستری</a>
+
+										{% for item in Filter %}
+										<li class="active-filter">
+											<a href="javascript:void(0)"
+												data-type="{{item.key}}">{{item.key}}:{{item.value}}</a>
 										</li>
-										<li><a href="javascript:void(0)">مردانه</a></li>
-										<li><a href="javascript:void(0)">کمتر از 200
-												هزار تومان</a></li>
+										{% endfor %}
 									</ul>
+
+
 									<div class="d-flex flex-wrap align-items-center">
 										<a href="#" class="clear-filters"><span>پاک کردن
 												همه</span></a>
 										<div class="selected-filters-count ml-auto d-none d-lg-block">
 											انتخاب شده :
-											<span>3 مورد</span>
+											<span>{{Filter|length}} مورد</span>
 										</div>
 									</div>
+
 								</div>
 							</div>
 						</div>
+						{% endif %}
 						<div class="sidebar-block d-filter-mobile">
 							<h3 class="mb-1">مرتب سازی بر اساس</h3>
 							<div class="select-wrapper select-wrapper-xs">
@@ -131,134 +139,26 @@
 								<span class="toggle-arrow"><span></span><span></span></span>
 							</div>
 							<div class="sidebar-block_content">
-								<ul class="category-list">
-									<li class="active"><a href="javascript:void(0)" title="کژوال"
-											class="open">کژوال&nbsp;<span>(30)</span></a>
+								<ul class="category-list" id="ul_">
+									{% for cat in Cat %}
+									{% if cat.parent_id == None %}
+
+									<li id="LI_{{cat.id}}">
+										<a title="{{cat.CategoryName}}" id='Cat_{{cat.id}}' href="javascript:void(0)"
+											onclick="insertParam('دسته بندی','{{cat.id}}')">{{cat.Name}}</a>
+
 										<div class="toggle-category js-toggle-category">
-											<span><i class="icon-angle-down"></i></span>
+											<span><i class="icon-angle-up" onclick="cat(`{{cat.id}}`,1)"></i></span>
 										</div>
-										<ul class="category-list category-list">
-											<li><a href="javascript:void(0)" title="مردانه">مردانه&nbsp;
-													<span>(10)</span></a>
-											</li>
-											<li><a href="javascript:void(0)" title="زنانه">زنانه&nbsp;
-													<span>(10)</span></a>
-											</li>
-											<li><a href="javascript:void(0)" title="لوازم جانبی">لوازم
-													جانبی&nbsp;
-													<span>(10)</span></a>
-											</li>
+										<ul class="category-list" style="display: none;" id='ul1_{{cat.id}}'>
+
+
 										</ul>
 									</li>
-									<li><a href="javascript:void(0)" title="تی شرت" class="open">تی شرت</a></li>
-									<li><a href="javascript:void(0)" title="پزشکی" class="open">پزشکی</a></li>
-									<li><a href="javascript:void(0)" title="مواد غذایی" class="open">مواد غذایی</a>
-									</li>
-									<li><a href="javascript:void(0)" title="دوچرخه سواری" class="open">دوچرخه
-											سواری&nbsp;
-											<span>(12)</span></a>
-									</li>
-									<li><a href="javascript:void(0)" title="آرایشی"
-											class="open">آرایشی&nbsp;<span>(16)</span></a>
-									</li>
-									<li><a href="javascript:void(0)" title="ماهیگیری"
-											class="open">ماهیگیری&nbsp;<span>(20)</span></a>
-									</li>
-									<li><a href="javascript:void(0)" title="لوازم الکترونیکی" class="open">لوازم
-											الکترونیکی&nbsp;<span>(15)</span></a>
-									</li>
-									<li><a href="javascript:void(0)" title="بازی ها" class="open">بازی
-											ها&nbsp;<span>(14)</span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="sidebar-block filter-group-block collapsed">
-							<div class="sidebar-block_title">
-								<span>رنگ ها</span>
-								<span class="toggle-arrow"><span></span><span></span></span>
-							</div>
-							<div class="sidebar-block_content">
-								<ul class="color-list two-column">
-									<li class="active"><a href="javascript:void(0)" data-tooltip="Dark Red"
-											title="Dark Red"><span class="value"><img
-													src="/media/images/colorswatch/color-red.webp" alt=""></span><span
-												class="colorname">قرمز (87)</span></a>
-									</li>
-									<li><a href="javascript:void(0)" data-tooltip="Pink" title="Pink"><span
-												class="value"><img src="/media/images/colorswatch/color-pink.webp"
-													alt=""></span><span class="colorname">صورتی (95)</span></a>
-									</li>
-									<li><a href="javascript:void(0)" data-tooltip="Violet" title="Violet"><span
-												class="value"><img src="/media/images/colorswatch/color-violet.webp"
-													alt=""></span><span class="colorname">بنفش (18)</span></a>
-									</li>
-									<li><a href="javascript:void(0)" data-tooltip="Blue" title="Blue"><span
-												class="value"><img src="/media/images/colorswatch/color-blue.webp"
-													alt=""></span><span class="colorname">آبی (78)</span></a>
-									</li>
-									<li><a href="javascript:void(0)" data-tooltip="Marine" title="Marine"><span
-												class="value"><img src="/media/images/colorswatch/color-marine.webp"
-													alt=""></span><span class="colorname">فیروزه ای
-												(45)</span></a>
-									</li>
-									<li><a href="javascript:void(0)" data-tooltip="Orange" title="Orange"><span
-												class="value"><img src="/media/images/colorswatch/color-orange.webp"
-													alt=""></span><span class="colorname">نارنجی (96)</span></a>
-									</li>
-									<li><a href="javascript:void(0)" data-tooltip="Yellow" title="Yellow"><span
-												class="value"><img src="/media/images/colorswatch/color-yellow.webp"
-													alt=""></span><span class="colorname">زرد (55)</span></a>
-									</li>
-									<li><a href="javascript:void(0)" data-tooltip="Dark Yellow"
-											title="Dark Yellow"><span class="value"><img
-													src="/media/images/colorswatch/color-darkyellow.webp"
-													alt=""></span><span class="colorname">زرد تیره
-												(2)</span></a>
-									</li>
-									<li><a href="javascript:void(0)" data-tooltip="Black" title="Black"><span
-												class="value"><img src="/media/images/colorswatch/color-black.webp"
-													alt=""></span><span class="colorname">مشکی (15)</span></a>
-									</li>
-									<li><a href="javascript:void(0)" data-tooltip="White" title="White"><span
-												class="value"><img src="/media/images/colorswatch/color-white.webp"
-													alt=""></span><span class="colorname">سفید (58)</span></a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="sidebar-block filter-group-block collapsed">
-							<div class="sidebar-block_title">
-								<span>سایز</span>
-								<span class="toggle-arrow"><span></span><span></span></span>
-							</div>
-							<div class="sidebar-block_content">
-								<ul class="category-list two-column size-list"
-									data-sort='["XXS","XS","S","M","L","XL","XXL","XXXL"]'>
-									<li data-value="L" class="active"><a href="#">L</a>
-									</li>
-									<li data-value="XL"><a href="javascript:void(0)">XL</a></li>
-									<li data-value="XXS"><a href="javascript:void(0)">XXS</a></li>
-									<li data-value="XS"><a href="javascript:void(0)">XS</a></li>
-									<li data-value="S"><a href="javascript:void(0)">S</a></li>
-									<li data-value="XXL"><a href="javascript:void(0)">XXL</a></li>
-									<li data-value="XXXL"><a href="javascript:void(0)">XXXL</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="sidebar-block filter-group-block collapsed">
-							<div class="sidebar-block_title">
-								<span>برند ها</span>
-								<span class="toggle-arrow"><span></span><span></span></span>
-							</div>
-							<div class="sidebar-block_content">
-								<ul class="category-list">
-									<li><a href="javascript:void(0)">آدیداس</a></li>
-									<li><a href="javascript:void(0)">نایکی</a></li>
-									<li class="active"><a href="javascript:void(0)">ریبوک</a></li>
-									<li><a href="javascript:void(0)">رالف لائورن</a>
-									</li>
-									<li><a href="javascript:void(0)">دلپوزو</a></li>
+									{% endif %}
+
+									{% endfor %}
+
 								</ul>
 							</div>
 						</div>
@@ -268,17 +168,77 @@
 								<span class="toggle-arrow"><span></span><span></span></span>
 							</div>
 							<div class="sidebar-block_content">
+								<div class="form-group">
+									<input type="text" id="minPrice" class="form-control" placeholder="حداقل قیمت">
+								</div>
+								<div class="form-group">
+									<input type="text" id="maxPrice" class="form-control" placeholder="حداکتر قیمت">
+								</div>
+								<div class="form-group">
+									<button type="button" class="btn priceSubmit">
+										اعمال
+									</button>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="sidebar-block filter-group-block collapsed">
+							<div class="sidebar-block_title">
+								<span>سایز</span>
+								<span class="toggle-arrow"><span></span><span></span></span>
+							</div>
+							<div class="sidebar-block_content">
+								<select name="size" id="Size">
+									<option value="16">16</option>
+									<option value="17">17</option>
+									<option value="18">18</option>
+									<option value="19">19</option>
+									<option value="20">20</option>
+									<option value="21">21</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">24</option>
+									<option value="25">25</option>
+									<option value="26">26</option>
+									<option value="27">27</option>
+									<option value="28">28</option>
+									<option value="29">29</option>
+									<option value="30">30</option>
+									<option value="31">31</option>
+									<option value="32">32</option>
+									<option value="33">33</option>
+									<option value="34">34</option>
+									<option value="35">35</option>
+									<option value="36">36</option>
+									<option value="37">37</option>
+									<option value="38">38</option>
+									<option value="39">39</option>
+									<option value="40">40</option>
+								</select>
+							</div>
+						</div>
+
+						{% for item in Dynamics %}
+
+						<div class="sidebar-block filter-group-block collapsed">
+							<div class="sidebar-block_title">
+								<span>{{item.Title}}</span>
+								<span class="toggle-arrow"><span></span><span></span></span>
+							</div>
+							<div class="sidebar-block_content">
 								<ul class="category-list">
-									<li><a href="javascript:void(0)">100-200 هزار
-											تومان</a></li>
-									<li class="active"><a href="javascript:void(0)">کمتر
-											از 200 هزار
-											تومان</a></li>
-									<li><a href="javascript:void(0)">کمتر از 100 هزار
-											تومان</a></li>
+
+									{% for v in item.Vals %}
+									<li><a href="javascript:void(0)"
+											onclick="insertParam('{{item.Title}}','{{v}}')">{{v}}</a></li>
+									{% endfor %}
 								</ul>
 							</div>
 						</div>
+						{% endfor %}
+
+
 						<div class="sidebar-block filter-group-block collapsed">
 							<div class="sidebar-block_title">
 								<span>برچسب های محبوب</span>
@@ -286,13 +246,31 @@
 							</div>
 							<div class="sidebar-block_content">
 								<ul class="tags-list">
-									<li class="active"><a href="javascript:void(0)">جین</a></li>
-									<li><a href="javascript:void(0)">هدیه ولنتاین</a>
+
+									{% for tg in tags %}
+									<li>
+										<a href="javascript:void(0)"
+											onclick="insertParam('tag','{{tg.value}}')">{{tg.value}}</a>
 									</li>
-									<li><a href="javascript:void(0)">عینک آفتابی</a>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+						<div class="sidebar-block filter-group-block collapsed">
+							<div class="sidebar-block_title">
+								<span>سایر</span>
+								<span class="toggle-arrow"><span></span><span></span></span>
+							</div>
+							<div class="sidebar-block_content">
+								<ul class="tags-list">
+									<li>
+										<a href="javascript:void(0)" onclick="insertParam('discount',true)">فقط
+											تخفیف دار ها</a>
 									</li>
-									<li><a href="javascript:void(0)">تخفیف</a></li>
-									<li><a href="javascript:void(0)">لباس مکسی</a></li>
+									<li>
+										<a href="javascript:void(0)" onclick="insertParam('exist',true)">فقط
+											کالاهای موجود</a>
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -321,15 +299,16 @@
 					<div class="prd-grid-wrap">
 						<div class="prd-grid product-listing data-to-show-3 data-to-show-md-3 data-to-show-sm-2 js-category-grid SearchResult"
 							data-grid-tab-content>
-							8
+
 						</div>
+
 						<div class="loader-horizontal-sm js-loader-horizontal-sm d-none" data-loader-horizontal
 							style="opacity: 0;"><span></span>
 						</div>
 						<div class="circle-loader-wrap">
 							<div class="circle-loader">
-								<a href="ajax/ajax-product-category.json" data-total="30" data-loaded="12" data-load="6"
-									class="lazyload js-circle-loader">
+								<a href="javascript:void(0)" data-total="30" data-loaded="30" data-load="6"
+									class="lazyload js-circle-loader" id="MoreProd">
 									<svg id="svg_d" version="1.1" xmlns="http://www.w3.org/2000/svg">
 										<circle cx="50%" cy="50%" r="63" fill="transparent"></circle>
 										<circle class="js-circle-bar" cx="50%" cy="50%" r="63" fill="transparent">

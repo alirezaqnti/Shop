@@ -10,8 +10,6 @@ from Products.models import ProductImage
 def create_Shortener(sender, instance, created, *args, **kwargs):
     if created:
         short = pyshorteners.Shortener()
-        print(short)
-        print(instance.Real)
         instance.Short = short.tinyurl.short(instance.Real)
         instance.save()
 

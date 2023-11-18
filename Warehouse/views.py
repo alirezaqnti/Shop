@@ -57,15 +57,12 @@ class AddToCart(APIView):
             Quan = 1
         RPVS = request.data.get("RPVS", RPVS)
         Quantity = int(request.data.get("Quantity", Quan))
-        print("RPVS:", RPVS)
-        print("Quantity:", Quantity)
         stat = 500
         if not RPVS:
             stat = 500
         else:
             with transaction.atomic():
                 var = VarietySub.objects.get(RPVS=RPVS)
-                print("VAR:", var)
                 user = getActiveUser(request)
                 if user == "":
                     stat = 301
@@ -92,10 +89,6 @@ class AddToCart(APIView):
                         item.Amount = Price
                         if var.OffPrice > 0:
                             item.discount = var.OffPrice
-                        print("Fee:", item.Fee)
-                        print("Offless:", item.Offless)
-                        print("Amount:", item.Amount)
-                        print("discount:", item.discount)
                         item.save()
                         NewPRo(item)
                         cache.delete("cart")
@@ -119,13 +112,11 @@ class RemoveFromCart(APIView):
     def post(self, request, *args, **kwargs):
         user = getActiveUser(request)
         cart = getCart(request)
-        print(request.POST.get("RCP"))
         try:
             kw = kwargs["kwargs"]
         except:
             kw = False
         RCP = request.POST.get("RCP", kw)
-        print("RCP:", RCP)
         var = CartProduct.objects.get(RCP=RCP)
         cart = var.Cart
         stat = 304
@@ -157,7 +148,6 @@ class GetCart(APIView):
         except:
             pass
         context = getCart(request)
-        print(context)
         RC = context["RC"]
         cr = Cart.objects.filter(RC=RC).prefetch_related("shipping_cart")
         try:
@@ -178,7 +168,6 @@ class AddToWishlist(APIView):
         user = getActiveUser(request)
         if user != "":
             RPVS = request.POST.get("RPVS")
-            print(RPVS)
             var = VarietySub.objects.get(RPVS=RPVS)
             stat = 200
             try:
@@ -195,7 +184,6 @@ class AddToWishlist(APIView):
 class RemoveFromWishlist(APIView):
     def post(self, request, *args, **kwargs):
         RW = request.POST.get("RW")
-        print(RW)
         WishList.objects.get(RW=RW).delete()
         stat = 305
         context = {"stat": stat}
@@ -231,7 +219,6 @@ def zarintest(request):
     mobile = "09177831766"
     description = "پرداخت نوبت"
     client = GetClient()
-    print("Cilent:", client)
     logger.info("Cilent:", client)
     result = client.service.PaymentRequest(MERCHANT, 5000, description, email, mobile, CallbackURL)
     logger.info("RES:", result)
@@ -247,7 +234,6 @@ def zarintest(request):
 class CartPaymentView(APIView):
     def get(self, request, *args, **kwargs):
         data = cache.get("PaymentData")
-        print(data)
         RC = data["RC"]
         PW = data["Way"]
         Cr = (
@@ -369,8 +355,6 @@ www.mohsenvafaienejad.com
 def PostPaymentView(request, RC):
     Cr = Cart.objects.filter(RC=RC).prefetch_related("cartproduct_cart", "shipping_cart").first()
     Pay = CartPayment.objects.get(Cart=Cr)
-    print("STATUS:", Pay.Status)
-    print("STATUS:", True if Pay.Status in ["100", "101"] else False)
     if Pay.Status in ["100", "101"]:
         return render(request, "Main/PaymentSuccess.html", {"Cart": Cr, "Payment": Pay})
     else:
@@ -485,7 +469,6 @@ class UnattachCoupon(APIView):
         Cou = Coupon.objects.get(Code=Cr.VoucherCode)
         Couser = CouponUser.objects.get(User=User, Coupon=Cou)
         Check = False
-        print("Cou.Type:", Cou.Type)
         if Cou.Type == "1":
             CPs = Cr.cartproduct_cart.filter(Vouchered=True)
             for item in CPs:

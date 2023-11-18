@@ -380,7 +380,7 @@ cat = (id, level) => {
 				  ${element.id}
 				  '
 								href="javascript:void(0)"
-								onclick="insertParam('cat','
+								onclick="insertParam('دسته بندی','
 				  ${element.slug}
 				  ')">
 				  ${element.name}
@@ -397,7 +397,7 @@ cat = (id, level) => {
 						const slide = `<li>
 							  <a  title="همه موارد این دسته"
 								href="javascript:void(0)"
-								onclick="insertParam('cat','${slug}')">
+								onclick="insertParam('دسته بندی','${slug}')">
 								همه موارد این دسته
 								</a>
 							</li>`;
@@ -406,7 +406,7 @@ cat = (id, level) => {
 						const slide = `<li>
 							  <a  title="همه موارد این دسته"
 								href="javascript:void(0)"
-								onclick="insertParam('cat','${slug}')"
+								onclick="insertParam('دسته بندی','${slug}')"
 	  
 								>همه موارد این دسته</a
 							  >
@@ -421,7 +421,7 @@ cat = (id, level) => {
 							  <a  title="${element.name}"
 							  id='${element.id}'
 								href="javascript:void(0)"
-								onclick="insertParam('cat','${element.slug}')">
+								onclick="insertParam('دسته بندی','${element.slug}')">
 					${element.name}
 				  </a>
 							  <div class="toggle-category js-toggle-category">
@@ -436,7 +436,7 @@ cat = (id, level) => {
 						const slide = `<li>
 							  <a  title="همه موارد این دسته"
 								href="javascript:void(0)"
-								onclick="insertParam('cat','${slug}')">
+								onclick="insertParam('دسته بندی','${slug}')">
 								همه موارد این دسته
 								</a>
 							</li>`;
@@ -445,7 +445,7 @@ cat = (id, level) => {
 						const slide = `<li>
 							  <a  title="همه موارد این دسته"
 								href="javascript:void(0)"
-								onclick="insertParam('cat','${slug}')">
+								onclick="insertParam('دسته بندی','${slug}')">
 								همه موارد این دسته
 								</a>
 							</li>`;
@@ -459,7 +459,7 @@ cat = (id, level) => {
 							  <a  title="${element.name}"
 							  id='${element.id}'
 								href="javascript:void(0)"
-								onclick="insertParam('cat','${element.slug}')"
+								onclick="insertParam('دسته بندی','${element.slug}')"
 								>
 								${element.name}
 				  </a>
@@ -472,7 +472,7 @@ cat = (id, level) => {
 						const slide = `<li>
 							  <a  title="همه موارد این دسته"
 								href="javascript:void(0)"
-								onclick="insertParam('cat','${slug}')"
+								onclick="insertParam('دسته بندی','${slug}')"
 								>
 								همه موارد این دسته
 								</a>
@@ -482,7 +482,7 @@ cat = (id, level) => {
 						const slide = `<li>
 							  <a  title="همه موارد این دسته"
 								href="javascript:void(0)"
-								onclick="insertParam('cat','${slug}')"
+								onclick="insertParam('دسته بندی','${slug}')"
 								>همه موارد این دسته</a>
 							</li>`;
 						$('#ul3_' + id).append(slide);

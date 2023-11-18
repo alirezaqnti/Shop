@@ -29,11 +29,9 @@ class GetPosts(ListAPIView):
         kwargs = self.request.GET
         txt = kwargs.get("txt")
         tag = kwargs.get("tag")
-        print("PS:", PS)
 
         if txt:
             PS = PS.filter(Q(Title__contains=txt) | Q(Text__contains=txt))
-        print("PS:", PS)
 
         return PS
 
@@ -50,9 +48,7 @@ class PostDetail(TemplateView):
             .first()
         )
         Nx = Post.objects.filter(Created_At__gte=Ps.Created_At).exclude(Slug=slug).first()
-        print(Nx)
         Pv = Post.objects.filter(Created_At__lte=Ps.Created_At).exclude(Slug=slug).first()
-        print(Pv)
         Lt = Post.objects.filter(Active=True).exclude(Slug=slug).order_by("-Created_At")[:3]
         context["Post"] = Ps
         context["Late"] = Lt
@@ -71,7 +67,6 @@ class PostDetail(TemplateView):
         Cm.Rate = request.POST["Rate"]
         Cm.save()
         avg = PostComment.objects.aggregate(Avg("Rate"))
-        print("AVG:", avg["Rate__avg"])
         Ps.Rate = avg["Rate__avg"]
         Ps.save()
         return redirect("PostDetail", slug)

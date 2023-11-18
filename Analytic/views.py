@@ -11,8 +11,6 @@ from .models import Visit
 def DateDiffrence(Date):
     Now = datetime.datetime.now()
     Date = Date.replace(tzinfo=None)
-    print(Date)
-    print(Now)
     return (Now - Date).days
 
 

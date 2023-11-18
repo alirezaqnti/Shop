@@ -8,7 +8,6 @@ class IsUserLoggedIn(AccessMixin):
     def dispatch(self, request, *args, **kwargs):
         super().dispatch(request, *args, **kwargs)
         try:
-            print('USER:: ',request.session["User_id"])
             return super().dispatch(request, *args, **kwargs)
         except:
             return JsonResponse({"stat": 301})

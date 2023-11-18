@@ -107,7 +107,6 @@ def getCart(request, *args, **kwargs):
         cache.set("cart", context, timeout=CACHE_TTL)
     else:
         context = cache.get("cart")
-    print(context)
     return context
 
 
