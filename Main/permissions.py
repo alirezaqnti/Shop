@@ -2,12 +2,15 @@ from django.contrib.auth.mixins import AccessMixin
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.shortcuts import redirect
+from Main.context_processors import getActiveUser
 
 
 class IsUserLoggedIn(AccessMixin):
     def dispatch(self, request, *args, **kwargs):
-        super().dispatch(request, *args, **kwargs)
-        try:
+        usr = getActiveUser(request)
+        if usr != "":
             return super().dispatch(request, *args, **kwargs)
-        except:
-            return JsonResponse({"stat": 301})
+        else:
+            return JsonResponse(
+                {"stat": 500, "report": "ابتدا وارد حساب کاربری خود شوید"}
+            )

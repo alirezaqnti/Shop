@@ -116,7 +116,6 @@ AddToCart = function (RPV, e) {
 	let url = `${loc.origin}/warehouse/addtocart/`;
 	AjaxReq(data, url, AddedToCart);
 };
-
 AddedToCart = function () {
 	let text = 'محصول به سبد خرید شما اضافه شد';
 	$('.toast-success .toast-body').html(text);
@@ -136,7 +135,6 @@ CartUpdate = async function () {
 		},
 	});
 	let info = await res.json();
-	console.log(info);
 	$('#dropdnMinicart .Cart-TotalPrice').html(
 		`${getThousands(info.TotalPrice)} ریال`
 	);
@@ -210,7 +208,7 @@ CartUpdate = async function () {
 			`;
 		}
 		$('#ModalCartProducts').append(`
-		<div class="minicart-prd row">
+		<div class="minicart-prd row cart-item" data-rcp='${element.RCP}'>
 			<div class="minicart-prd-image image-hover-scale-circle col">
 				<a href="/products/${element.RPVS}">
 				<img class="lazyload fade-up"
@@ -235,7 +233,7 @@ CartUpdate = async function () {
 	`);
 
 		$('#CartTable').append(`
-		<div class="cart-table-prd">
+		<div class="cart-table-prd cart-item" data-rcp='${element.RCP}'>
 			<div class="cart-table-prd-image">
 				<a href="/products/${
 					element.RPVS
@@ -273,6 +271,45 @@ CartUpdate = async function () {
 		`);
 	}
 };
+CartCheckRequired = async function () {
+	let res = await fetch(`${loc.origin}/warehouse/cartcheck/`, {
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+		},
+	});
+	let info = await res.json();
+	let CPs = info.CPs;
+	if (CPs.length > 0) {
+		for (let i = 0; i < CPs.length; i++) {
+			const element = CPs[i];
+			$(`.cart-item[data-rcp="${element}"]`).addClass('cart-failed');
+		}
+		let p = await fetch(`${loc.origin}/warehouse/refresh-cart/`, {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ RCPs: CPs }),
+		});
+		Warning(
+			'موجودی تعدادی از محصولات موحود در سبد شما از تعداد درخواستی کمتر شده است و به طور خودکار از سبد شما حدف خواهد شد.'
+		);
+		setTimeout(() => CartUpdate(), 5000);
+		return false;
+	} else {
+		return true;
+	}
+};
+$('.CheckOutPage').click(async function (e) {
+	e.preventDefault();
+	let CCR = await CartCheckRequired();
+	if (CCR === true) {
+		loc.href = '/checkout/';
+	}
+});
 $('#catMenu-tabContent').on('click', '.nav-link', function () {
 	let target = $(this).attr('data-target');
 	$(`#${target}`).tab('show');
@@ -523,7 +560,6 @@ $('.SearchInput').on('keyup', async function () {
 		body: JSON.stringify({ Txt: val }),
 	});
 	let info = await res.json();
-	console.log(info);
 	let Products = info.Products;
 	let Cats = info.Cats;
 	$('.Prd_result .search-carousel').slick('removeSlide', null, null, true);
@@ -666,6 +702,7 @@ $('.FastLoginPass').click(() => {
 	data.Type = 'Pass';
 	url = '/users/login/';
 	if (CheckRequired(form)) {
+		$.cookie('ref', window.location.href);
 		const res = AjaxReq(data, url, userLoggedIN);
 	}
 });
@@ -721,7 +758,7 @@ $('.FastLoginCode').click(() => {
 userLoggedIN = function () {
 	$('.toast-success .toast-body').html('با موفقیت وارد شدید');
 	$('.toast-success').toast('show');
-	setTimeout(() => (window.location.href = loc.origin), 3000);
+	setTimeout(() => (window.location.href = $.cookie('ref')), 3000);
 };
 var timerid = 0;
 var count = 120;

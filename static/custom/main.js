@@ -106,6 +106,8 @@ AjaxReq = (data, url, func) => {
 				Failed(res.report);
 			} else if (res.stat == 202) {
 				Failed((text = 'قبلا اضافه شده است'));
+			} else if (res.stat == 203) {
+				CartCheckRequired();
 			} else if (res.stat == 300) {
 				RedirectToRefferer();
 			} else if (res.stat == 301) {

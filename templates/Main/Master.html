@@ -24,6 +24,46 @@
 </head>
 
 <body class="template-collection has-smround-btns has-loader-bg equal-height has-sm-container">
+
+	<div style="position: absolute; top: 0; right: 22px;left: 22px;z-index: 9999;">
+		<div class="toast toast-success fade hide" role="alert" data-delay="6000" aria-live="assertive"
+			aria-atomic="true">
+			<div class="toast-header">
+				<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="toast-body">
+				تغییرات با موفقیت ثبت شد
+			</div>
+		</div>
+	</div>
+	<div style="position: absolute; top: 0; right: 22px;left: 22px;z-index: 9999;">
+		<div class="toast toast-danger fade hide" role="alert" data-delay="6000" aria-live="assertive"
+			aria-atomic="true">
+			<div class="toast-header">
+				<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="toast-body">
+				تغییرات با موفقیت ثبت شد
+			</div>
+		</div>
+	</div>
+	<div style="position: absolute; top: 0; right: 22px;left: 22px;z-index: 9999;">
+		<div class="toast toast-dark fade hide" role="alert" data-delay="6000" aria-live="assertive" aria-atomic="true">
+			<div class="toast-header">
+				<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="toast-body">
+				تغییرات با موفقیت ثبت شد
+			</div>
+		</div>
+	</div>
+
 	<header class="hdr-wrap">
 		<div class="hdr-content hdr-content-sticky">
 			<div class="container">
@@ -47,7 +87,8 @@
 											class="icon-search"></i><span class="dropdn-link-txt">جستجو</span></a>
 									<div class="dropdn-content">
 										<div class="container">
-											<form method="get" action="#" class="search search-off-popular">
+											<form method="get" action="/products/results/"
+												class="search search-off-popular">
 												<input name="search" type="text"
 													class="search-input input-empty SearchInput"
 													placeholder=" دنبال چه چیزی میگردید؟">
@@ -661,7 +702,7 @@
 													<li><a href="category-empty.html">دسته بندی خالی</a></li>
 												</ul>
 											</li>
-											<li><a href="{% url 'CartView' %}">سبد خرید و پرداخت</a>
+											<li><a href="javascript:void(0)">سبد خرید و پرداخت</a>
 												<ul>
 													<li><a href="{% url 'CartView' %}">صفحه سبد خرید</a></li>
 													<li><a href="cart-style-2.html">صفحه سبد خرید نوع 2</a></li>
@@ -798,7 +839,8 @@
 										</a>
 										<div class="dropdn-content">
 											<div class="container">
-												<form method="get" action="#" class="search search-off-popular">
+												<form method="get" action="/products/results/"
+													class="search search-off-popular">
 													<input name="search" type="text"
 														class="search-input input-empty SearchInput"
 														placeholder="دنبال چه چیزی میگردید؟">
@@ -1630,7 +1672,7 @@
 						<a href="{% url 'CartView' %}" class="btn btn--md btn--grey"><i
 								class="icon-basket"></i><span>سبد
 								خرید</span></a>
-						<a href="{% url 'CheckoutView' %}" class="btn btn--md"><i
+						<a href="javascript:void(0)" class="btn btn--md CheckOutPage"><i
 								class="icon-checkout"></i><span>پرداخت</span></a>
 					</div>
 
@@ -1649,7 +1691,7 @@
 						<a href="{% url 'CartView' %}" class="btn btn--md btn--grey"><i
 								class="icon-basket"></i><span>سبد
 								خرید</span></a>
-						<a href="{% url 'CheckoutView' %}" class="btn btn--md"><i
+						<a href="javascript:void(0)" class="btn btn--md CheckOutPage"><i
 								class="icon-checkout"></i><span>پرداخت</span></a>
 					</div>
 
@@ -1800,7 +1842,7 @@
 					<div class="col-auto popup-addedtocart_actions">
 						<span>شما می توانید ادامه دهید به</span> <a href="#" class="btn btn--grey btn--sm js-open-drop"
 							data-panel="#dropdnMinicart"><i class="icon-basket"></i><span>خرید</span></a>
-						<span>یا</span> <a href="{% url 'CheckoutView' %}" class="btn btn--invert btn--sm"><i
+						<span>یا</span> <a href="javascript:void(0)" class="btn btn--invert btn--sm CheckOutPage"><i
 								class="icon-envelope-1"></i><span>پرداخت</span></a>
 					</div>
 				</div>

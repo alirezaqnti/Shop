@@ -58,7 +58,9 @@ class CodeReg(models.Model):
     Phone = models.CharField(_("شماره همراه"), max_length=50)
     Email = models.CharField(_("ایمیل"), max_length=50)
     Active = models.BooleanField(_("وضعیت"), default=True)
-    Created_At = models.DateTimeField(_("تاریخ ایجاد"), auto_now=False, default=timezone.now)
+    Created_At = models.DateTimeField(
+        _("تاریخ ایجاد"), auto_now=False, default=timezone.now
+    )
 
     class Meta:
         verbose_name_plural = _("CodeRegs")
@@ -79,8 +81,12 @@ class Slider(models.Model):
         (Link, "تصویر با لینک"),
     ]
 
-    RS = models.CharField(max_length=50, blank=True, null=True, default=get_random_string)
-    Type = models.CharField(_("نوع"), max_length=50, default=Image, choices=TYPE_CHOICES)
+    RS = models.CharField(
+        max_length=50, blank=True, null=True, default=get_random_string
+    )
+    Type = models.CharField(
+        _("نوع"), max_length=50, default=Image, choices=TYPE_CHOICES
+    )
     Image_H = models.ImageField(_("تصویر افقی"), upload_to="Slider/", max_length=100)
     Image_V = models.ImageField(_("تصویر عمودی"), upload_to="Slider/", max_length=100)
     Url = models.URLField(_("لینک"), max_length=250, blank=True, null=True)
@@ -105,7 +111,11 @@ class TwinBox(models.Model):
 
 class BigSellBox(models.Model):
     Variety = models.ForeignKey(
-        VarietySub, verbose_name=_("تنوع محصول"), on_delete=models.CASCADE, blank=True, null=True
+        VarietySub,
+        verbose_name=_("تنوع محصول"),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
     Image = models.ImageField(_("تصویر"), upload_to="BigSellBox/", max_length=100)
     Text = models.CharField(_("متن"), max_length=200)
@@ -121,7 +131,11 @@ class BigSellBox(models.Model):
 
 class DiscountBox(models.Model):
     Variety = models.ForeignKey(
-        VarietySub, verbose_name=_("تنوع محصول"), on_delete=models.CASCADE, blank=True, null=True
+        VarietySub,
+        verbose_name=_("تنوع محصول"),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
     Time = models.DateTimeField(_("زمان"), auto_now=False, default=timezone.now)
     Text = models.CharField(_("متن"), max_length=200)
@@ -137,7 +151,11 @@ class DiscountBox(models.Model):
 
 class OfferBox(models.Model):
     Variety = models.ForeignKey(
-        VarietySub, verbose_name=_("تنوع محصول"), on_delete=models.CASCADE, blank=True, null=True
+        VarietySub,
+        verbose_name=_("تنوع محصول"),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
     Time = models.DateTimeField(_("زمان"), auto_now=False, default=timezone.now)
     Text = models.CharField(_("متن"), max_length=200)
@@ -180,7 +198,9 @@ class ContactUs(models.Model):
 
 
 class QuickOffer(models.Model):
-    Variety = models.ForeignKey(VarietySub, verbose_name=_("تنوع محصول"), on_delete=models.CASCADE)
+    Variety = models.ForeignKey(
+        VarietySub, verbose_name=_("تنوع محصول"), on_delete=models.CASCADE
+    )
     Image = models.ImageField(
         _("تصویر"), upload_to="QuickOffer/", max_length=100, blank=True, null=True
     )
@@ -214,7 +234,9 @@ class Staff(models.Model):
     slug = models.SlugField(unique=True, blank=True, null=True)
     Email = models.EmailField(_("ایمیل"), max_length=254)
     Phone = models.CharField(_("شماره تماس"), max_length=13)
-    Gender = models.IntegerField(_("جنسیت"), default=GenderType.Female, choices=GenderType.choices)
+    Gender = models.IntegerField(
+        _("جنسیت"), default=GenderType.Female, choices=GenderType.choices
+    )
     Password = models.CharField(_("رمز عبور"), max_length=250, blank=True, null=True)
     key = models.BinaryField(blank=True, null=True, max_length=200)
     Name = models.CharField(_("نام"), max_length=100)
@@ -230,3 +252,40 @@ class Staff(models.Model):
 
     def __str__(self):
         return self.Name
+
+
+class Address(models.Model):  # جدول مربوط به ادرس های کاربر
+    Title = models.CharField(_("عنوان آدرس"), max_length=100)  # عنوان آدرس
+    Name = models.CharField(_("نام"), max_length=100)  # نام گیرنده
+    Phone = models.CharField(_("شماره همراه"), max_length=11)  # شماره تلفن گیرنده
+    State = models.ForeignKey(
+        City,
+        verbose_name=_("استان"),
+        related_name="state_city",
+        on_delete=models.CASCADE,
+    )  # استان
+    City = models.ForeignKey(
+        City, verbose_name=_("شهر"), related_name="city_city", on_delete=models.CASCADE
+    )  # شهر
+    PostalAddress = models.CharField(_("آدرس پستی"), max_length=500)  # ادرس پستی
+    PostalCode = models.CharField(_("کد پستی"), max_length=10)  # کد پستی
+    Number = models.CharField(_("پلاک"), max_length=4)  # پلاک
+    Unit = models.CharField(_("واحد"), max_length=5, blank=True)  # واحد
+    Active = models.BooleanField(_("فعال"), default=True)
+
+    class Meta:
+        verbose_name_plural = "آدرس"
+
+    def toJson(self):
+        return {
+            "addressTitle": self.Title,
+            "Name": self.Name,
+            "Phone": self.Phone,
+            "State": self.State,
+            "City": self.City,
+            "PostalAddress": self.PostalAddress,
+            "PostalCode": self.PostalCode,
+            "Number": self.Number,
+            "Unit": self.Unit,
+            "Active": self.Active,
+        }

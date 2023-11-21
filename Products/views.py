@@ -164,7 +164,9 @@ class GetSimilarToPreview(ListAPIView):
         pr = self.kwargs["slug"]
         Pr = Product.objects.get(Slug=pr)
         res = Product.objects.filter(
-            Category__in=Category.objects.get(pk=Pr.Category.pk).get_descendants(include_self=True)
+            Category__in=Category.objects.get(pk=Pr.Category.pk).get_descendants(
+                include_self=True
+            )
         ).exclude(pk=Pr.pk)
         return res
 
@@ -186,9 +188,9 @@ class GetProductVarieties(APIView):
             res.append(Si.first().toJson())
         for item in Pr:
             for Var in item.variety_product.all():
-                VarietySubs = VarietySub.objects.filter(Variety=Var, Active=True).exclude(
-                    Quantity=0
-                )
+                VarietySubs = VarietySub.objects.filter(
+                    Variety=Var, Active=True
+                ).exclude(Quantity=0)
                 for size in VarietySubs:
                     res.append(size.toJson())
         return Response({"Products": res})
@@ -238,9 +240,9 @@ class GetSearchResult(ListAPIView):
             print("Fils:", Fils)
             arr = []
             for item in Fils:
-                F = Filters.objects.filter(Name=item[0], Category__pk=cat).prefetch_related(
-                    "val_filter"
-                )
+                F = Filters.objects.filter(
+                    Name=item[0], Category__pk=cat
+                ).prefetch_related("val_filter")
                 for fi in F:
                     vals = fi.val_filter.filter(Title=item[1])
                     for v in vals:
@@ -362,7 +364,9 @@ class GetSearchResult(ListAPIView):
                 if not item in arr:
                     arr.append(item)
             else:
-                vrs = Variety.objects.filter(Product=item, Active=True, Status=ProductStat.valid)
+                vrs = Variety.objects.filter(
+                    Product=item, Active=True, Status=ProductStat.valid
+                )
                 for vr in vrs:
                     sizes = VarietySub.objects.filter(Variety=vr).order_by("Size")
                     for size in sizes:
@@ -380,7 +384,9 @@ class GetSearchResult(ListAPIView):
     def existancFilter(self, list):
         arr = []
         for item in list:
-            vrs = Variety.objects.filter(Product=item, Active=True, Status=ProductStat.valid)
+            vrs = Variety.objects.filter(
+                Product=item, Active=True, Status=ProductStat.valid
+            )
             for vr in vrs:
                 sizes = VarietySub.objects.filter(Variety=vr).order_by("Size")
                 for size in sizes:
@@ -399,7 +405,9 @@ class GetSearchResult(ListAPIView):
         arr = []
         colors = colors.split(",")
         for item in list:
-            vrs = Variety.objects.filter(Product=item, Active=True, Status=ProductStat.valid)
+            vrs = Variety.objects.filter(
+                Product=item, Active=True, Status=ProductStat.valid
+            )
             for vr in vrs:
                 for cl in colors:
                     if cl == vr.ColorCode:
@@ -417,7 +425,9 @@ class GetSearchResult(ListAPIView):
         arr = []
         si = si.split(",")
         for item in list:
-            vrs = Variety.objects.filter(Product=item, Active=True, Status=ProductStat.valid)
+            vrs = Variety.objects.filter(
+                Product=item, Active=True, Status=ProductStat.valid
+            )
             for vr in vrs:
                 sizes = VarietySub.objects.filter(Variety=vr).order_by("Size")
                 for size in sizes:
@@ -436,7 +446,9 @@ class GetSearchResult(ListAPIView):
         arr = []
         types = types.split(",")
         for item in list:
-            vrs = Variety.objects.filter(Product=item, Active=True, Status=ProductStat.valid)
+            vrs = Variety.objects.filter(
+                Product=item, Active=True, Status=ProductStat.valid
+            )
             for vr in vrs:
                 try:
                     if vr.Type.Name in types:
@@ -457,7 +469,9 @@ class GetSearchResult(ListAPIView):
         Usages = Usages.split(",")
 
         for item in list:
-            vrs = Variety.objects.filter(Product=item, Active=True, Status=ProductStat.valid)
+            vrs = Variety.objects.filter(
+                Product=item, Active=True, Status=ProductStat.valid
+            )
             for vr in vrs:
                 try:
                     if vr.Usage.Name in Usages:
@@ -477,7 +491,9 @@ class GetSearchResult(ListAPIView):
         heels = heels.split(",")
         arr = []
         for item in list:
-            vrs = Variety.objects.filter(Product=item, Active=True, Status=ProductStat.valid)
+            vrs = Variety.objects.filter(
+                Product=item, Active=True, Status=ProductStat.valid
+            )
             for vr in vrs:
                 try:
                     if vr.Heel.Name in heels:
@@ -498,7 +514,9 @@ class GetSearchResult(ListAPIView):
         ties = ties.split(",")
 
         for item in list:
-            vrs = Variety.objects.filter(Product=item, Active=True, Status=ProductStat.valid)
+            vrs = Variety.objects.filter(
+                Product=item, Active=True, Status=ProductStat.valid
+            )
             for vr in vrs:
                 try:
                     if vr.Tie.Name in ties:
@@ -518,7 +536,9 @@ class GetSearchResult(ListAPIView):
         hands = hands.split(",")
         arr = []
         for item in list:
-            vrs = Variety.objects.filter(Product=item, Active=True, Status=ProductStat.valid)
+            vrs = Variety.objects.filter(
+                Product=item, Active=True, Status=ProductStat.valid
+            )
             for vr in vrs:
                 try:
                     if vr.Handle.Name in hands:
@@ -538,7 +558,9 @@ class GetSearchResult(ListAPIView):
         forms = forms.split(",")
         arr = []
         for item in list:
-            vrs = Variety.objects.filter(Product=item, Active=True, Status=ProductStat.valid)
+            vrs = Variety.objects.filter(
+                Product=item, Active=True, Status=ProductStat.valid
+            )
             for vr in vrs:
                 try:
                     if vr.Form.Name in forms:
@@ -558,7 +580,9 @@ class GetSearchResult(ListAPIView):
         mat = mat.split(",")
         arr = []
         for item in list:
-            vrs = Variety.objects.filter(Product=item, Active=True, Status=ProductStat.valid)
+            vrs = Variety.objects.filter(
+                Product=item, Active=True, Status=ProductStat.valid
+            )
             for vr in vrs:
                 try:
                     if vr.Material.Name in mat:
@@ -604,14 +628,34 @@ class SearchView(TemplateView):
             keys.append(i)
         for i in keys:
             if i != "limit" and i != "دسته بندی":
-                Filter.append({"key": i, "value": kw[i]})
+                key = i
+                value = kw[i]
+                if i == "size":
+                    key = "سایز"
+                elif i == "brand":
+                    key = "برند"
+                elif i == "tag":
+                    key = "برچسب"
+                elif i == "discount":
+                    key = "تخفیف دار"
+                    value = "بله"
+                elif i == "exist":
+                    key = "فقط موجود"
+                    value = "بله"
+                elif i == "price":
+                    key = "قیمت"
+                Filter.append({"key": key, "value": value})
         context["Filter"] = Filter
         # endregion
         Dyn = []
         if cat != None:
-            Cats = Category.objects.get(Active=True, pk=cat).get_descendants(include_self=True)
+            Cats = Category.objects.get(Active=True, pk=cat).get_descendants(
+                include_self=True
+            )
             Filter.append({"key": "دسته بندی", "value": Cats[0].Name, "type": "cat"})
-            Fils = Filters.objects.filter(Category__pk=int(cat)).prefetch_related("val_filter")
+            Fils = Filters.objects.filter(Category__pk=int(cat)).prefetch_related(
+                "val_filter"
+            )
             for item in Fils:
                 F = {"Title": item.Name}
                 F_V = []
@@ -699,7 +743,11 @@ class SearchEngine(APIView):
                         else:
                             Anc += a.Name
                     Cats.append(
-                        {"URL": f"/products/results/?cat={item.pk}", "Name": item.Name, "Anc": Anc}
+                        {
+                            "URL": f"/products/results/?cat={item.pk}",
+                            "Name": item.Name,
+                            "Anc": Anc,
+                        }
                     )
         res["Products"] = Products
         res["Cats"] = Cats
@@ -772,7 +820,11 @@ class AddToCompare(APIView):
             CL = {}
         if len(CL) >= 4:
             return Response(
-                {"stat": 500, "report": "حد مجاز اضافه کردن محصول 4 آیتم است", "list": CL}
+                {
+                    "stat": 500,
+                    "report": "حد مجاز اضافه کردن محصول 4 آیتم است",
+                    "list": CL,
+                }
             )
 
         try:

@@ -27,8 +27,20 @@ from rest_framework.generics import ListAPIView
 from django.core.mail import send_mail
 
 from Main.context_processors import getActiveUser
-from Products.models import ProductImage, CategoryToPreview, BrandToPreview, Testimotional
-from Warehouse.models import Cart, CartProduct, Shipping, CartChoice, WheelOfFortune, PurchaseTrack
+from Products.models import (
+    ProductImage,
+    CategoryToPreview,
+    BrandToPreview,
+    Testimotional,
+)
+from Warehouse.models import (
+    Cart,
+    CartProduct,
+    Shipping,
+    CartChoice,
+    WheelOfFortune,
+    PurchaseTrack,
+)
 from django.contrib import messages
 import requests
 from requests.auth import HTTPBasicAuth
@@ -173,12 +185,6 @@ class HomepageView(TemplateView):
 class CartView(TemplateView):
     template_name = "Main/cart.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        cities = City.objects.filter(parent=0)
-        context["City"] = cities
-        return context
-
 
 class CheckoutView(TemplateView):
     template_name = "Main/checkout.html"
@@ -301,14 +307,20 @@ class WheelView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        WH = WheelOfFortune.objects.filter(Active=True).prefetch_related("prize_wheel").first()
+        WH = (
+            WheelOfFortune.objects.filter(Active=True)
+            .prefetch_related("prize_wheel")
+            .first()
+        )
 
         context["Wheel"] = WH
         return context
 
 
 class GetWheelData(ListAPIView):
-    queryset = WheelOfFortune.objects.filter(Active=True).prefetch_related("prize_wheel")
+    queryset = WheelOfFortune.objects.filter(Active=True).prefetch_related(
+        "prize_wheel"
+    )
     serializer_class = WheelSerializer
 
 

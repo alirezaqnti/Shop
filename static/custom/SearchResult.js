@@ -367,7 +367,7 @@ RenderSearchResult = function (URL) {
 							</div>
 							<div class="prd-action">
 								<form action="#">
-									<button class="btn js-prd-addtocart AddtoCart"
+									<button class="btn js-prd-addtocart AddToCart"
 										data-product='${Default.RPVS}'>افزودن
 										به سبد خرید</button>
 								</form>
@@ -388,7 +388,7 @@ RenderSearchResult = function (URL) {
 							<div class="prd-action">
 								<div class="prd-action-left">
 									<form action="#">
-										<button class="btn js-prd-addtocart AddtoCart"
+										<button class="btn js-prd-addtocart AddToCart"
 											data-product='${Default.RPVS}'>افزودن
 											به سبد خرید</button>
 									</form>

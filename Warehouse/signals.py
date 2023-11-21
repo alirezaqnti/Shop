@@ -10,7 +10,9 @@ from django.core.cache import cache
 def create_WheelOfFortune(sender, instance, created, *args, **kwargs):
     if created:
         WH = (
-            WheelOfFortune.objects.filter(Active=True).exclude(pk=instance.pk).update(Active=False)
+            WheelOfFortune.objects.filter(Active=True)
+            .exclude(pk=instance.pk)
+            .update(Active=False)
         )
 
 
@@ -51,6 +53,12 @@ def create_CartProduct(sender, instance, created, *args, **kwargs):
         RC = instance.Cart.RC
         RC = RC.split("RC-")
         RC = RC[1]
-        RCP = f"RCP-{RC}{str(Count)}"
+        while True:
+            RCP = f"RCP-{RC}{str(Count)}"
+            try:
+                CartProduct.objects.get(RCP=RCP)
+            except:
+                break
+            Count += 1
         instance.RCP = RCP
         instance.save()

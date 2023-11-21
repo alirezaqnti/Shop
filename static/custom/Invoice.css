@@ -86,3 +86,15 @@ th {
 #invoice .logo img {
     max-width: 115px;
 }
+
+caption {
+    caption-side: top !important;
+}
+
+#nav-sidebar td {
+    border: none !important;
+}
+
+#nav-sidebar th {
+    text-align: right !important;
+}

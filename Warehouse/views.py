@@ -46,7 +46,7 @@ def NewPRo(obj):
     return True
 
 
-class AddToCart(APIView):
+class AddToCart(IsUserLoggedIn, APIView):
     def post(self, request, *args, **kwargs):
         try:
             kw = kwargs["kwargs"]
@@ -68,7 +68,9 @@ class AddToCart(APIView):
                     stat = 301
                 else:
                     try:
-                        cr = Cart.objects.get(User=user, status=CartChoice.Created, Active=True)
+                        cr = Cart.objects.get(
+                            User=user, status=CartChoice.Created, Active=True
+                        )
                     except:
                         cr = Cart.objects.create(User=user)
                     try:
@@ -104,6 +106,37 @@ class RemoveCart(APIView):
         cr = Cart.objects.get(RC=cart["RC"])
         cr.delete()
         context = getCart(request)
+        return Response(context)
+
+
+class RefreshCart(APIView):
+    @transaction.atomic()
+    def post(self, request, *args, **kwargs):
+        cart = getCart(request)
+        try:
+            kw = kwargs["kwargs"]
+        except:
+            kw = False
+        RCPs = request.data.get("RCPs", kw)
+        print("RCPs:", RCPs)
+        for item in RCPs:
+            print(item)
+            CP = CartProduct.objects.get(RCP=item)
+            cart = CP.Cart
+            stat = 304
+            try:
+                cr = CartProduct.objects.filter(Cart=cart)
+                if cr.count() <= 1:
+                    cart.delete()
+                else:
+                    CP.delete()
+
+            except:
+                stat = 500
+        cache.delete("cart")
+        context = {
+            "stat": stat,
+        }
         return Response(context)
 
 
@@ -196,7 +229,9 @@ class GetWishlist(APIView):
         wh = WishList.objects.filter(User=user)
         data = []
         for item in wh:
-            pic = ProductImage.objects.get(Product=item.Variety.Variety.Product, Primary=True)
+            pic = ProductImage.objects.get(
+                Product=item.Variety.Variety.Product, Primary=True
+            )
             dic = {
                 "Name": item.Variety.Variety.Product.Name,
                 "Pic": str(pic.Image),
@@ -220,7 +255,9 @@ def zarintest(request):
     description = "پرداخت نوبت"
     client = GetClient()
     logger.info("Cilent:", client)
-    result = client.service.PaymentRequest(MERCHANT, 5000, description, email, mobile, CallbackURL)
+    result = client.service.PaymentRequest(
+        MERCHANT, 5000, description, email, mobile, CallbackURL
+    )
     logger.info("RES:", result)
     if result.Status == 100:
         stat = 200
@@ -244,9 +281,13 @@ class CartPaymentView(APIView):
         with transaction.atomic():
             for item in Cr.cartproduct_cart.filter(Active=True):
                 Var = item.Variety
-                Var.ReserevedQuantity += item.Quantity
-                Var.Quantity -= item.Quantity
-                Var.save()
+                if Var.Quantity <= item.Quantity:
+                    Var.ReserevedQuantity += item.Quantity
+                    Var.Quantity -= item.Quantity
+                    Var.save()
+                else:
+                    context = {"stat": 200}
+                    return Response(context)
             if PW == "zarinpal":
                 CallbackURL = f"{REFFERER}warehouse/payment/callback/zarinpal/"
                 email = ""
@@ -274,7 +315,9 @@ class CartPaymentView(APIView):
                             Portal=PaymentPortals.zarinpal,
                         )
                     stat = 200
-                    url = f"https://www.zarinpal.com/pg/StartPay/{str(result.Authority)}"
+                    url = (
+                        f"https://www.zarinpal.com/pg/StartPay/{str(result.Authority)}"
+                    )
                     context = {"stat": stat, "url": url}
                     return redirect(url)
                 else:
@@ -305,7 +348,9 @@ def ZarinpalCallback(request):
                 pay.Status = result.Status
                 pay.save()
                 Cr.PurchaseTrackNumber = refId
-                Cr.PaymentDate = jdatetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S")
+                Cr.PaymentDate = jdatetime.datetime.today().strftime(
+                    "%Y-%m-%d %H:%M:%S"
+                )
                 Cr.PaymentWay = paymentChoice.Zarinpal
                 Cr.status = CartChoice.InProccess
                 Cr.policyAccept = True
@@ -353,7 +398,11 @@ www.mohsenvafaienejad.com
 
 
 def PostPaymentView(request, RC):
-    Cr = Cart.objects.filter(RC=RC).prefetch_related("cartproduct_cart", "shipping_cart").first()
+    Cr = (
+        Cart.objects.filter(RC=RC)
+        .prefetch_related("cartproduct_cart", "shipping_cart")
+        .first()
+    )
     Pay = CartPayment.objects.get(Cart=Cr)
     if Pay.Status in ["100", "101"]:
         return render(request, "Main/PaymentSuccess.html", {"Cart": Cr, "Payment": Pay})
@@ -394,7 +443,9 @@ class CheckCoupon(APIView):
                 try:
                     Couser = CouponUser.objects.get(User=User, Coupon=Cou)
                     if Couser.Usage >= Cou.MaxUse:
-                        return Response({"Check": False, "Mess": "قبلا استفاده شده است"})
+                        return Response(
+                            {"Check": False, "Mess": "قبلا استفاده شده است"}
+                        )
                     else:
                         Couser.Usage += 1
                         Couser.save()
@@ -415,9 +466,9 @@ class CheckCoupon(APIView):
             Cr = Cart.objects.filter(RC=RC).prefetch_related("cartproduct_cart").first()
             if Cou.Type == "1":
                 Prs = Product.objects.filter(
-                    Category__in=Category.objects.get(pk=Cou.Category.pk).get_descendants(
-                        include_self=True
-                    )
+                    Category__in=Category.objects.get(
+                        pk=Cou.Category.pk
+                    ).get_descendants(include_self=True)
                 )
                 CPs = Cr.cartproduct_cart.all()
                 for item in CPs:
@@ -480,7 +531,9 @@ class UnattachCoupon(APIView):
                 }
                 RemoveFromCart.post(self, request=request, kwargs=item.RCP)
                 sleep(2)
-                AddToCart.post(self, request=request, kwargs={"RPVS": RPVS, "Quantity": Quantity})
+                AddToCart.post(
+                    self, request=request, kwargs={"RPVS": RPVS, "Quantity": Quantity}
+                )
             Check = True
             Mess = "کوپن با موفقیت حذف شد"
         elif Cou.Type == "2":
@@ -548,7 +601,11 @@ class GetPermission(APIView):
     def get(self, request, *args, **kwargs):
         user = getActiveUser(request)
         if user != "":
-            WH = WheelOfFortune.objects.filter(Active=True).prefetch_related("user_wheel").first()
+            WH = (
+                WheelOfFortune.objects.filter(Active=True)
+                .prefetch_related("user_wheel")
+                .first()
+            )
             user_ = WH.user_wheel.filter(User=user).count()
             if user_ == 0:
                 stat = 200
@@ -557,3 +614,20 @@ class GetPermission(APIView):
         else:
             stat = 500
         return Response({"stat": stat})
+
+
+class CartCheck(IsUserLoggedIn, APIView):
+    def post(self, request, *args, **kwargs):
+        user = getActiveUser(request)
+        CR = (
+            Cart.objects.filter(User=user, Active=True, status=CartChoice.Created)
+            .prefetch_related("cartproduct_cart")
+            .first()
+        )
+        CPs = CR.cartproduct_cart.all()
+        res = []
+        for item in CPs:
+            if item.Quantity > item.Variety.Quantity:
+                res.append(item.RCP)
+
+        return Response({"CPs": res})

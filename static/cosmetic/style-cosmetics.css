@@ -10187,7 +10187,7 @@ body.boxed .dropdn.dropdn_fullheight .dropdn-content {
 .minicart-prd-action {
     font-size: 20px;
     position: absolute;
-    top: 0;
+    top: 15px;
     left: 15px;
     display: -ms-flexbox;
     display: flex;
@@ -32131,7 +32131,7 @@ p.countdown-box-text:not(:first-child) {
 .tab-content .form-control:focus,
 .tab-content .select-wrapper select,
 .tab-content .select-wrapper select:focus {
-    background-color: #fff;
+    background-color: #f6f1f7;
 }
 
 @media (max-width: 767px) {
@@ -36163,4 +36163,71 @@ body {
 .driveInLeft {
     animation-name: driveInLeft;
     animation-duration: 2s;
+}
+
+.toast {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+}
+
+.toast-primary {
+    background: #1b55e2;
+}
+
+.toast-success {
+    background: #04a50c;
+}
+
+.toast-success .toast-header {
+    background: rgb(3, 141, 10);
+    color: #fff;
+    border-bottom: 1px solid rgba(3, 141, 10, 0.493);
+}
+
+.toast-dark {
+    background: #353a40;
+}
+
+.toast-dark .toast-header {
+    background: #353a40;
+    color: #fff;
+    border-bottom: 1px solid #717579;
+}
+
+.toast-danger {
+    background: rgb(170, 9, 9);
+}
+
+.toast-danger .toast-header {
+    background: #790505;
+    color: #fff;
+    border-bottom: 1px solid rgba(170, 9, 9, 0.644);
+}
+
+.toast-header .meta-time {
+    color: #f1f2f3;
+}
+
+.toast-header .close {
+    color: #f1f2f3;
+    opacity: 1;
+    text-shadow: none;
+}
+
+.toast-header .meta-time {
+    color: #f1f2f3;
+}
+
+.toast-header .close {
+    color: #f1f2f3;
+    opacity: 1;
+    text-shadow: none;
+    border: none;
+    background: transparent;
+}
+
+.toast-body {
+    padding: 16px 12px;
+    color: #fff;
 }
