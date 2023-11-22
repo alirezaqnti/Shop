@@ -42,8 +42,8 @@ $('#Coupon').on('input', function () {
 });
 $('.Coupon-Butt').click(async function (e) {
 	e.preventDefault();
-	let Code = $(this).siblings('#Coupon').val();
-	let RC = $('#CartForm').attr('data-RC');
+	let Code = $('#Coupon').val();
+	let RC = $(this).attr('data-RC');
 	let res = await fetch('/warehouse/check-coupon/', {
 		method: 'POST',
 		headers: {
@@ -54,7 +54,6 @@ $('.Coupon-Butt').click(async function (e) {
 	});
 	let info = await res.json();
 	if (info.Check) {
-		Update();
 		CartUpdate();
 		$('#Coupon').attr('readonly', 'true');
 		$('.Coupon-Butt').addClass('d-none');
@@ -66,7 +65,7 @@ $('.Coupon-Butt').click(async function (e) {
 });
 $('.Unattach-Butt').click(async function (e) {
 	e.preventDefault();
-	let RC = $('#CartForm').attr('data-RC');
+	let RC = $(this).attr('data-RC');
 	let res = await fetch('/warehouse/unattach-coupon/', {
 		method: 'POST',
 		headers: {
@@ -77,7 +76,6 @@ $('.Unattach-Butt').click(async function (e) {
 	});
 	let info = await res.json();
 	if (info.Check) {
-		Update();
 		CartUpdate();
 		$('#Coupon').removeAttr('readonly');
 		$('#Coupon').val('');
@@ -107,4 +105,27 @@ $('.RemoveCart').click(async function (e) {
 		},
 	});
 	CartUpdate();
+});
+
+$(document).on('click', '.js-qty-button', async function (e) {
+	LOADER();
+	let input = $(this).parent().find('.qty-input');
+	let v = input.val();
+	let rcp = input.attr('data-rcp');
+	console.log(rcp, v);
+	let res = await fetch(`${loc.origin}/warehouse/change-cp/`, {
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ RCP: rcp, Quantity: v }),
+	});
+	let info = await res.json();
+	if (info.stat == 200) {
+		LOADER();
+		CartUpdate();
+	} else {
+		Failed(info.report);
+	}
 });

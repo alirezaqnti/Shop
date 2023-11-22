@@ -49,7 +49,9 @@ def getCart(request, *args, **kwargs):
             data = []
             for item in co:
                 Variety = item.Variety.Variety
-                pic = ProductImage.objects.filter(Product=Variety.Product, Primary=True).first()
+                pic = ProductImage.objects.filter(
+                    Product=Variety.Product, Primary=True
+                ).first()
                 dic = {
                     "Name": Variety.Product.Name,
                     "Pic": str(pic.Image),
@@ -72,9 +74,9 @@ def getCart(request, *args, **kwargs):
             context["Pros"] = data
             context["RC"] = cr.RC
             context["Amount"] = cr.Amount
-            context["TotalPrice"] = cr.TotalPrice
             context["TotalDiscount"] = cr.TotalDiscount
             context["ShippingPrice"] = cr.ShippingPrice
+            context["TotalPrice"] = cr.TotalPrice
         except:
             context["Pros"] = []
             context["RC"] = 0

@@ -100,18 +100,21 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-9">
-									<label>کد پستی : </label>
-									<div class="form-group">
-										<input type="text" class="form-control form-control--sm">
+								<div class="row">
+									<div class="col-sm-9">
+										<label>کد پستی : </label>
+										<div class="form-group">
+											<input type="text" class="form-control form-control--sm">
+										</div>
 									</div>
-								</div>
-								<div class="mt-2"></div>
-								<label>آدرس پستی : </label>
-								<div class="form-group">
-									<textarea type="text" class="form-control form-control--sm" rows="4">
+									<div class="col-sm-9">
+										<label>آدرس پستی : </label>
+										<div class="form-group">
+											<textarea type="text" class="form-control form-control--sm" rows="4">
 
-									</textarea>
+										</textarea>
+										</div>
+									</div>
 								</div>
 								<div class="clearfix">
 									<input id="formcheckoutCheckbox1" name="checkbox1" type="checkbox">
@@ -225,67 +228,59 @@
 								<div class="cart-table-prd-price">قیمت</div>
 							</div>
 						</div>
+						{% for CP in Pros %}
 						<div class="cart-table-prd">
 							<div class="cart-table-prd-image">
-								<a href="#" class="prd-img"><img class="lazyload fade-up"
+								<a href="{% url 'ProductPage' CP.RPVS %}" class="prd-img"><img class="lazyload fade-up"
 										src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-										data-src="images/skins/fashion/products/product-01-1.webp" alt=""></a>
+										data-src="{{ MEDIA_URL }}{{CP.Pic}}" alt=""></a>
 							</div>
 							<div class="cart-table-prd-content-wrap">
 								<div class="cart-table-prd-info">
-									<h2 class="cart-table-prd-name"><a href="product.html">شلوار چرمی</a>
+									<h2 class="cart-table-prd-name"><a
+											href="{% url 'ProductPage' CP.RPVS %}">{{CP.Name}}</a>
 									</h2>
 								</div>
-								<div class="cart-table-prd-qty">
-									<div class="qty qty-changer">
-										<input type="text" class="qty-input disabled" value="2" data-min="0"
-											data-max="1000">
-									</div>
-								</div>
+
 								<div class="cart-table-prd-price-total">
-									352,000 ریال
+									<span class="pr CP-Amount">{{CP.Amount}}</span> ریال
 								</div>
 							</div>
 						</div>
-						<div class="cart-table-prd">
-							<div class="cart-table-prd-image">
-								<a href="#" class="prd-img"><img class="lazyload fade-up"
-										src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-										data-src="images/skins/fashion/products/product-16-1.webp" alt=""></a>
-							</div>
-							<div class="cart-table-prd-content-wrap">
-								<div class="cart-table-prd-info">
-									<h2 class="cart-table-prd-name"><a href="product.html">پیراهن معمولی</a>
-									</h2>
-								</div>
-								<div class="cart-table-prd-qty">
-									<div class="qty qty-changer">
-										<input type="text" class="qty-input disabled" value="2" data-min="0"
-											data-max="1000">
-									</div>
-								</div>
-								<div class="cart-table-prd-price-total">
-									142,000 ریال
-								</div>
-							</div>
-						</div>
+						{% endfor %}
+
+
 					</div>
 					<div class="mt-2"></div>
 					<div class="card">
 						<div class="card-body">
 							<h3>کد تخفیف</h3>
-							<p>کد تخفیف دریافت کردید؟ پس چند عدد و حرف به طور تصادفی با
-								هم فاصله دارید!</p>
 							<div class="form-inline mt-2">
-								<input type="text" class="form-control form-control--sm" placeholder="کد تخفیف شما">
-								<button type="submit" class="btn">تایید</button>
+								<input type="text" class="form-control form-control--sm" id="Coupon"
+									placeholder="کد تخفیف شما">
+								<button type="button" class="btn Coupon-Butt" data-RC="{{Cart.RC}}">تایید</button>
+								<button type="button" class="btn Unattach-Butt d-none"
+									data-RC="{{Cart.RC}}">حذف</button>
 							</div>
 						</div>
 					</div>
 					<div class="mt-2"></div>
 					<div class="cart-total-sm">
+						<span>جمع سفارشات</span>
+						<span class=""><span class="pr Cart-Amount">{{Cart.Amount}}</span> ریال</span>
+					</div>
+					<div class="cart-total-sm">
+						<span>سود شما از خرید</span>
+						<span class=""><span class="pr Cart-TotalDiscount">{{Cart.TotalDiscount}}</span> ریال</span>
+					</div>
+					<div class="cart-total-sm">
+						<span>هزینه ارسال</span>
+						<span class=""><span class="pr Cart-ShippingPrice">{{Cart.ShippingPrice}}</span> ریال</span>
+					</div>
+					<div class="cart-total-sm">
 						<span>جمع کل</span>
-						<span class="card-total-price">494,000 ریال</span>
+						<span class="card-total-price Cart-TotalPrice"><span class="pr">{{Cart.TotalPrice}}</span>
+							ریال</span>
 					</div>
 					<div class="mt-2"></div>
 					<div class="card">
@@ -308,5 +303,5 @@
 
 
 {% block js %}
-
+<script src="{% static 'custom/Cart.js' %}"></script>
 {% endblock js %}

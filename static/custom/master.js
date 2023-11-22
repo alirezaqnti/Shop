@@ -135,9 +135,6 @@ CartUpdate = async function () {
 		},
 	});
 	let info = await res.json();
-	$('#dropdnMinicart .Cart-TotalPrice').html(
-		`${getThousands(info.TotalPrice)} ریال`
-	);
 	$('#CartModal .CartModalTotalDiscount').html(
 		`${getThousands(info.TotalDiscount)} ریال`
 	);
@@ -147,6 +144,9 @@ CartUpdate = async function () {
 	$('.Header-Count').html(`${info.count}`);
 	$('.Header-TotalPrice').html(`${getThousands(info.TotalPrice)}`);
 	$('.Cart-TotalPrice').html(`${getThousands(info.TotalPrice)}`);
+	$('.Cart-Amount').html(`${getThousands(info.Amount)}`);
+	$('.Cart-TotalDiscount').html(`${getThousands(info.TotalDiscount)}`);
+	$('.Cart-ShippingPrice').html(`${getThousands(info.ShippingPrice)}`);
 	let crds = $('#ModalCartProducts .minicart-prd');
 	for (let i = 0; i < crds.length; i++) {
 		const element = crds[i];
@@ -252,10 +252,10 @@ CartUpdate = async function () {
 				</div>
 				<div class="cart-table-prd-qty">
 					<div class="qty qty-changer">
-						<button class="decrease"></button>
+						<button class="decrease js-qty-button"></button>
 						<input type="text" class="qty-input" value="${element.Quantity}" data-min="1"
-							data-max="${element.Max}">
-						<button class="increase"></button>
+							data-max="${element.Max}" data-rcp='${element.RCP}'>
+						<button class="increase js-qty-button"></button>
 					</div>
 				</div>
 				<div class="cart-table-prd-price-total">

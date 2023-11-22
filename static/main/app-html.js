@@ -3331,10 +3331,13 @@ function onYouTubeIframeAPIReady() {
 						? input.attr('data-max')
 						: false,
 					inputWidth = void 0;
+
 				if (v >= min) {
 					if (!max == false && v > max) {
 						return false;
-					} else input.val(v);
+					} else {
+						input[0].setAttribute('value', v);
+					}
 				}
 				inputWidth = input.textWidth();
 				input.css({

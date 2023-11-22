@@ -1,3 +1,16 @@
+LOADER = function () {
+	let load = $('.Loader');
+	console.log(load, load.hasClass('d-none'));
+	if (load.hasClass('d-none')) {
+		$(document.body).css('overflow-y', 'hidden');
+		load.removeClass('d-none');
+	} else {
+		$(document.body).css('overflow-y', 'auto');
+		load.addClass('d-none');
+	}
+};
+LOADER();
+
 function Done(text) {
 	$('.toast-success .toast-body').html(text);
 	$('.toast-success').toast('show');
@@ -241,4 +254,7 @@ $('#State').change(async function () {
 		);
 	}
 	$('#City').niceSelect('update');
+});
+$(document).ready(function () {
+	LOADER();
 });

@@ -6,6 +6,7 @@ urlpatterns = [
     path("removefromcart/", views.RemoveFromCart.as_view(), name="removefromcart"),
     path("removecart/", views.RemoveCart.as_view(), name="RemoveCart"),
     path("refresh-cart/", views.RefreshCart.as_view(), name="RefreshCart"),
+    path("change-cp/", views.ChangeCartProduct.as_view(), name="ChangeCartProduct"),
     path("getcart/", views.GetCart.as_view(), name="getcart"),
     path("cartcheck/", views.CartCheck.as_view(), name="CartCheck"),
     path("addtowishlist/", views.AddToWishlist.as_view(), name="addtowishlist"),

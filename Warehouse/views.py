@@ -140,6 +140,44 @@ class RefreshCart(APIView):
         return Response(context)
 
 
+class ChangeCartProduct(APIView):
+    @transaction.atomic()
+    def post(self, request, *args, **kwargs):
+        RCP = request.data["RCP"]
+        Quantity = int(request.data["Quantity"])
+        print("RCP:", RCP)
+        print("Quantity:", Quantity)
+        stat = 500
+        report = ""
+        try:
+            CP = CartProduct.objects.get(RCP=RCP)
+            CR = CP.Cart
+            Var = CP.Variety
+            if Var.Quantity > Quantity:
+                CP.delete()
+                item = CartProduct()
+                item.Variety = Var
+                item.Cart = CR
+                item.Fee = Var.FinalPrice
+                item.Quantity = Quantity
+                Price = Var.FinalPrice * Quantity
+                item.Offless = Var.Variety.Product.BasePrice
+                item.Amount = Price
+                if Var.OffPrice > 0:
+                    item.discount = Var.OffPrice
+                item.save()
+                NewPRo(item)
+                cache.delete("cart")
+                stat = 200
+            else:
+                stat = 500
+                report = "موجودی محصول کافی نیست!"
+        except:
+            stat = 500
+            report = "مشکلی پیش آمده است، لطفا بعدا تلاش کنید!"
+        return Response({"stat": stat, "report": report})
+
+
 class RemoveFromCart(APIView):
     @transaction.atomic()
     def post(self, request, *args, **kwargs):
@@ -430,6 +468,7 @@ class InvoiceReport(TemplateView):
 
 
 class CheckCoupon(APIView):
+    @transaction.atomic()
     def post(self, request, *args, **kwargs):
         Check = False
         Code = request.data["Code"]
@@ -494,8 +533,12 @@ class CheckCoupon(APIView):
                 if Cou.Discount != 0:
                     Price = Cr.Amount * ((100 - Cou.Discount) / 100)
                     Discount = Cr.Amount * (Cou.Discount / 100)
+                    print("Discount:", Discount)
+                    print("MaxPrice:", Cou.MaxPrice)
+                    print("COMPARE:", Discount > Cou.MaxPrice)
                     if Discount > Cou.MaxPrice:
                         Price = Cr.Amount - Cou.MaxPrice
+                        Discount = Cou.MaxPrice
                 else:
                     Price = Cr.Amount - Cou.MaxPrice
                     Discount = Cou.MaxPrice

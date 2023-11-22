@@ -26,7 +26,7 @@ from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 from django.core.mail import send_mail
 
-from Main.context_processors import getActiveUser
+from Main.context_processors import getActiveUser, getCart
 from Products.models import (
     ProductImage,
     CategoryToPreview,
@@ -191,32 +191,11 @@ class CheckoutView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = getActiveUser(self.request)
+        # user = getActiveUser(self.request)
         cities = City.objects.filter(parent=0)
-        cr = (
-            Cart.objects.filter(User=user, status=CartChoice.Created, Active=True)
-            .prefetch_related("cartproduct_cart")
-            .first()
-        )
-        co = cr.cartproduct_cart.all()
-        data = []
-        for item in co:
-            Pr = item.Variety.Variety.Product
-            pic = ProductImage.objects.filter(Product=Pr, Primary=True).first()
-            dic = {
-                "Name": Pr.Name,
-                "Pic": str(pic.Image),
-                "Max": item.Variety.Quantity,
-                "slug": item.slug,
-                "Quantity": item.Quantity,
-                "Amount": item.Amount,
-                "discount": item.discount,
-                "Offless": item.Offless,
-                "Fee": item.Fee,
-            }
-            data.append(dic)
-
-        context["cart"] = cr
+        cart = getCart(self.request)
+        context["Cart"] = cart
+        context["Pros"] = cart["Pros"]
         context["City"] = cities
         return context
 
