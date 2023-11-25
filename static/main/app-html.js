@@ -8365,9 +8365,15 @@ function onYouTubeIframeAPIReady() {
 				$('[href="#' + nextId + '"]').tab('show');
 				return false;
 			});
+			$('.step-previous').on('click', function () {
+				var prevId = $(this).closest('.tab-pane').prev().attr('id');
+				$('[href="#' + prevId + '"]').tab('show');
+				return false;
+			});
 			$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 				var step = $(e.target).data('step');
-				var percent = (parseInt(step) / 4) * 100;
+				var max_ = $('.progress-bar').attr('aria-valuemax');
+				var percent = (parseInt(step) / max_) * 100;
 				$('.progress-bar').css({
 					width: percent + '%',
 				});

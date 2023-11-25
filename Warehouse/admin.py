@@ -141,7 +141,7 @@ class CartAdmin(admin.ModelAdmin):
                         Address = request.POST["Address"]
                         Ship.State_id = State
                         Ship.City_id = Ci
-                        Ship.Address = Address
+                        Ship.PostalAddress = Address
                         Ship.PostalCode = PostalCode
                         Ship.No = No
                         Ship.Unit = Unit
@@ -275,7 +275,11 @@ class CartAdmin(admin.ModelAdmin):
     def get_urls(self):
         urls = super().get_urls()
         custom_url = [
-            path("cart-data/", self.admin_site.admin_view(self.add_view), name="cart-data"),
+            path(
+                "cart-data/",
+                self.admin_site.admin_view(self.add_view),
+                name="cart-data",
+            ),
         ]
         return custom_url + urls
 

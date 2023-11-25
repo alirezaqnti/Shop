@@ -1,0 +1,173 @@
+{% extends 'Main/Master.html' %}
+{% load static %}
+
+
+{% block head %}
+
+{% endblock head %}
+
+
+{% block content %}
+<div class="page-content">
+	<div class="holder mt-0 py-3 py-sm-5 py-md-10 bg-cover lazyload fade-up-fast"
+		data-bgset="/media/images/pages/contact-bg.webp">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-md-9 col-xl-9">
+					<div class="page-title-bg py-md-3">
+						<h1>تماس با ما</h1>
+						<p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم ایپسوم متن ساختگی با تولید سادگی
+							نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</p>
+						<p>یک سوال ، نظر یا نگرانی دارید؟ به سادگی فرم زیر را پر کنید و روی ارسال کلیک کنید. ما در
+							طی 48 ساعت کاری به تمام سوالات پاسخ خواهیم داد. <a href="faq.html">سوالات متداول</a> ما
+							را بررسی کنید.</p>
+						<blockquote class="d-none d-md-block mt-3 mt-lg-6">
+							<div>هرگز نمی توانید در انتخاب کفش خود خیلی مراقب باشید. بیش از حد بسیاری از زنان تصور
+								می کنند که آنها بی اهمیت هستند ، اما اثبات واقعی یک زن زیبا آنچه است که در پاهای
+								اوست.</div>
+							<div class="blockquote-author"><a href="#">– کریستین دیور</a></div>
+						</blockquote>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="holder">
+		<div class="container">
+			<div class="title-wrap text-center">
+				<h2 class="h1-style">اطلاعات ما</h2>
+				<p class="h-sub maxW-825">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم ایپسوم متن ساختگی با
+					تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</p>
+			</div>
+			<div class="text-icn-blocks-row">
+				<div class="text-icn-block-hor">
+					<div class="icn">
+						<i class="icon-location"></i>
+					</div>
+					<div class="text">
+						<h4>آدرس : </h4>
+						<p>تهران، میدان آزادی، خیابان آزادی، پلاک 77</p>
+					</div>
+				</div>
+				<div class="text-icn-block-hor">
+					<div class="icn">
+						<i class="icon-phone"></i>
+					</div>
+					<div class="text">
+						<h4>تلفن : </h4>
+						<p>02155667788<br>02133449966</p>
+					</div>
+				</div>
+				<div class="text-icn-block-hor">
+					<div class="icn">
+						<i class="icon-info"></i>
+					</div>
+					<div class="text">
+						<h4>ساعت کاری : </h4>
+						<p>7 روز هفته<br>
+							09:00 صبح تا 05:00 عصر</p>
+					</div>
+				</div>
+				<div class="text-icn-block-hor">
+					<div class="icn">
+						<i class="icon-call-center"></i>
+					</div>
+					<div class="text">
+						<h4>راهنما سریع : </h4>
+						<p>02155667788<br>02133449966</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="holder">
+		<div class="container">
+			<div class="row vert-margin">
+				<div class="col-sm-9">
+					<div class="title-wrap">
+						<h2 class="h1-style">با ما در ارتباط باشید</h2>
+						<div>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم ایپسوم متن ساختگی با تولید سادگی
+							نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</div>
+					</div>
+					<form data-toggle="validator" class="contact-form" id="contactForm">
+						<div class="form-confirm">
+							<div class="success-confirm">
+								با تشکر! پیام شما ارسال شده است به زودی به شما پاسخ خواهیم داد!
+							</div>
+							<div class="error-confirm">
+								اوه! هنگام ارسال فرم خطایی روی داد. تازه سازی و ارسال مجدد.
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row vert-margin-middle">
+								<div class="col-lg">
+									<input type="text" name="name" class="form-control form-control--sm"
+										placeholder="نام" required>
+								</div>
+								<div class="col-lg">
+									<input type="text" name="lastName" class="form-control form-control--sm"
+										placeholder="نام خانوادگی" required>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row vert-margin-middle">
+								<div class="col-lg">
+									<input type="text" name="email" class="form-control form-control--sm"
+										placeholder="ایمیل" required>
+								</div>
+								<div class="col-lg">
+									<input type="text" name="phone" class="form-control form-control--sm"
+										placeholder="تلفن" required>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<textarea class="form-control form-control--sm textarea--height-200" name="message"
+								placeholder="پیام" required></textarea>
+						</div>
+						<button class="btn" type="submit">ارسال پیام</button>
+					</form>
+				</div>
+				<div class="col-sm-9">
+					<div class="contact-map">
+						<iframe
+							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.0762034011345!2d51.33938432078328!3d35.69974233666176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDQxJzU5LjEiTiA1McKwMjAnMTMuOSJF!5e0!3m2!1sfa!2s!4v1585894944267!5m2!1sfa!2s"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="holder holder-subscribe-full holder-subscribe--compact">
+		<div class="container">
+			<div class="row">
+				<div class="col-auto">
+					<div class="subscribe-form-title-md">خبرنامه</div>
+					<div class="subscribe-form-title-xs">در خبرنامه هفتگی ما عضو شوید</div>
+				</div>
+				<div class="col">
+					<div class="subscribe-form">
+						<form action="#">
+							<div class="form-inline">
+								<div class="form-control-wrap">
+									<input type="text" class="form-control" placeholder="ایمیل خود را بنویسید ...">
+									<span class="bottom"></span>
+									<span class="right"></span>
+									<span class="top"></span>
+									<span class="left"></span>
+								</div>
+								<button type="submit" class="btn btn--lg">عضویت</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}
+
+
+{% block js %}
+
+{% endblock js %}

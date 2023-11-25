@@ -19,16 +19,66 @@ $('input[name="ShippingWay"]').change(function () {
 });
 $('#submitForm').click(function () {
 	let Con = $('#Conditions').prop('checked');
-	let Form = $('#CartForm');
 
+	let Form = $('#CartForm');
 	if (!Con) {
 		let text = 'شرایط و قوانین استفاده را تایید نکرده اید';
 		Failed(text);
 		$('#Conditions').css('border-color', 'red');
 	} else {
-		Form.submit();
+		let Validate = ValidateField();
+		if (Validate) {
+			Form.submit();
+		} else {
+			let text = 'اطلاعات خواسته شده را به درستی وارد نکردید!';
+			Failed(text);
+		}
 	}
 });
+ValidateField = function () {
+	let Name = $('input[name="Name"]');
+	let Phone = $('input[name="Phone"]');
+	let State = $('select[name="State"]');
+	let City = $('select[name="City"]');
+	let No = $('input[name="No"]');
+	let PostalCode = $('input[name="PostalCode"]');
+	let PostalAddress = $('textarea[name="PostalAddress"]');
+	let PaymentWay = $('input[name="PaymentWay"]');
+	let Validate = true;
+	if (Name.val() == '') {
+		Name.addClass('form-control--error');
+		Validate = false;
+	}
+	if (Phone.val() == '') {
+		Phone.addClass('form-control--error');
+		Validate = false;
+	}
+	if (State.val() == null) {
+		State.addClass('form-control--error');
+		Validate = false;
+	}
+	if (City.val() == null) {
+		City.addClass('form-control--error');
+		Validate = false;
+	}
+	if (No.val() == '') {
+		No.addClass('form-control--error');
+		Validate = false;
+	}
+	if (PostalCode.val() == '') {
+		PostalCode.addClass('form-control--error');
+		Validate = false;
+	}
+	if (PostalAddress.val() == '') {
+		PostalAddress.addClass('form-control--error');
+		Validate = false;
+	}
+	if (!PaymentWay.prop('checked')) {
+		PaymentWay.addClass('form-control--error');
+		Validate = false;
+	}
+	return Validate;
+};
 $('#Coupon').on('input', function () {
 	let val = $(this).val();
 	$(this).val(val.toUpperCase());

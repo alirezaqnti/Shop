@@ -57,22 +57,32 @@ def CartFiles(instance, filename):
 class Cart(models.Model):
     RC = models.CharField(_("کد سفارش"), max_length=24)
     slug = models.SlugField(max_length=500, default=uuid.uuid4)
-    User = models.ForeignKey(UserInfo, verbose_name=_(" خریدار"), on_delete=models.CASCADE)
+    User = models.ForeignKey(
+        UserInfo, verbose_name=_(" خریدار"), on_delete=models.CASCADE
+    )
     TotalPrice = models.BigIntegerField(_("مبلغ کل سبد خرید"), default=0)
     Amount = models.BigIntegerField(_("مبلغ کل سفارشات"), default=0)
-    TotalDiscount = models.BigIntegerField(_("مجموع تخفیف"), default=0, blank=True, null=True)
+    TotalDiscount = models.BigIntegerField(
+        _("مجموع تخفیف"), default=0, blank=True, null=True
+    )
     ShippingPrice = models.IntegerField(_("هزینه ارسال"), default=0)
     ShippingPriceAdded = models.BooleanField(default=False)
 
-    UserBankAccountNumber = models.CharField(_("شماره حساب تراکنش"), max_length=50, default="0")
+    UserBankAccountNumber = models.CharField(
+        _("شماره حساب تراکنش"), max_length=50, default="0"
+    )
     PaymentWay = models.IntegerField(
         _("روش پرداخت"), default=paymentChoice.Bank, choices=paymentChoice.choices
     )
     PaymentTransactionNumber = models.CharField(
         _("شماره تراکنش بانکی"), max_length=50, default="0"
     )
-    PaymentDate = models.CharField(_("تاریخ پرداخت"), max_length=100, blank=True, null=True)
-    PurchaseTrackNumber = models.CharField(_("کد پیگیری"), max_length=50, blank=True, null=True)
+    PaymentDate = models.CharField(
+        _("تاریخ پرداخت"), max_length=100, blank=True, null=True
+    )
+    PurchaseTrackNumber = models.CharField(
+        _("کد پیگیری"), max_length=50, blank=True, null=True
+    )
     policyAccept = models.BooleanField(
         _("تایید شرایط و قوانین"), default=False, blank=True, null=True
     )
@@ -82,7 +92,9 @@ class Cart(models.Model):
     status = models.IntegerField(
         _("وضعیت سبد خرید"), default=CartChoice.Created, choices=CartChoice.choices
     )
-    Barcode = models.ImageField(_("تصویر بارکد"), upload_to=PurchaseFiles, null=True, blank=True)
+    Barcode = models.ImageField(
+        _("تصویر بارکد"), upload_to=PurchaseFiles, null=True, blank=True
+    )
     Vouchered = models.BooleanField(_("کوپن"), default=False)
     VoucherCode = models.CharField(_("کد کوپن"), max_length=8, blank=True, null=True)
     Active = models.BooleanField(_("فعال"), default=True)
@@ -98,7 +110,10 @@ class CartProduct(models.Model):
     slug = models.SlugField(max_length=500, default=uuid.uuid4)
     RCP = models.CharField(_("کد مرسوله"), max_length=50, blank=True, null=True)
     Cart = models.ForeignKey(
-        Cart, verbose_name=_("سبدخرید"), on_delete=models.CASCADE, related_name="cartproduct_cart"
+        Cart,
+        verbose_name=_("سبدخرید"),
+        on_delete=models.CASCADE,
+        related_name="cartproduct_cart",
     )
     Variety = models.ForeignKey(
         VarietySub,
@@ -111,17 +126,25 @@ class CartProduct(models.Model):
     Quantity = models.IntegerField(_("تعداد محصول"), default=1)
     Amount = models.BigIntegerField(_("مبلغ سفارش"), default=0)
     Fee = models.BigIntegerField(_("فی"), default=0)
-    discount = models.BigIntegerField(_("مقدار تخفیف"), default=0, blank=True, null=True)
-    Offless = models.BigIntegerField(_("قیمت بدون تخفیف"), default=0, blank=True, null=True)
+    discount = models.BigIntegerField(
+        _("مقدار تخفیف"), default=0, blank=True, null=True
+    )
+    Offless = models.BigIntegerField(
+        _("قیمت بدون تخفیف"), default=0, blank=True, null=True
+    )
     status = models.IntegerField(
-        _("وضعیت سبد خرید"), default=CartProductChoice.Created, choices=CartProductChoice.choices
+        _("وضعیت سبد خرید"),
+        default=CartProductChoice.Created,
+        choices=CartProductChoice.choices,
     )
     Created_At = models.CharField(
         _("تاریخ اضافه شدن به سبد"), max_length=500, blank=True, null=True
     )
     Vouchered = models.BooleanField(_("کوپن"), default=False)
     weight = models.IntegerField(_("وزن کل"), default=0)
-    Barcode = models.ImageField(_("تصویر بارکد"), upload_to=CartFiles, blank=True, null=True)
+    Barcode = models.ImageField(
+        _("تصویر بارکد"), upload_to=CartFiles, blank=True, null=True
+    )
     Active = models.BooleanField(_("فعال"), default=True)
     Created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
@@ -172,13 +195,15 @@ class Shipping(models.Model):
     City = models.ForeignKey(
         City, verbose_name=_("شهر"), related_name="City", on_delete=models.DO_NOTHING
     )
-    Address = models.TextField(_("آدرس"))
+    PostalAddress = models.TextField(_("آدرس"))
     PostalCode = models.CharField(_("کد پستی"), max_length=10)
     No = models.CharField(_("پلاک"), max_length=4)
     Unit = models.CharField(_("واحد"), max_length=4, blank=True, null=True)
     Type = models.IntegerField(_("شیوه ارسال"), default=Post, choices=SHIPTYPE)
     Tips = models.TextField(_("توضیحات"), blank=True, null=True)
-    TrackNumber = models.CharField(_("کد رهگیری پستی"), max_length=50, blank=True, null=True)
+    TrackNumber = models.CharField(
+        _("کد رهگیری پستی"), max_length=50, blank=True, null=True
+    )
     Created = models.DateTimeField(auto_now_add=True)
     Modified = models.DateTimeField(auto_now=True)
 
@@ -191,7 +216,10 @@ class CartPayment(models.Model):
     Slug = models.SlugField(max_length=500, default=uuid.uuid4)
     Auth = models.CharField(max_length=500)
     Cart = models.OneToOneField(
-        Cart, verbose_name=_("سبد خرید"), on_delete=models.CASCADE, related_name="payment_cart"
+        Cart,
+        verbose_name=_("سبد خرید"),
+        on_delete=models.CASCADE,
+        related_name="payment_cart",
     )
     Amount = models.IntegerField(default=0)
     Ref = models.CharField(max_length=100, blank=True, null=True)
@@ -250,9 +278,15 @@ class Exchange(models.Model):
 class WishList(models.Model):
     slug = models.SlugField(max_length=500, default=uuid.uuid4)
     RW = models.CharField(_("کد آیتم مورد علاقه"), max_length=50, blank=True, null=True)
-    User = models.ForeignKey(UserInfo, verbose_name=_(" خریدار"), on_delete=models.CASCADE)
+    User = models.ForeignKey(
+        UserInfo, verbose_name=_(" خریدار"), on_delete=models.CASCADE
+    )
     Variety = models.ForeignKey(
-        VarietySub, verbose_name=_("تنوع محصول"), on_delete=models.CASCADE, blank=True, null=True
+        VarietySub,
+        verbose_name=_("تنوع محصول"),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
     Created = models.DateTimeField(auto_now_add=True)
 
@@ -275,7 +309,9 @@ class Coupon(models.Model):
         null=True,
     )
     Code = models.CharField(_("کوپن تخفیف"), max_length=6, default=get_random_string)
-    Type = models.CharField(_("نوع"), max_length=50, default=Invoice, choices=TYPE_CHOICES)
+    Type = models.CharField(
+        _("نوع"), max_length=50, default=Invoice, choices=TYPE_CHOICES
+    )
     Discount = IntegerRangeField(_("درصد تخفیف"), default=0, min_value=0, max_value=100)
     MaxPrice = models.PositiveIntegerField(_("حداکثر تخفیف"), default=0)
     MaxUse = models.PositiveIntegerField(_("حداکثر استفاده کاربر"), default=1)
@@ -294,9 +330,14 @@ class Coupon(models.Model):
 
 class CouponUser(models.Model):
     Coupon = models.ForeignKey(
-        Coupon, verbose_name=_("کوپن"), on_delete=models.CASCADE, related_name="user_coupon"
+        Coupon,
+        verbose_name=_("کوپن"),
+        on_delete=models.CASCADE,
+        related_name="user_coupon",
     )
-    User = models.ForeignKey(UserInfo, verbose_name=_(" خریدار"), on_delete=models.CASCADE)
+    User = models.ForeignKey(
+        UserInfo, verbose_name=_(" خریدار"), on_delete=models.CASCADE
+    )
     Usage = models.PositiveIntegerField(_("تعداد استفاده کاربر"), default=0)
     Amount = models.PositiveIntegerField(_("مبلغ"), default=0)
     Created = models.DateTimeField(auto_now_add=True)
@@ -324,7 +365,9 @@ class WheelOfFortune(models.Model):
 
 
 class FortunePrize(models.Model):
-    RFP = models.CharField(max_length=50, blank=True, null=True, default=get_random_string)
+    RFP = models.CharField(
+        max_length=50, blank=True, null=True, default=get_random_string
+    )
     Title = models.CharField(_("عنوان"), max_length=200, null=True, blank=True)
     Wheel = models.ForeignKey(
         WheelOfFortune,
@@ -363,7 +406,9 @@ class FortuneUser(models.Model):
         on_delete=models.CASCADE,
         related_name="user_prize",
     )
-    User = models.ForeignKey(UserInfo, verbose_name=_(" خریدار"), on_delete=models.CASCADE)
+    User = models.ForeignKey(
+        UserInfo, verbose_name=_(" خریدار"), on_delete=models.CASCADE
+    )
     Usage = models.PositiveIntegerField(_("تعداد استفاده کاربر"), default=0)
     Created = models.DateTimeField(auto_now_add=True)
 
@@ -385,13 +430,20 @@ class PurchaseTrack(models.Model):
     ]
 
     Cart = models.ForeignKey(
-        Cart, verbose_name=_("سبدخرید"), on_delete=models.CASCADE, related_name="track_cart"
+        Cart,
+        verbose_name=_("سبدخرید"),
+        on_delete=models.CASCADE,
+        related_name="track_cart",
     )
-    User = models.ForeignKey(UserInfo, verbose_name=_(" خریدار"), on_delete=models.CASCADE)
+    User = models.ForeignKey(
+        UserInfo, verbose_name=_(" خریدار"), on_delete=models.CASCADE
+    )
     Phone = models.CharField(_("شماره تماس"), max_length=11)
     Describtion = models.TextField(_("توضیحات"), blank=True, null=True)
     Report = models.TextField(_("گزارش"), blank=True, null=True)
-    Status = models.CharField(_("وضعیت"), max_length=50, default=New, choices=STATUS_CHOICE)
+    Status = models.CharField(
+        _("وضعیت"), max_length=50, default=New, choices=STATUS_CHOICE
+    )
     Created_At = models.DateTimeField(auto_now_add=True)
     Modified_At = models.DateTimeField(auto_now=True)
 

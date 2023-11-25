@@ -8,7 +8,7 @@ from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
 import random
 import string
-from Users.models import GenderType
+from Users.models import GenderType, UserInfo
 
 
 def get_random_string():
@@ -255,6 +255,7 @@ class Staff(models.Model):
 
 
 class Address(models.Model):  # جدول مربوط به ادرس های کاربر
+    User = models.ForeignKey(UserInfo, verbose_name=_(""), on_delete=models.CASCADE)
     Title = models.CharField(_("عنوان آدرس"), max_length=100)  # عنوان آدرس
     Name = models.CharField(_("نام"), max_length=100)  # نام گیرنده
     Phone = models.CharField(_("شماره همراه"), max_length=11)  # شماره تلفن گیرنده
@@ -279,6 +280,8 @@ class Address(models.Model):  # جدول مربوط به ادرس های کار�
     def toJson(self):
         return {
             "addressTitle": self.Title,
+            "User": self.User.Name,
+            "User_id": self.User.pk,
             "Name": self.Name,
             "Phone": self.Phone,
             "State": self.State,

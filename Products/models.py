@@ -35,7 +35,9 @@ class ProductStat(models.IntegerChoices):
 
 
 class IntegerRangeField(models.IntegerField):
-    def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
+    def __init__(
+        self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs
+    ):
         self.min_value, self.max_value = min_value, max_value
         models.IntegerField.__init__(self, verbose_name, name, **kwargs)
 
@@ -98,12 +100,18 @@ class Guarantee(models.Model):
 
 class Product(models.Model):
     Slug = models.SlugField(max_length=300, blank=True, null=True)
-    Category = models.ForeignKey(Category, verbose_name=_("دسته بندی"), on_delete=models.CASCADE)
+    Category = models.ForeignKey(
+        Category, verbose_name=_("دسته بندی"), on_delete=models.CASCADE
+    )
     Brand = models.ForeignKey(
         Brand, verbose_name=_("برند"), on_delete=models.CASCADE, blank=True, null=True
     )
     Guarantee = models.ForeignKey(
-        Guarantee, verbose_name=_("گارانتی"), on_delete=models.CASCADE, blank=True, null=True
+        Guarantee,
+        verbose_name=_("گارانتی"),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
     RP = models.CharField(_("کد محصول"), max_length=50, blank=True, null=True)
     Name = models.CharField(_("نام محصول"), max_length=200)
@@ -129,8 +137,12 @@ class Product(models.Model):
     Modified_at_g = models.DateTimeField(
         _("تاریخ تغییر میلادی"), auto_now=True, blank=True, null=True
     )
-    Created_at_j = models.CharField(_("تاریخ ایجاد شمسی"), max_length=50, blank=True, null=True)
-    Modified_at_j = models.CharField(_("تاریخ تغییر شمسی"), max_length=50, blank=True, null=True)
+    Created_at_j = models.CharField(
+        _("تاریخ ایجاد شمسی"), max_length=50, blank=True, null=True
+    )
+    Modified_at_j = models.CharField(
+        _("تاریخ تغییر شمسی"), max_length=50, blank=True, null=True
+    )
 
     class Meta:
         verbose_name_plural = _("محصولات")
@@ -143,9 +155,14 @@ class Product(models.Model):
 
 
 class ProductImage(models.Model):
-    RPI = models.CharField(max_length=50, blank=True, null=True, default=get_random_string)
+    RPI = models.CharField(
+        max_length=50, blank=True, null=True, default=get_random_string
+    )
     Product = models.ForeignKey(
-        Product, verbose_name=_("محصول"), on_delete=models.CASCADE, related_name="image_prd"
+        Product,
+        verbose_name=_("محصول"),
+        on_delete=models.CASCADE,
+        related_name="image_prd",
     )
     Image = models.FileField(_("تصویر"), upload_to=ProductPathImage, max_length=100)
     Primary = models.BooleanField(_("تصویر اصلی"), default=False)
@@ -157,7 +174,10 @@ class ProductImage(models.Model):
 
 class ProductTech(models.Model):
     Product = models.ForeignKey(
-        Product, verbose_name=_("محصول"), on_delete=models.CASCADE, related_name="tech_prd"
+        Product,
+        verbose_name=_("محصول"),
+        on_delete=models.CASCADE,
+        related_name="tech_prd",
     )
     Name = models.CharField(_("نام مشخصه"), max_length=100)
     Value = models.CharField(_("مقدار مشخصه"), max_length=200)
@@ -171,7 +191,11 @@ class ProductTech(models.Model):
 
 class Filters(models.Model):
     Category = models.ForeignKey(
-        Category, verbose_name=_("دسته بندی"), on_delete=models.CASCADE, blank=True, null=True
+        Category,
+        verbose_name=_("دسته بندی"),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
     Name = models.CharField(_("نام"), max_length=200)
 
@@ -203,10 +227,16 @@ class FilterValue(models.Model):
 
 class ProductFilter(models.Model):
     Product = models.ForeignKey(
-        Product, verbose_name=_("محصول"), related_name="fil_prd", on_delete=models.CASCADE
+        Product,
+        verbose_name=_("محصول"),
+        related_name="fil_prd",
+        on_delete=models.CASCADE,
     )
     Filter = models.ForeignKey(
-        FilterValue, verbose_name=_("فیلتر"), related_name="fil_fil", on_delete=models.CASCADE
+        FilterValue,
+        verbose_name=_("فیلتر"),
+        related_name="fil_fil",
+        on_delete=models.CASCADE,
     )
 
     class Meta:
@@ -219,7 +249,10 @@ class ProductFilter(models.Model):
 
 class Variety(models.Model):
     Product = models.ForeignKey(
-        Product, verbose_name=_("محصول"), on_delete=models.CASCADE, related_name="variety_product"
+        Product,
+        verbose_name=_("محصول"),
+        on_delete=models.CASCADE,
+        related_name="variety_product",
     )
     RPV = models.CharField(_("کد تنوع محصول"), max_length=24)
     ColorCode = ColorField(_("کد رنگ"), default="#fff", blank=True, null=True)
@@ -239,11 +272,16 @@ class Variety(models.Model):
 class VarietySub(models.Model):
     RPVS = models.CharField(_("تنوع سایز"), max_length=50, blank=True, null=True)
     Variety = models.ForeignKey(
-        Variety, verbose_name=_("تنوع محصول"), on_delete=models.CASCADE, related_name="size_var"
+        Variety,
+        verbose_name=_("تنوع محصول"),
+        on_delete=models.CASCADE,
+        related_name="size_var",
     )
     Size = models.CharField(_("سایز"), max_length=50, blank=True, null=True)
     Quantity = models.IntegerField(_("موجودی"), default=0)
-    ReserevedQuantity = models.IntegerField(_(" موجودی رزرو"), blank=True, default=0)
+    ReserevedQuantity = models.PositiveIntegerField(
+        _(" موجودی رزرو"), blank=True, default=0
+    )
     Discount = IntegerRangeField(_("درصد تخفیف"), default=0, min_value=0, max_value=100)
     FinalPrice = models.BigIntegerField(_("قیمت نهایی"), default=0)
     OffPrice = models.IntegerField(_("مبلغ تخفیف"), default=0)
@@ -280,9 +318,14 @@ class VarietySub(models.Model):
 
 class ProductComment(models.Model):
     Product = models.ForeignKey(
-        Product, verbose_name=_("محصول"), on_delete=models.CASCADE, related_name="cm_prd"
+        Product,
+        verbose_name=_("محصول"),
+        on_delete=models.CASCADE,
+        related_name="cm_prd",
     )
-    User = models.ForeignKey(UserInfo, verbose_name=_("کاربر"), on_delete=models.CASCADE)
+    User = models.ForeignKey(
+        UserInfo, verbose_name=_("کاربر"), on_delete=models.CASCADE
+    )
     Date = models.CharField(_("تاریخ ایجاد شمسی"), max_length=100, default=Jdate)
     Text = models.TextField(_("متن نظر"), max_length=500)
     Rate = models.IntegerField(_("امتیاز کامنت"), default=0)
@@ -312,7 +355,10 @@ class CommentTip(models.Model):
 
 class ProductTag(models.Model):
     Product = models.ForeignKey(
-        Product, verbose_name=_("محصول"), on_delete=models.CASCADE, related_name="tag_prd"
+        Product,
+        verbose_name=_("محصول"),
+        on_delete=models.CASCADE,
+        related_name="tag_prd",
     )
     Title = models.CharField(_("عنوان"), max_length=50)
 
@@ -338,9 +384,15 @@ class BrandToPreview(models.Model):
 
 class ProductToPreview(models.Model):
     Name = models.CharField(_("نام"), null=True, blank=True, max_length=100)
-    Product = models.ForeignKey(Product, verbose_name=_("محصول"), on_delete=models.CASCADE)
+    Product = models.ForeignKey(
+        Product, verbose_name=_("محصول"), on_delete=models.CASCADE
+    )
     Image = models.ForeignKey(
-        ProductImage, verbose_name=_("تصویر"), on_delete=models.CASCADE, blank=True, null=True
+        ProductImage,
+        verbose_name=_("تصویر"),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
     Varities = models.TextField(_("تنوعات"), null=True, blank=True)
     Created_at = models.DateTimeField(_("تاریخ ایجاد میلادی"), auto_now_add=True)
@@ -355,9 +407,15 @@ class ProductToPreview(models.Model):
 
 class TopSellToPreview(models.Model):
     Name = models.CharField(_("نام"), null=True, blank=True, max_length=100)
-    Product = models.ForeignKey(Product, verbose_name=_("محصول"), on_delete=models.CASCADE)
+    Product = models.ForeignKey(
+        Product, verbose_name=_("محصول"), on_delete=models.CASCADE
+    )
     Image = models.ForeignKey(
-        ProductImage, verbose_name=_("تصویر"), on_delete=models.CASCADE, blank=True, null=True
+        ProductImage,
+        verbose_name=_("تصویر"),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
     Varities = models.TextField(_("تنوعات"), null=True, blank=True)
     Created_at = models.DateTimeField(_("تاریخ ایجاد میلادی"), auto_now_add=True)
@@ -372,7 +430,9 @@ class TopSellToPreview(models.Model):
 
 class CategoryToPreview(models.Model):
     Name = models.CharField(_("نام"), null=True, blank=True, max_length=100)
-    Category = models.ForeignKey(Category, verbose_name=_("دسته بندی"), on_delete=models.CASCADE)
+    Category = models.ForeignKey(
+        Category, verbose_name=_("دسته بندی"), on_delete=models.CASCADE
+    )
     Image = models.FileField(_("تصویر"), upload_to="Category/", max_length=100)
     Active = models.BooleanField(_("فعالیت"), default=True)
 
@@ -384,7 +444,9 @@ class CategoryToPreview(models.Model):
 
 
 class Testimotional(models.Model):
-    Comment = models.ForeignKey(ProductComment, verbose_name=_("کامنت"), on_delete=models.CASCADE)
+    Comment = models.ForeignKey(
+        ProductComment, verbose_name=_("کامنت"), on_delete=models.CASCADE
+    )
     Name = models.CharField(_("نام"), null=True, blank=True, max_length=100)
     Created_at = models.DateTimeField(_("تاریخ ایجاد میلادی"), auto_now_add=True)
     Active = models.BooleanField(_("فعالیت"), default=True)
@@ -398,7 +460,10 @@ class Testimotional(models.Model):
 
 class QuantityNotify(models.Model):
     Product = models.ForeignKey(
-        VarietySub, verbose_name=_("محصول"), on_delete=models.CASCADE, related_name="notify_size"
+        VarietySub,
+        verbose_name=_("محصول"),
+        on_delete=models.CASCADE,
+        related_name="notify_size",
     )
     Active = models.BooleanField(_("فعالیت"), default=True)
     Created_at = models.DateTimeField(auto_now_add=True)
@@ -416,7 +481,9 @@ class NotifyNumber(models.Model):
         on_delete=models.CASCADE,
         related_name="number_notify",
     )
-    User = models.ForeignKey(UserInfo, verbose_name=_("کاربر"), on_delete=models.CASCADE)
+    User = models.ForeignKey(
+        UserInfo, verbose_name=_("کاربر"), on_delete=models.CASCADE
+    )
     Created_at = models.DateTimeField(auto_now_add=True)
     Modified = models.DateTimeField(auto_now=True)
     Active = models.BooleanField(_("فعالیت"), default=True)

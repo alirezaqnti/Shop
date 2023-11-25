@@ -27,6 +27,7 @@ from rest_framework.generics import ListAPIView
 from django.core.mail import send_mail
 
 from Main.context_processors import getActiveUser, getCart
+from Main.models import Address
 from Products.models import (
     ProductImage,
     CategoryToPreview,
@@ -202,7 +203,12 @@ class CheckoutView(TemplateView):
     @transaction.atomic
     def post(self, request, *args, **kwargs):
         context = self.get_context_data()
-        Cr = context["cart"]
+        RC = request.POST["RC"]
+        Cr = (
+            Cart.objects.filter(RC=RC)
+            .prefetch_related("cartproduct_cart", "shipping_cart")
+            .first()
+        )
         Name = request.POST.get("Name", False)
         Phone = request.POST.get("Phone", False)
         State = request.POST.get("State", False)
@@ -214,8 +220,10 @@ class CheckoutView(TemplateView):
         Tips = request.POST.get("Tips", False)
         PaymentWay = request.POST.get("PaymentWay", False)
         ShippingWay = request.POST.get("ShippingWay", False)
+        SaveAddress = request.POST.get("SaveAddress", False)
+        print("SaveAddress:", SaveAddress)
         try:
-            Shipping.objects.get(Cart=Cr).delete()
+            Cr.shipping_cart.delete()
         except:
             pass
         Ship = Shipping()
@@ -224,7 +232,7 @@ class CheckoutView(TemplateView):
         Ship.Phone = Phone
         Ship.State_id = State
         Ship.City_id = City
-        Ship.Address = PostalAddress
+        Ship.PostalAddress = PostalAddress
         Ship.PostalCode = PostCode
         Ship.No = No
         if Unit:
@@ -233,11 +241,23 @@ class CheckoutView(TemplateView):
             Ship.Tips = Tips
         if ShippingWay == "post":
             Ship.Type = 1
-            ShippingPrice = 350000
+            ShippingPrice = 600000
         else:
             Ship.Type = 0
             ShippingPrice = 150000
         Ship.save()
+        if SaveAddress == "on":
+            Add = Address()
+            Add.User = Cr.User
+            Add.Name = Name
+            Add.Phone = Phone
+            Add.State_id = State
+            Add.City_id = City
+            Add.PostalAddress = PostalAddress
+            Add.PostalCode = PostCode
+            Add.Number = No
+            Add.Unit = Unit
+            Add.save()
         Cr.PaymentWay = 1 if PaymentWay == "bank" else 2
         Cr.policyAccept = True
         if Cr.ShippingPriceAdded:

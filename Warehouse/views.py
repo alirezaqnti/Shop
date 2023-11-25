@@ -1,6 +1,7 @@
 from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.contrib import messages
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -311,6 +312,7 @@ class CartPaymentView(APIView):
         data = cache.get("PaymentData")
         RC = data["RC"]
         PW = data["Way"]
+
         Cr = (
             Cart.objects.filter(RC=RC)
             .prefetch_related("cartproduct_cart", "shipping_cart")
@@ -319,13 +321,12 @@ class CartPaymentView(APIView):
         with transaction.atomic():
             for item in Cr.cartproduct_cart.filter(Active=True):
                 Var = item.Variety
-                if Var.Quantity <= item.Quantity:
+                if Var.Quantity >= item.Quantity:
                     Var.ReserevedQuantity += item.Quantity
                     Var.Quantity -= item.Quantity
                     Var.save()
                 else:
-                    context = {"stat": 200}
-                    return Response(context)
+                    messages.error(request, "موجودی برخی از سفارشات کافی نیست")
             if PW == "zarinpal":
                 CallbackURL = f"{REFFERER}warehouse/payment/callback/zarinpal/"
                 email = ""
@@ -359,6 +360,8 @@ class CartPaymentView(APIView):
                     context = {"stat": stat, "url": url}
                     return redirect(url)
                 else:
+                    print(CallbackURL)
+
                     return redirect("PostPaymentView", Cr.RC)
         context = {"stat": 200}
         return Response(context)
