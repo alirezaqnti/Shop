@@ -2,7 +2,7 @@ import random
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
-from Products.models import Variety, VarietySub
+from Products.models import VarietySub, Product
 from Users.models import UserInfo
 from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -19,18 +19,6 @@ def get_random_string():
 
 def Generate():
     return random.randint(100000, 999999)
-
-
-class Shortener(models.Model):
-    Real = models.CharField(_("مسیر اصلی"), max_length=400)
-    Short = models.URLField(_("لینک کوتاه"), max_length=200, blank=True, null=True)
-
-    class Meta:
-        verbose_name = _("Shortener")
-        verbose_name_plural = _("Shorteners")
-
-    def __str__(self):
-        return self.Short
 
 
 class UserEntity(models.IntegerChoices):
@@ -69,16 +57,24 @@ class CodeReg(models.Model):
         return self.Code
 
 
-class Slider(models.Model):
-    Wheel = "0"
+class ImageBox(models.Model):
     Image = "1"
     Data = "2"
     Link = "3"
     TYPE_CHOICES = [
-        (Wheel, "گردونه شانس"),
         (Image, "تصویر"),
         (Data, "مستقل"),
         (Link, "تصویر با لینک"),
+    ]
+
+    SLIDER = "1"
+    BIGBOX = "2"
+    TRIPLEBOX = "3"
+
+    PLACEMENT_CHOICE = [
+        (SLIDER, "اسلایدر"),
+        (BIGBOX, "باکس میانی"),
+        (TRIPLEBOX, "باکس سه گانه"),
     ]
 
     RS = models.CharField(
@@ -87,98 +83,19 @@ class Slider(models.Model):
     Type = models.CharField(
         _("نوع"), max_length=50, default=Image, choices=TYPE_CHOICES
     )
+    Placement = models.CharField(
+        _("جایگاه"), max_length=50, default=SLIDER, choices=PLACEMENT_CHOICE
+    )
     Image_H = models.ImageField(_("تصویر افقی"), upload_to="Slider/", max_length=100)
     Image_V = models.ImageField(_("تصویر عمودی"), upload_to="Slider/", max_length=100)
     Url = models.URLField(_("لینک"), max_length=250, blank=True, null=True)
     Rich = RichTextUploadingField(null=True, blank=True)
     Order = models.PositiveIntegerField(_("اولویت"), default=0)
     Created = models.DateTimeField(_("تاریخ"), auto_now_add=True)
+    Active = models.BooleanField(_("فعال"), default=True)
 
     class Meta:
-        verbose_name = _("اسلایدر")
-        verbose_name_plural = _("اسلایدر")
-
-
-class TwinBox(models.Model):
-    Image = models.ImageField(_("تصویر"), upload_to="TwinBox/", max_length=100)
-    Order = models.PositiveIntegerField(_("اولویت"), default=0)
-    Url = models.URLField(_("لینک"), max_length=250)
-
-    class Meta:
-        verbose_name = _("باکس های دوقلو")
-        verbose_name_plural = _("باکس های دوقلو")
-
-
-class BigSellBox(models.Model):
-    Variety = models.ForeignKey(
-        VarietySub,
-        verbose_name=_("تنوع محصول"),
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-    )
-    Image = models.ImageField(_("تصویر"), upload_to="BigSellBox/", max_length=100)
-    Text = models.CharField(_("متن"), max_length=200)
-    Url = models.URLField(_("لینک"), max_length=250)
-
-    class Meta:
-        verbose_name = _("باکس بزرگ")
-        verbose_name_plural = _("باکس بزرگ")
-
-    def __str__(self):
-        return self.Variety.Variety.Product.Name
-
-
-class DiscountBox(models.Model):
-    Variety = models.ForeignKey(
-        VarietySub,
-        verbose_name=_("تنوع محصول"),
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-    )
-    Time = models.DateTimeField(_("زمان"), auto_now=False, default=timezone.now)
-    Text = models.CharField(_("متن"), max_length=200)
-    Image = models.ImageField(_("تصویر"), upload_to="DiscountBox/", max_length=100)
-
-    class Meta:
-        verbose_name = _("باکس تخفیف ویژه")
-        verbose_name_plural = _("باکس تخفیف ویژه")
-
-    def __str__(self):
-        return self.Variety.Variety.Product.Name
-
-
-class OfferBox(models.Model):
-    Variety = models.ForeignKey(
-        VarietySub,
-        verbose_name=_("تنوع محصول"),
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-    )
-    Time = models.DateTimeField(_("زمان"), auto_now=False, default=timezone.now)
-    Text = models.CharField(_("متن"), max_length=200)
-    Image = models.ImageField(_("تصویر"), upload_to="OfferBox/", max_length=100)
-
-    class Meta:
-        verbose_name = _("باکس پیشنهاد ویزه")
-        verbose_name_plural = _("باکس پیشنهاد ویزه")
-
-    def __str__(self):
-        return self.Variety.Variety.Product.Name
-
-
-class MiniBox(models.Model):
-    Image = models.ImageField(
-        _("تصویر"), upload_to="MiniBox/", max_length=100, blank=True, null=True
-    )
-    Text = models.CharField(_("متن"), max_length=200)
-    Url = models.URLField(_("لینک"), max_length=250)
-
-    class Meta:
-        verbose_name = _("باکس لیست تخفیف")
-        verbose_name_plural = _("باکس لیست تخفیف")
+        verbose_name_plural = _("باکس تصاویر")
 
 
 class ContactUs(models.Model):
@@ -197,23 +114,36 @@ class ContactUs(models.Model):
         return self.Name
 
 
-class QuickOffer(models.Model):
-    Variety = models.ForeignKey(
+class Offers(models.Model):
+    POPUP = "1"
+    DISCOUNT = "2"
+    SELECTIVE = "3"
+    TYPE_CHOICES = [
+        (POPUP, "پاپ اپ"),
+        (DISCOUNT, "تخفبف"),
+        (SELECTIVE, "انتخابی"),
+    ]
+    Sub = models.ForeignKey(
         VarietySub, verbose_name=_("تنوع محصول"), on_delete=models.CASCADE
     )
-    Image = models.ImageField(
-        _("تصویر"), upload_to="QuickOffer/", max_length=100, blank=True, null=True
+    Product = models.ForeignKey(
+        Product,
+        verbose_name=_("محصول"),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
-    Url = models.URLField(_("لینک"), max_length=250, blank=True, null=True)
-    Name = models.CharField(_("نام"), max_length=200, blank=True, null=True)
+    Type = models.CharField(
+        _("نوع"), max_length=50, default=POPUP, choices=TYPE_CHOICES
+    )
     Created = models.DateTimeField(_("تاریخ"), auto_now_add=True)
     Active = models.BooleanField(_("فعال"), default=True)
 
     class Meta:
-        verbose_name_plural = _("آفر های سریع")
+        verbose_name_plural = _("آفر ها")
 
     def __str__(self):
-        return self.Name
+        return self.Product.Name
 
 
 class Staff(models.Model):

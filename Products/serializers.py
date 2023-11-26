@@ -125,6 +125,7 @@ class ProductSerializer(serializers.ModelSerializer):
             "RP",
             "Visit",
             "Demo",
+            "Rate",
         ]
 
 

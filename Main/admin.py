@@ -2,27 +2,9 @@ from django.contrib import admin
 from jalali_date import datetime2jalali, date2jalali
 from jalali_date.admin import ModelAdminJalaliMixin
 
-from .models import (
-    ContactUs,
-    Slider,
-    TwinBox,
-    BigSellBox,
-    DiscountBox,
-    OfferBox,
-    MiniBox,
-    Shortener,
-    CodeReg,
-    QuickOffer,
-    Staff,
-)
+from .models import ContactUs, ImageBox, Staff, Offers
 
 # Register your models here.
-
-# admin.site.register(CodeReg)
-admin.site.register(Shortener)
-admin.site.register(TwinBox)
-admin.site.register(BigSellBox)
-admin.site.register(MiniBox)
 
 
 @admin.register(Staff)
@@ -36,43 +18,33 @@ class StaffAdmin(admin.ModelAdmin):
     ordering = ("Name",)
 
 
-@admin.register(Slider)
-class SliderAdmin(admin.ModelAdmin):
-    list_display = ("Type",)
+@admin.register(ImageBox)
+class ImageBoxAdmin(admin.ModelAdmin):
+    list_display = (
+        "RS",
+        "Placement",
+        "Type",
+    )
     readonly_fields = ("RS",)
     ordering = ("-Created",)
 
 
-@admin.register(QuickOffer)
-class QuickOfferAdmin(admin.ModelAdmin):
+@admin.register(Offers)
+class OffersAdmin(admin.ModelAdmin):
     list_display = [
-        "Name",
-        "Image",
-        "Url",
+        "Product",
+        "Type",
+        "Sub",
     ]
     readonly_fields = [
-        "Name",
-        "Image",
-        "Url",
+        "Product",
     ]
-    search_fields = ("Name",)
+    search_fields = (
+        "Product.Name",
+        "Product.RP",
+        "Sub.RPVS",
+    )
     ordering = ("Created",)
-
-
-@admin.register(OfferBox)
-class OfferBoxAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
-    list_display = (
-        "Variety",
-        "Time",
-    )
-
-
-@admin.register(DiscountBox)
-class DiscountBoxAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
-    list_display = (
-        "Variety",
-        "Time",
-    )
 
 
 @admin.register(ContactUs)

@@ -1,6 +1,8 @@
 from Users.models import UserInfo
 from Warehouse.models import Cart, CartProduct, WishList
 from Products.models import ProductImage, VarietySub, Category
+from Main.models import Offers
+from Main.serializers import OfferSerializer
 
 # from Main.models import QuickOffer
 import operator
@@ -130,6 +132,43 @@ def Categories(request):
     return cats.get_descendants(include_self=True)
 
 
+def GetOffers():
+    cache.delete("offers")
+    if not "offers" in cache:
+        Offer = Offers.objects.filter(Active=True)
+        Dis = Offer.filter(Type="2")
+        Sel = Offer.filter(Type="3")
+        POP = Offer.filter(Type="1")
+        Discount = []
+        Select = []
+        POPUP = []
+        res = {}
+        for item in Dis:
+            Discount.append(OfferSerializer(instance=item).data)
+        for item in Sel:
+            Select.append(OfferSerializer(instance=item).data)
+        for item in POP:
+            PR = item.Product
+            IM = ProductImage.objects.get(Product=PR, Primary=True)
+
+            POPUP.append(
+                {
+                    "productname": PR.Name,
+                    "productlink": f"products/{PR.Slug}",
+                    "productimage": str(IM.Image),
+                }
+            )
+
+        res["Discount"] = Discount
+        res["Select"] = Select
+        res["POPUP"] = POPUP
+        cache.set("offers", res, 60 * 60)
+    else:
+        res = cache.get("offers")
+
+    return res
+
+
 # # region getIP
 # # save user ip address in sessions
 
@@ -152,9 +191,9 @@ def getIP(request):
 
 def Con(request):
     getIP(request)
-    #     get_redis_connection("default")
+    get_redis_connection("default")
     Bs = getCart(request)
-    #     QOffers = QuickOffer.objects.filter(Active=True)[:2]
+    QOffers = GetOffers()
     context = {}
     context["Cat"] = Categories(request)
     context["MEDIA_URL"] = MEDIA_URL
@@ -166,6 +205,6 @@ def Con(request):
     context["ShippingPrice"] = Bs["ShippingPrice"]
     context["WishPros"] = Bs["WishPros"]
     context["WishCount"] = Bs["WishCount"]
-    #     context["QOffer"] = QOffers
+    context["Offers"] = QOffers
     context["Session"] = getSession(request)
     return context

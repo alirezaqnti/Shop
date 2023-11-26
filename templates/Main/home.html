@@ -14,35 +14,33 @@
 			<div class="bnslider-wrapper">
 				<div class="bnslider bnslider--lg keep-scale" id="bnslider-01" data-start-width='1920'
 					data-start-height='876' data-start-mwidth='750' data-start-mheight='750'>
+
+
+					{% for slide in Slides %}
 					<div class="bnslider-slide bnslider-slide-product-style5">
-						<div class="bnslider-image-mobile lazyload fade-up-fast"
-							data-bgset="/media/images/skins/cosmetics/slider/slide-cosmetics-01-m.webp">
+
+						{% if slide.Type == '1' %}
+
+						<div class="bnslider-image-mobile lazyload fade-up-fast" data-bgset="/media/{{slide.Image_V}}">
 						</div>
-						<div class="bnslider-image lazyload fade-up-fast"
-							data-bgset="/media/images/skins/cosmetics/slider/slide-cosmetics-01.webp">
+						<div class="bnslider-image lazyload fade-up-fast" data-bgset="/media/{{slide.Image_H}}">
 						</div>
-						<div class="bnslider-text-wrap bnslider-overlay">
-							<div class="bnslider-text-content txt-middle px-15 txt-left">
-								<div
-									class="bnslider-text-content-flex container text-center align-items-center align-items-sm-start">
-									<div class="bnslider-vert pr-lg-5 text-center justify-content-center">
-										<div
-											class="bnslider-text bnslider-text--price-sale text-center justify-content-center">
-											<span class="txt">تخفیف
-												تا<span></span></span>
-											<span class="">40%</span>
-										</div>
-										<div class="bnslider-text bnslider-product-text">
-											فروش براندی</div>
-										<div class="btn-wrap mt-lg">
-											<a href="#" class="btn btn--lg">شروع
-												خرید</a>
-										</div>
-									</div>
-								</div>
+						{% else %}
+						<a href="{{slide.Url}}">
+
+							<div class="bnslider-image-mobile lazyload fade-up-fast"
+								data-bgset="/media/{{slide.Image_V}}">
 							</div>
-						</div>
+							<div class="bnslider-image lazyload fade-up-fast" data-bgset="/media/{{slide.Image_H}}">
+							</div>
+
+						</a>
+						{% endif %}
+
 					</div>
+					{% endfor %}
+
+
 				</div>
 			</div>
 		</div>
@@ -808,145 +806,55 @@
 			</div>
 		</div>
 	</div>
+
+	{% if BigBox %}
 	<div class="holder holder-mt-small fullwidth full-nopad">
 		<div class="container">
 			<div class="bnr-wrap bnr-">
 				<div class="bnr custom-caption  bnr--middle bnr--left bnr--fullwidth" data-fontratio=19.2>
 					<div class="bnr-img  image-container" style="padding-bottom: 43.33%">
 						<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-							data-src="/media/images/skins/cosmetics/banners/banner-cosmetics-full.webp"
-							class="lazyload fade-up" alt="">
-					</div>
-					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-						viewBox="0 0 150 150" class="circle_decor circle_decor--tl"
-						style="z-index:1;enable-background:new 0 0 150 150; transform: translate(71%, -71%) rotate(50deg); opacity:0.4; mix-blend-mode:normal; fill:#a813ed;     width:65%"
-						xml:space="preserve">
-						<defs>
-							<filter x="0" y="0" width="100%" height="100%" id="dropshadow11"
-								filterUnits="userSpaceOnUse">
-								<feGaussianBlur in="SourceAlpha" stdDeviation="2" />
-								<feOffset dx="-3" dy="0" result="offsetblur" />
-								<feMerge>
-									<feMergeNode />
-									<feMergeNode in="SourceGraphic" />
-									<feMergeNode in="SourceGraphic" />
-								</feMerge>
-							</filter>
-							<filter x="0" y="0" width="100%" height="100%" id="dropshadow22"
-								filterUnits="userSpaceOnUse">
-								<feGaussianBlur in="SourceAlpha" stdDeviation="2" />
-								<feOffset dx="3" dy="0" result="offsetblur" />
-								<feMerge>
-									<feMergeNode />
-									<feMergeNode in="SourceGraphic" />
-									<feMergeNode in="SourceGraphic" />
-								</feMerge>
-							</filter>
-							<clipPath id="circle_decor_mask11">
-								<circle r="73.5" cx="75" cy="75" />
-							</clipPath>
-						</defs>
-						<path fill="#55C1AE" d="M74.933,148.5c-9.9,0-19.533-1.95-28.583-5.783c-8.75-3.699-16.6-9-23.333-15.734
-                          c-6.75-6.731-12.034-14.582-15.733-23.332C3.45,94.6,1.5,84.967,1.5,75.066c0-9.9,1.95-19.533,5.783-28.583
-                          c3.7-8.75,9-16.6,15.733-23.333S37.6,11.116,46.35,7.417c9.05-3.833,18.684-5.783,28.583-5.783c9.901,0,19.534,1.95,28.584,5.783
-                          c8.75,3.7,16.6,9,23.332,15.733c6.733,6.733,12.032,14.583,15.733,23.333c3.832,9.067,5.783,18.684,5.783,28.583
-                          c0,9.9-1.951,19.534-5.783,28.584c-3.701,8.75-9,16.6-15.733,23.332c-6.732,6.733-14.582,12.033-23.332,15.733
-                          C94.467,146.55,84.834,148.5,74.933,148.5z M75,13.783C41.25,13.783,13.783,41.25,13.783,75S41.25,136.217,75,136.217
-                          S136.217,108.75,136.217,75S108.75,13.783,75,13.783z" />
-						<circle r="5.8" cx="75" cy="7.8" fill-opacity="0.25" style="filter:url(#dropshadow11)"
-							clip-path="url(#circle_decor_mask11)" />
-						<circle r="5.8" cx="74" cy="142.5" fill-opacity="0.25" style="filter:url(#dropshadow22)"
-							clip-path="url(#circle_decor_mask11)" />
-						<path fill="#55C1AE" d="M81.101,7.712c0,3.346-2.761,6.059-6.164,6.059l0,0c-3.404,0-6.164-2.713-6.164-6.059l0,0
-                          c0-3.345,2.76-6.058,6.164-6.058l0,0C78.34,1.654,81.101,4.367,81.101,7.712L81.101,7.712z" />
-						<path fill="#55C1AE"
-							d="M81.177,142.363c0,3.346-2.761,6.06-6.164,6.06l0,0c-3.404,0-6.164-2.714-6.164-6.06l0,0
-                          c0-3.345,2.76-6.058,6.164-6.058l0,0C78.416,136.306,81.177,139.019,81.177,142.363L81.177,142.363z" />
-					</svg>
-					<div class="bnr-caption text-right" style="padding: 4% 4%; ">
-						<div class="bnr-caption-inside w-s-100 w-ms-100">
-							<div class="bnr-text3 heading-font  mt-lg order-1  inherit"
-								style=" color:#ffffff; font-size:0.4em; font-weight:600; line-height:1em">
-								<span style="font-size:450%">2020</span>کالکشن تابستان
-							</div>
-							<div class="bnr-text3 heading-font  mt-0 order-2  inherit "
-								style=" color:#ffffff; font-size:0.7em; font-weight:700; line-height:1.5em;">
-								آرایش و عطر</div>
-							<div class="bnr-btn inherit mt-sm order-3"><a href="default.htm" target="_self"
-									class="btn btn--lg">شروع خرید</a></div>
-						</div>
+							data-src="/media/{{BigBox.Image_H}}" class="lazyload fade-up" alt="">
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	{% endif %}
+
 	<div class="holder holder-mt-xsmall">
 		<div class="container">
 			<div class="row bnr-grid vert-margin-small">
+
+				{% for box in TripleBox %}
+
 				<div class="col-18 col-sm-6">
-					<a href="product.html" class="bnr-wrap">
+
+					{% if box.Type == '1' %}
+					<div class="bnr-wrap">
 						<div class="bnr custom-caption image-hover-scale bnr--bottom bnr--left " data-fontratio=5.7>
 							<div class="bnr-img  image-container" style="padding-bottom: 145.02%">
 								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-srcset="/media/images/skins/cosmetics/banners/banner-cosmetics-01.webp"
-									class="lazyload fade-up" alt="">
-							</div>
-							<div class="bnr-caption" style="padding: 11% 13%; width: 100%;">
-								<div class="bnr-text3  mt-sm order-1"
-									style=" color:#ffffff; font-size:0.85em; font-weight:800; line-height:1em">
-									پالیترا</div>
-								<div class="bnr-text3 mt-0 order-2"
-									style=" color:#ffffff; font-size:0.85em; font-weight:800; line-height:1em;">
-									2020
-								</div>
-								<div class="bnr-btn mt-lg order-3">
-									<div class="btn">شروع خرید</div>
-								</div>
+									data-srcset="/media/{{box.Image_H}}" class="lazyload fade-up" alt="">
 							</div>
 						</div>
-					</a>
-				</div>
-				<div class="col-18 col-sm-6">
-					<a href="product.html" class="bnr-wrap">
-						<div class="bnr custom-caption image-hover-scale bnr--bottom bnr--center " data-fontratio=5.7>
+					</div>
+					{% else %}
+
+					<a href="{{box.Url}}" class="bnr-wrap">
+						<div class="bnr custom-caption image-hover-scale bnr--bottom bnr--left " data-fontratio=5.7>
 							<div class="bnr-img  image-container" style="padding-bottom: 145.02%">
 								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-srcset="/media/images/skins/cosmetics/banners/banner-cosmetics-02.webp"
-									class="lazyload fade-up" alt="">
-							</div>
-							<div class="bnr-caption" style="padding: 12% 4%; width: 100%;">
-								<div class="bnr-text3 bnr-text-has-bg mt-sm order-1 text-center"
-									style="padding: 3% 5%; color:#282828; font-size:0.55em; font-weight:700; line-height:1em">
-									استایل قهوه ای<span class="bnr-text-bg"
-										style="background:#ffffff;opacity: 1"></span>
-								</div>
-								<div class="bnr-text3 mt-xs order-2  text-center"
-									style=" color:#ffffff; font-size:0.75em; font-weight:700; line-height:1em;">
-									رژ لب</div>
+									data-srcset="/media/{{box.Image_H}}" class="lazyload fade-up" alt="">
 							</div>
 						</div>
 					</a>
+					{% endif %}
+
 				</div>
-				<div class="col-18 col-sm-6">
-					<a href="product.html" class="bnr-wrap">
-						<div class="bnr custom-caption image-hover-scale bnr--middle bnr--center " data-fontratio=5.7>
-							<div class="bnr-img  image-container" style="padding-bottom: 145.02%">
-								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-srcset="/media/images/skins/cosmetics/banners/banner-cosmetics-03.webp"
-									class="lazyload fade-up" alt="">
-							</div>
-							<div class="bnr-caption" style="padding: 4% 4%; width: 100%;">
-								<div class="bnr-text3 mt-sm order-1"
-									style="color:#ffffff; font-size:0.5em; font-weight:600; line-height:1em">
-									کالکشن جدید</div>
-								<div class="bnr-text3 bnr-text-has-bg mt-sm order-2 text-center"
-									style="padding: 3% 3%; color:#ffffff; font-size:0.5em; font-weight:700; line-height:1em;">
-									ستاره های شب<span class="bnr-text-bg" style="background:#a813ed;opacity: 1"></span>
-								</div>
-							</div>
-						</div>
-					</a>
-				</div>
+
+				{% endfor %}
+
 			</div>
 		</div>
 	</div>
@@ -958,461 +866,143 @@
 			</div>
 			<div class="prd-grid prd-carousel js-prd-carousel  slick-arrows-mobile-lg data-to-show-4 data-to-show-md-3 data-to-show-sm-3 data-to-show-xs-2"
 				data-slick='{"slidesToShow": 5, "slidesToScroll": 1, "responsive": [{"breakpoint": 992,"settings": {"slidesToShow": 3, "slidesToScroll": 1}},{"breakpoint": 768,"settings": {"slidesToShow": 2, "slidesToScroll": 1}},{"breakpoint": 480,"settings": {"slidesToShow": 2, "slidesToScroll": 1}}]}'>
-				<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
+
+				{% with Offers.Discount as Discount %}
+
+				{% for item in Discount %}
+
+				{% with item.Varities.Vars as Var %}
+				{% with item.Images as IM %}
+				{% with item.Product as PR %}
+				{% with item.Default as DEF %}
+				{% with item.Varities.Lables as Lables %}
+
+				<div class="prd prd--style2 prd-labels--max prd-labels-shadow prd-w-xl">
 					<div class="prd-inside">
 						<div class="prd-img-area">
-							<a href="product.html" class="prd-img image-container" style="padding-bottom: 100%">
-								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-src="/media/images/skins/cosmetics/products/product-09-1.webp"
-									alt="Love & Love" class="js-prd-img lazyload fade-up">
-								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-src="/media/images/skins/cosmetics/products/product-09-2.webp"
-									alt="Love & Love" class="js-prd-img lazyload fade-up">
+							<a href="{% url 'ProductPage' PR.RP %}" class="prd-img image-container"
+								style="padding-bottom: 100%">
+
+								{% for image in IM|slice:2 %}
+
+								<img src="/media/{{image.Image}}" data-src="/media/{{image.Image}}" alt="{{PR.Name}}"
+									class="js-prd-img fade-up lazyloaded">
+								{% endfor %}
+
 								<div class="foxic-loader"></div>
 								<div class="prd-big-circle-labels">
-									<div class="label-new"><span>جدید</span></div>
-									<div class="label-sale"><span>10%- <span class="sale-text">فروش
+
+									{% for LA in Lables %}
+
+									<div class="label-sale"><span>{{LA.Value}}%- <span class="sale-text">فروش
 												ویژه</span></span>
 										<div class="countdown-circle">
-											<div class="countdown js-countdown" data-countdown="2021/07/01"></div>
+											<div class="countdown js-countdown" data-countdown="2021/07/01">
+											</div>
 										</div>
 									</div>
+									{% endfor %}
+
 								</div>
 							</a>
 							<div class="prd-circle-labels">
-								<a href="#" class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-									title="افزودن به لیست علاقه مندی"><i class="icon-heart-stroke"></i></a><a href="#"
-									class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-									title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
+
 								<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
 									data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i><span>مشاهده
 										سریع</span></a>
+								<div class="colorswatch-label colorswatch-label--variants js-prd-colorswatch">
+									<i class="icon-palette"><span class="path1"></span><span class="path2"></span><span
+											class="path3"></span><span class="path4"></span><span
+											class="path5"></span><span class="path6"></span><span
+											class="path7"></span><span class="path8"></span><span
+											class="path9"></span><span class="path10"></span></i>
+									<ul>
+
+										{% for element in Var %}
+										<li>
+											<a class="#" data-toggle="tooltip" data-placement="right"
+												title="{{element.ColorName}}"
+												style='background-color:{{element.ColorCode}}'>
+											</a>
+										</li>
+
+										{% endfor %}
+
+									</ul>
+								</div>
 							</div>
 							<ul class="list-options color-swatch">
-								<li data-image="/media/images/skins/cosmetics/products/product-09-1.webp"
-									class="active"><a href="#" class="js-color-toggle" data-toggle="tooltip"
-										data-placement="left" title="نام رنگ"><img
-											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-											data-src="/media/images/skins/cosmetics/products/product-09-1.webp"
-											class="lazyload fade-up" alt="Color Name"></a></li>
-								<li data-image="/media/images/skins/cosmetics/products/product-09-2.webp">
-									<a href="#" class="js-color-toggle" data-toggle="tooltip" data-placement="left"
-										title="نام رنگ"><img
-											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-											data-src="/media/images/skins/cosmetics/products/product-09-2.webp"
-											class="lazyload fade-up" alt="Color Name"></a>
+
+
+								{% for element in IM %}
+
+								{% if forloop.counter == 0 %}
+								<li data-image="/media/{{element.Image}}" class="active">
+									<a href="#" class="js-color-toggle" data-toggle="tooltip" data-placement="left">
+										<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+											data-src="/media/{{element.Image}}" class="lazyload fade-up"
+											alt="Color Name">
+									</a>
 								</li>
+								{% else %}
+								<li data-image="/media/{{element.Image}}">
+									<a href="#" class="js-color-toggle" data-toggle="tooltip" data-placement="left">
+										<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+											data-src="/media/{{element.Image}}" class="lazyload fade-up"
+											alt="Color Name">
+									</a>
+								</li>
+								{% endif %}
+
+								{% endfor %}
+
+
 							</ul>
 						</div>
 						<div class="prd-info">
 							<div class="prd-info-wrap">
-								<div class="prd-info-top">
-									<div class="prd-tag"><a href="#">فاکسیک</a></div>
+								<div class="prd-rating justify-content-center">
+
+									{% for _ in PR.Rate %}
+									<i class="icon-star-fill fill"></i>
+
+									{% endfor %}
+
+
 								</div>
-								<div class="prd-rating justify-content-center"><i class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i></div>
-								<div class="prd-tag"><a href="#">فاکسیک</a></div>
-								<h2 class="prd-title"><a href="product.html">محصولات
-										Love &
-										Love</a></h2>
-								<div class="prd-description">
-									لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم
-									ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم
-									ایپسوم متن ساختگی با تولید سادگی نامفهوم
-								</div>
-							</div>
-							<div class="prd-hovers">
-								<div class="prd-circle-labels">
-									<div><a href="#"
-											class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-											title="افزودن به لیست علاقه مندی"><i class="icon-heart-stroke"></i></a><a
-											href="#"
-											class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-											title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
-									</div>
-									<div><a href="#" class="circle-label-qview prd-hide-mobile js-prd-quickview"
-											data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i><span>مشاهده
-												سریع</span></a></div>
-								</div>
-								<div class="prd-price">
-									<div class="price-old">200,000 ریال</div>
-									<div class="price-new">180,000 ریال</div>
-								</div>
-								<div class="prd-action">
-									<div class="prd-action-left">
-										<form action="#">
-											<button class="btn js-prd-addtocart"
-												data-product='{"name": "محصولات Love & Love", "path":"/media/images/skins/cosmetics/products/product-09-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
-												به سبد خرید</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
-					<div class="prd-inside">
-						<div class="prd-img-area">
-							<a href="product.html" class="prd-img image-container" style="padding-bottom: 100%">
-								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-src="/media/images/skins/cosmetics/products/product-10-1.webp" alt="Fiona may"
-									class="js-prd-img lazyload fade-up">
-								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-src="/media/images/skins/cosmetics/products/product-10-2.webp" alt="Fiona may"
-									class="js-prd-img lazyload fade-up">
-								<div class="foxic-loader"></div>
-								<div class="prd-big-circle-labels">
-									<div class="label-sale"><span>60%- <span class="sale-text">فروش
-												ویژه</span></span>
-										<div class="countdown-circle">
-											<div class="countdown js-countdown" data-countdown="2021/07/01"></div>
-										</div>
-									</div>
-								</div>
-							</a>
-							<div class="prd-circle-labels">
-								<a href="#" class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-									title="افزودن به لیست علاقه مندی"><i class="icon-heart-stroke"></i></a><a href="#"
-									class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-									title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
-								<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
-									data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i><span>مشاهده
-										سریع</span></a>
-							</div>
-							<ul class="list-options color-swatch">
-								<li data-image="/media/images/skins/cosmetics/products/product-10-1.webp"
-									class="active"><a href="#" class="js-color-toggle" data-toggle="tooltip"
-										data-placement="left" title="نام رنگ"><img
-											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-											data-src="/media/images/skins/cosmetics/products/product-10-1.webp"
-											class="lazyload fade-up" alt="Color Name"></a></li>
-								<li data-image="/media/images/skins/cosmetics/products/product-10-2.webp">
-									<a href="#" class="js-color-toggle" data-toggle="tooltip" data-placement="left"
-										title="نام رنگ"><img
-											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-											data-src="/media/images/skins/cosmetics/products/product-10-2.webp"
-											class="lazyload fade-up" alt="Color Name"></a>
-								</li>
-							</ul>
-						</div>
-						<div class="prd-info">
-							<div class="prd-info-wrap">
-								<div class="prd-info-top">
-									<div class="prd-tag"><a href="#">فاکسیک</a></div>
-								</div>
-								<div class="prd-rating justify-content-center"><i class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i></div>
-								<div class="prd-tag"><a href="#">فاکسیک</a></div>
-								<h2 class="prd-title"><a href="product.html">ریمل
-										فیونا</a></h2>
-								<div class="prd-description">
-									لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم
-									ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم
-									ایپسوم متن ساختگی با تولید سادگی نامفهوم
-								</div>
-							</div>
-							<div class="prd-hovers">
-								<div class="prd-circle-labels">
-									<div><a href="#"
-											class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-											title="افزودن به لیست علاقه مندی"><i class="icon-heart-stroke"></i></a><a
-											href="#"
-											class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-											title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
-									</div>
-									<div><a href="#" class="circle-label-qview prd-hide-mobile js-prd-quickview"
-											data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i><span>مشاهده
-												سریع</span></a></div>
-								</div>
-								<div class="prd-price">
-									<div class="price-old">200,000 ریال</div>
-									<div class="price-new">8,000 ریال</div>
-								</div>
-								<div class="prd-action">
-									<div class="prd-action-left">
-										<form action="#">
-											<button class="btn js-prd-addtocart"
-												data-product='{"name": "ریمل فیونا", "path":"/media/images/skins/cosmetics/products/product-10-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
-												به سبد خرید</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
-					<div class="prd-inside">
-						<div class="prd-img-area">
-							<a href="product.html" class="prd-img image-container" style="padding-bottom: 100%">
-								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-src="/media/images/skins/cosmetics/products/product-11-1.webp"
-									alt="Color Drops" class="js-prd-img lazyload fade-up">
-								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-src="/media/images/skins/cosmetics/products/product-11-2.webp"
-									alt="Color Drops" class="js-prd-img lazyload fade-up">
-								<div class="foxic-loader"></div>
-								<div class="prd-big-circle-labels">
-									<div class="label-sale"><span>10%- <span class="sale-text">فروش
-												ویژه</span></span>
-										<div class="countdown-circle">
-											<div class="countdown js-countdown" data-countdown="2021/07/01"></div>
-										</div>
-									</div>
-								</div>
-							</a>
-							<div class="prd-circle-labels">
-								<a href="#" class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-									title="افزودن به لیست علاقه مندی"><i class="icon-heart-stroke"></i></a><a href="#"
-									class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-									title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
-								<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
-									data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i><span>مشاهده
-										سریع</span></a>
-							</div>
-							<ul class="list-options color-swatch">
-								<li data-image="/media/images/skins/cosmetics/products/product-11-1.webp"
-									class="active"><a href="#" class="js-color-toggle" data-toggle="tooltip"
-										data-placement="left" title="نام رنگ"><img
-											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-											data-src="/media/images/skins/cosmetics/products/product-11-1.webp"
-											class="lazyload fade-up" alt="Color Name"></a></li>
-								<li data-image="/media/images/skins/cosmetics/products/product-11-2.webp">
-									<a href="#" class="js-color-toggle" data-toggle="tooltip" data-placement="left"
-										title="نام رنگ"><img
-											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-											data-src="/media/images/skins/cosmetics/products/product-11-2.webp"
-											class="lazyload fade-up" alt="Color Name"></a>
-								</li>
-							</ul>
-						</div>
-						<div class="prd-info">
-							<div class="prd-info-wrap">
-								<div class="prd-info-top">
-									<div class="prd-tag"><a href="#">فاکسیک</a></div>
-								</div>
-								<div class="prd-rating justify-content-center"><i class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i></div>
-								<div class="prd-tag"><a href="#">فاکسیک</a></div>
-								<h2 class="prd-title"><a href="product.html">کرم
-										پودر</a></h2>
-								<div class="prd-description">
-									لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم
-									ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم
-									ایپسوم متن ساختگی با تولید سادگی نامفهوم
-								</div>
-							</div>
-							<div class="prd-hovers">
-								<div class="prd-circle-labels">
-									<div><a href="#"
-											class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-											title="افزودن به لیست علاقه مندی"><i class="icon-heart-stroke"></i></a><a
-											href="#"
-											class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-											title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
-									</div>
-									<div><a href="#" class="circle-label-qview prd-hide-mobile js-prd-quickview"
-											data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i><span>مشاهده
-												سریع</span></a></div>
-								</div>
-								<div class="prd-price">
-									<div class="price-old">200,000 ریال</div>
-									<div class="price-new">180,000 ریال</div>
-								</div>
-								<div class="prd-action">
-									<div class="prd-action-left">
-										<form action="#">
-											<button class="btn js-prd-addtocart"
-												data-product='{"name": "کرم پودر", "path":"/media/images/skins/cosmetics/products/product-11-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
-												به سبد خرید</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
-					<div class="prd-inside">
-						<div class="prd-img-area">
-							<a href="product.html" class="prd-img image-container" style="padding-bottom: 100%">
-								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-src="/media/images/skins/cosmetics/products/product-12-1.webp"
-									alt="Something interesting" class="js-prd-img lazyload fade-up">
-								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-src="/media/images/skins/cosmetics/products/product-12-2.webp"
-									alt="Something interesting" class="js-prd-img lazyload fade-up">
-								<div class="foxic-loader"></div>
-								<div class="prd-big-circle-labels">
-									<div class="label-sale"><span>90%- <span class="sale-text">فروش
-												ویژه</span></span>
-										<div class="countdown-circle">
-											<div class="countdown js-countdown" data-countdown="2021/07/01"></div>
-										</div>
-									</div>
-								</div>
-							</a>
-							<div class="prd-circle-labels">
-								<a href="#" class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-									title="افزودن به لیست علاقه مندی"><i class="icon-heart-stroke"></i></a><a href="#"
-									class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-									title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
-								<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
-									data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i><span>مشاهده
-										سریع</span></a>
-							</div>
-							<ul class="list-options color-swatch">
-								<li data-image="/media/images/skins/cosmetics/products/product-12-1.webp"
-									class="active"><a href="#" class="js-color-toggle" data-toggle="tooltip"
-										data-placement="left" title="نام رنگ"><img
-											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-											data-src="/media/images/skins/cosmetics/products/product-12-1.webp"
-											class="lazyload fade-up" alt="Color Name"></a></li>
-								<li data-image="/media/images/skins/cosmetics/products/product-12-2.webp">
-									<a href="#" class="js-color-toggle" data-toggle="tooltip" data-placement="left"
-										title="نام رنگ"><img
-											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-											data-src="/media/images/skins/cosmetics/products/product-12-2.webp"
-											class="lazyload fade-up" alt="Color Name"></a>
-								</li>
-							</ul>
-						</div>
-						<div class="prd-info">
-							<div class="prd-info-wrap">
-								<div class="prd-info-top">
-									<div class="prd-tag"><a href="#">فاکسیک</a></div>
-								</div>
-								<div class="prd-rating justify-content-center"><i class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i></div>
-								<div class="prd-tag"><a href="#">فاکسیک</a></div>
-								<h2 class="prd-title"><a href="product.html">رژ لب
-										جالب</a></h2>
-								<div class="prd-description">
-									لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم
-									ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم
-									ایپسوم متن ساختگی با تولید سادگی نامفهوم
-								</div>
-							</div>
-							<div class="prd-hovers">
-								<div class="prd-circle-labels">
-									<div><a href="#"
-											class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-											title="افزودن به لیست علاقه مندی"><i class="icon-heart-stroke"></i></a><a
-											href="#"
-											class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-											title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
-									</div>
-									<div><a href="#" class="circle-label-qview prd-hide-mobile js-prd-quickview"
-											data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i><span>مشاهده
-												سریع</span></a></div>
-								</div>
-								<div class="prd-price">
-									<div class="price-old">200,000 ریال</div>
-									<div class="price-new">20,000 ریال</div>
-								</div>
-								<div class="prd-action">
-									<div class="prd-action-left">
-										<form action="#">
-											<button class="btn js-prd-addtocart"
-												data-product='{"name": "رژ لب جالب", "path":"/media/images/skins/cosmetics/products/product-12-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
-												به سبد خرید</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
-					<div class="prd-inside">
-						<div class="prd-img-area">
-							<a href="product.html" class="prd-img image-container" style="padding-bottom: 100%">
-								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-src="/media/images/skins/cosmetics/products/product-13-1.webp" alt="Lip Scrub"
-									class="js-prd-img lazyload fade-up">
-								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-src="/media/images/skins/cosmetics/products/product-13-2.webp" alt="Lip Scrub"
-									class="js-prd-img lazyload fade-up">
-								<div class="foxic-loader"></div>
-								<div class="prd-big-circle-labels">
-									<div class="label-new"><span>جدید</span></div>
-									<div class="label-sale"><span>50%- <span class="sale-text">فروش
-												ویژه</span></span>
-										<div class="countdown-circle">
-											<div class="countdown js-countdown" data-countdown="2021/07/01"></div>
-										</div>
-									</div>
-								</div>
-							</a>
-							<div class="prd-circle-labels">
-								<a href="#" class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-									title="افزودن به لیست علاقه مندی"><i class="icon-heart-stroke"></i></a><a href="#"
-									class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-									title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
-								<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
-									data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i><span>مشاهده
-										سریع</span></a>
-							</div>
-							<ul class="list-options color-swatch">
-								<li data-image="/media/images/skins/cosmetics/products/product-13-1.webp"
-									class="active"><a href="#" class="js-color-toggle" data-toggle="tooltip"
-										data-placement="left" title="نام رنگ"><img
-											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-											data-src="/media/images/skins/cosmetics/products/product-13-1.webp"
-											class="lazyload fade-up" alt="Color Name"></a></li>
-								<li data-image="/media/images/skins/cosmetics/products/product-13-2.webp">
-									<a href="#" class="js-color-toggle" data-toggle="tooltip" data-placement="left"
-										title="نام رنگ"><img
-											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-											data-src="/media/images/skins/cosmetics/products/product-13-2.webp"
-											class="lazyload fade-up" alt="Color Name"></a>
-								</li>
-							</ul>
-						</div>
-						<div class="prd-info">
-							<div class="prd-info-wrap">
-								<div class="prd-info-top">
-									<div class="prd-tag"><a href="#">فاکسیک</a></div>
-								</div>
-								<div class="prd-rating justify-content-center"><i class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i></div>
-								<div class="prd-tag"><a href="#">فاکسیک</a></div>
-								<h2 class="prd-title"><a href="product.html">برق لب</a>
+								<h2 class="prd-title"><a href="{% url 'ProductPage' PR.RP %}">{{PR.Name}}</a>
 								</h2>
 								<div class="prd-description">
-									لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم
-									ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم
-									ایپسوم متن ساختگی با تولید سادگی نامفهوم
+									{{PR.Demo}}
 								</div>
 							</div>
 							<div class="prd-hovers">
 								<div class="prd-circle-labels">
-									<div><a href="#"
-											class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-											title="افزودن به لیست علاقه مندی"><i class="icon-heart-stroke"></i></a><a
-											href="#"
-											class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-											title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
+
+									<div>
+										<a href="#" class="circle-label-qview prd-hide-mobile js-prd-quickview"
+											data-src="ajax/ajax-quickview.html">
+											<i class="icon-eye"></i>
+											<span>مشاهده سریع</span>
+										</a>
 									</div>
-									<div><a href="#" class="circle-label-qview prd-hide-mobile js-prd-quickview"
-											data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i><span>مشاهده
-												سریع</span></a></div>
 								</div>
 								<div class="prd-price">
-									<div class="price-old">200,000 ریال</div>
-									<div class="price-new">10,000 ریال</div>
+									{% if DEF.Discount > 0 %}
+									<div class="price-old pr">{{PR.BasePrice}} ریال
+									</div>
+									<div class="price-new pr">{{DEF.FinalPrice}} ریال
+									</div>
+									{% else %}
+									<div class="price-new pr">{{DEF.FinalPrice}} ریال
+									</div>
+									{% endif %}
 								</div>
 								<div class="prd-action">
 									<div class="prd-action-left">
 										<form action="#">
-											<button class="btn js-prd-addtocart"
-												data-product='{"name": "برق لب", "path":"/media/images/skins/cosmetics/products/product-13-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
+											<button class="btn js-prd-addtocart AddToCart"
+												data-product='{{DEF.RPVS}}'>افزودن
 												به سبد خرید</button>
 										</form>
 									</div>
@@ -1421,269 +1011,17 @@
 						</div>
 					</div>
 				</div>
-				<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
-					<div class="prd-inside">
-						<div class="prd-img-area">
-							<a href="product.html" class="prd-img image-container" style="padding-bottom: 100%">
-								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-src="/media/images/skins/cosmetics/products/product-14-1.webp"
-									alt="Break Rules" class="js-prd-img lazyload fade-up">
-								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-src="/media/images/skins/cosmetics/products/product-14-2.webp"
-									alt="Break Rules" class="js-prd-img lazyload fade-up">
-								<div class="foxic-loader"></div>
-								<div class="prd-big-circle-labels">
-									<div class="label-new"><span>جدید</span></div>
-									<div class="label-sale"><span>40%- <span class="sale-text">فروش
-												ویژه</span></span>
-										<div class="countdown-circle">
-											<div class="countdown js-countdown" data-countdown="2021/07/01"></div>
-										</div>
-									</div>
-								</div>
-							</a>
-							<div class="prd-circle-labels">
-								<a href="#" class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-									title="افزودن به لیست علاقه مندی"><i class="icon-heart-stroke"></i></a><a href="#"
-									class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-									title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
-								<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
-									data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i><span>مشاهده
-										سریع</span></a>
-							</div>
-							<ul class="list-options color-swatch">
-								<li data-image="/media/images/skins/cosmetics/products/product-14-1.webp"
-									class="active"><a href="#" class="js-color-toggle" data-toggle="tooltip"
-										data-placement="left" title="نام رنگ"><img
-											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-											data-src="/media/images/skins/cosmetics/products/product-14-1.webp"
-											class="lazyload fade-up" alt="Color Name"></a></li>
-								<li data-image="/media/images/skins/cosmetics/products/product-14-2.webp">
-									<a href="#" class="js-color-toggle" data-toggle="tooltip" data-placement="left"
-										title="نام رنگ"><img
-											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-											data-src="/media/images/skins/cosmetics/products/product-14-2.webp"
-											class="lazyload fade-up" alt="Color Name"></a>
-								</li>
-							</ul>
-						</div>
-						<div class="prd-info">
-							<div class="prd-info-wrap">
-								<div class="prd-info-top">
-									<div class="prd-tag"><a href="#">فاکسیک</a></div>
-								</div>
-								<div class="prd-rating justify-content-center"><i class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i></div>
-								<div class="prd-tag"><a href="#">فاکسیک</a></div>
-								<h2 class="prd-title"><a href="product.html">بریک
-										رولز</a></h2>
-								<div class="prd-description">
-									لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم
-									ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم
-									ایپسوم متن ساختگی با تولید سادگی نامفهوم
-								</div>
-							</div>
-							<div class="prd-hovers">
-								<div class="prd-circle-labels">
-									<div><a href="#"
-											class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-											title="افزودن به لیست علاقه مندی"><i class="icon-heart-stroke"></i></a><a
-											href="#"
-											class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-											title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
-									</div>
-									<div><a href="#" class="circle-label-qview prd-hide-mobile js-prd-quickview"
-											data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i><span>مشاهده
-												سریع</span></a></div>
-								</div>
-								<div class="prd-price">
-									<div class="price-old">200,000 ریال</div>
-									<div class="price-new">22,000 ریال</div>
-								</div>
-								<div class="prd-action">
-									<div class="prd-action-left">
-										<form action="#">
-											<button class="btn js-prd-addtocart"
-												data-product='{"name": "بریک رولز", "path":"/media/images/skins/cosmetics/products/product-14-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
-												به سبد خرید</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
-					<div class="prd-inside">
-						<div class="prd-img-area">
-							<a href="product.html" class="prd-img image-container" style="padding-bottom: 100%">
-								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-src="/media/images/skins/cosmetics/products/product-15-1.webp"
-									alt="The Dreamer" class="js-prd-img lazyload fade-up">
-								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-src="/media/images/skins/cosmetics/products/product-15-2.webp"
-									alt="The Dreamer" class="js-prd-img lazyload fade-up">
-								<div class="foxic-loader"></div>
-								<div class="prd-big-circle-labels">
-									<div class="label-new"><span>جدید</span></div>
-									<div class="label-sale"><span>-5% <span class="sale-text">فروش
-												ویژه</span></span>
-										<div class="countdown-circle">
-											<div class="countdown js-countdown" data-countdown="2021/07/01"></div>
-										</div>
-									</div>
-								</div>
-							</a>
-							<div class="prd-circle-labels">
-								<a href="#" class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-									title="افزودن به لیست علاقه مندی"><i class="icon-heart-stroke"></i></a><a href="#"
-									class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-									title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
-								<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
-									data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i><span>مشاهده
-										سریع</span></a>
-							</div>
-						</div>
-						<div class="prd-info">
-							<div class="prd-info-wrap">
-								<div class="prd-info-top">
-									<div class="prd-tag"><a href="#">فاکسیک</a></div>
-								</div>
-								<div class="prd-rating justify-content-center"><i class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i></div>
-								<div class="prd-tag"><a href="#">فاکسیک</a></div>
-								<h2 class="prd-title"><a href="product.html">دریمر</a>
-								</h2>
-								<div class="prd-description">
-									لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم
-									ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم
-									ایپسوم متن ساختگی با تولید سادگی نامفهوم
-								</div>
-							</div>
-							<div class="prd-hovers">
-								<div class="prd-circle-labels">
-									<div><a href="#"
-											class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-											title="افزودن به لیست علاقه مندی"><i class="icon-heart-stroke"></i></a><a
-											href="#"
-											class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-											title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
-									</div>
-									<div><a href="#" class="circle-label-qview prd-hide-mobile js-prd-quickview"
-											data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i><span>مشاهده
-												سریع</span></a></div>
-								</div>
-								<div class="prd-price">
-									<div class="price-old">200,000 ریال</div>
-									<div class="price-new">19,000 ریال</div>
-								</div>
-								<div class="prd-action">
-									<div class="prd-action-left">
-										<form action="#">
-											<button class="btn js-prd-addtocart"
-												data-product='{"name": "دریمر", "path":"/media/images/skins/cosmetics/products/product-15-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
-												به سبد خرید</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="prd prd--style2 prd-labels--max prd-labels-shadow ">
-					<div class="prd-inside">
-						<div class="prd-img-area">
-							<a href="product.html" class="prd-img image-container" style="padding-bottom: 100%">
-								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-src="/media/images/skins/cosmetics/products/product-16-1.webp"
-									alt="Savage Life" class="js-prd-img lazyload fade-up">
-								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-									data-src="/media/images/skins/cosmetics/products/product-16-2.webp"
-									alt="Savage Life" class="js-prd-img lazyload fade-up">
-								<div class="foxic-loader"></div>
-								<div class="prd-big-circle-labels">
-									<div class="label-sale"><span>30% <span class="sale-text">فروش
-												ویژه</span></span>
-										<div class="countdown-circle">
-											<div class="countdown js-countdown" data-countdown="2021/07/01"></div>
-										</div>
-									</div>
-								</div>
-							</a>
-							<div class="prd-circle-labels">
-								<a href="#" class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-									title="افزودن به لیست علاقه مندی"><i class="icon-heart-stroke"></i></a><a href="#"
-									class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-									title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
-								<a href="#" class="circle-label-qview js-prd-quickview prd-hide-mobile"
-									data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i><span>مشاهده
-										سریع</span></a>
-							</div>
-							<ul class="list-options color-swatch">
-								<li data-image="/media/images/skins/cosmetics/products/product-16-1.webp"
-									class="active"><a href="#" class="js-color-toggle" data-toggle="tooltip"
-										data-placement="left" title="نام رنگ"><img
-											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-											data-src="/media/images/skins/cosmetics/products/product-16-1.webp"
-											class="lazyload fade-up" alt="Color Name"></a></li>
-								<li data-image="/media/images/skins/cosmetics/products/product-16-2.webp">
-									<a href="#" class="js-color-toggle" data-toggle="tooltip" data-placement="left"
-										title="نام رنگ"><img
-											src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-											data-src="/media/images/skins/cosmetics/products/product-16-2.webp"
-											class="lazyload fade-up" alt="Color Name"></a>
-								</li>
-							</ul>
-						</div>
-						<div class="prd-info">
-							<div class="prd-info-wrap">
-								<div class="prd-info-top">
-									<div class="prd-tag"><a href="#">فاکسیک</a></div>
-								</div>
-								<div class="prd-rating justify-content-center"><i class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i></div>
-								<div class="prd-tag"><a href="#">فاکسیک</a></div>
-								<h2 class="prd-title"><a href="product.html">ساویج
-										لایف</a></h2>
-								<div class="prd-description">
-									لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم
-									ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم
-									ایپسوم متن ساختگی با تولید سادگی نامفهوم
-								</div>
-							</div>
-							<div class="prd-hovers">
-								<div class="prd-circle-labels">
-									<div><a href="#"
-											class="circle-label-compare circle-label-wishlist--add js-add-wishlist mt-0"
-											title="افزودن به لیست علاقه مندی"><i class="icon-heart-stroke"></i></a><a
-											href="#"
-											class="circle-label-compare circle-label-wishlist--off js-remove-wishlist mt-0"
-											title="حذف از لیست علاقه مندی"><i class="icon-heart-hover"></i></a>
-									</div>
-									<div><a href="#" class="circle-label-qview prd-hide-mobile js-prd-quickview"
-											data-src="ajax/ajax-quickview.html"><i class="icon-eye"></i><span>مشاهده
-												سریع</span></a></div>
-								</div>
-								<div class="prd-price">
-									<div class="price-old">200,000 ریال</div>
-									<div class="price-new">140,000 ریال</div>
-								</div>
-								<div class="prd-action">
-									<div class="prd-action-left">
-										<form action="#">
-											<button class="btn js-prd-addtocart"
-												data-product='{"name": "ساویج لایف", "path":"/media/images/skins/cosmetics/products/product-16-1.webp", "url":"product.html", "aspect_ratio":0.778}'>افزودن
-												به سبد خرید</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+
+				{% endwith %}
+				{% endwith %}
+				{% endwith %}
+				{% endwith %}
+				{% endwith %}
+
+				{% endfor %}
+
+				{% endwith %}
+
 			</div>
 		</div>
 	</div>
@@ -1849,7 +1187,7 @@
 							</div>
 						</div>
 						<div class="instagram-grid-btn">
-							<a href="https://www.instagram.com/yourID-exampale/" target="_self"
+							<a href="https://www.instagram.com/mugglestuff_shop/" target="_blank"
 								class="btn btn--xl">دنبال کردن ما</a>
 						</div>
 					</div>

@@ -6,18 +6,7 @@ from django.views.generic import TemplateView, FormView
 from rest_framework.response import Response
 from Users.models import UserInfo
 from Blog.models import Post
-from .models import (
-    CodeReg,
-    BigSellBox,
-    DiscountBox,
-    MiniBox,
-    OfferBox,
-    TwinBox,
-    Slider,
-    ContactUs,
-    City,
-    Staff,
-)
+from .models import CodeReg, ImageBox, ContactUs, City, Staff, Offers
 from .forms import ContactForm
 from kavenegar import KavenegarAPI
 from django.middleware.csrf import get_token
@@ -27,7 +16,9 @@ from rest_framework.generics import ListAPIView
 from django.core.mail import send_mail
 
 from Main.context_processors import getActiveUser, getCart
+from Main.serializers import OfferSerializer
 from Main.models import Address
+from Products.serializers import ProductSerializer
 from Products.models import (
     ProductImage,
     CategoryToPreview,
@@ -140,47 +131,30 @@ class GetCity(APIView):
         return JsonResponse(context)
 
 
-class HomepagecosmeticsView(TemplateView):
-    template_name = "Main/index-cosmetics.html"
-
-
-class HomepagefishingView(TemplateView):
-    template_name = "Main/index-fishing.html"
-
-
-class HomepagepetsView(TemplateView):
-    template_name = "Main/Product.html"
-
-
 class HomepageView(TemplateView):
     template_name = "Main/home.html"
 
     # def get(self, request, *args, **kwargs):
     #     return super().get(request, *args, **kwargs)
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     BigSell = BigSellBox.objects.last()
-    #     Discount = DiscountBox.objects.last()
-    #     Mini = MiniBox.objects.last()
-    #     Offer = OfferBox.objects.last()
-    #     Twin = TwinBox.objects.all().order_by("-Order")
-    #     Slides = Slider.objects.all().order_by("-Order")
-    #     CP = CategoryToPreview.objects.filter(Active=True)[:7]
-    #     BR = BrandToPreview.objects.filter(Active=True)[:7]
-    #     TS = Testimotional.objects.filter(Active=True)[:7]
-    #     Lt = Post.objects.filter(Active=True).order_by("-Created_At")[:5]
-    #     context["Posts"] = Lt
-    #     context["BigSell"] = BigSell
-    #     context["Discount"] = Discount
-    #     context["Mini"] = Mini
-    #     context["Offer"] = Offer
-    #     context["Twins"] = Twin
-    #     context["Sliders"] = Slides
-    #     context["CategoryToPreview"] = CP
-    #     context["BrandToPreview"] = BR
-    #     context["Testimotional"] = TS
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        IMs = ImageBox.objects.filter(Active=True).order_by("-Order")
+        SB = IMs.filter(Placement="1")
+        BB = IMs.filter(Placement="2").first()
+        TB = IMs.filter(Placement="3")
+        CP = CategoryToPreview.objects.filter(Active=True)[:7]
+        BR = BrandToPreview.objects.filter(Active=True)[:7]
+        TS = Testimotional.objects.filter(Active=True)[:7]
+        Lt = Post.objects.filter(Active=True).order_by("-Created_At")[:5]
+        context["Posts"] = Lt
+        context["Slides"] = SB
+        context["BigBox"] = BB
+        context["TripleBox"] = TB
+        context["CategoryToPreview"] = CP
+        context["BrandToPreview"] = BR
+        context["Testimotional"] = TS
+        return context
 
 
 class CartView(TemplateView):
@@ -278,10 +252,8 @@ class AboutView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        BigSell = BigSellBox.objects.last()
         BR = BrandToPreview.objects.filter(Active=True)[:7]
         TS = Testimotional.objects.filter(Active=True)[:7]
-        context["BigSell"] = BigSell
         context["BrandToPreview"] = BR
         context["Testimotional"] = TS
         return context
@@ -323,13 +295,13 @@ class GetWheelData(ListAPIView):
     serializer_class = WheelSerializer
 
 
-class SliderDataView(TemplateView):
+class ImageBoxDataView(TemplateView):
     template_name = "Main/Slider.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         RS = self.kwargs["RS"]
-        SL = Slider.objects.get(RS=RS)
+        SL = ImageBox.objects.get(RS=RS)
         context["Slide"] = SL
         return context
 

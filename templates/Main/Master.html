@@ -548,9 +548,9 @@
 								</div>
 							</div>
 							<div class="dropdn dropdn_wishlist">
-								<a href="account-wishlist.html" class="dropdn-link only-icon wishlist-link ">
+								<a href="#" class="dropdn-link only-icon wishlist-link ">
 									<i class="icon-heart"></i><span class="dropdn-link-txt">لیست علاقه مندی</span><span
-										class="wishlist-qty">3</span>
+										class="wishlist-qty">{{WishCount}}</span>
 								</a>
 							</div>
 							<div class="dropdn dropdn_account dropdn_fullheight">
@@ -1305,10 +1305,11 @@
 										</div>
 									</div>
 								</div>
-								<div class="dropdn dropdn_compare">
-									<a href="#" class="dropdn-link only-icon compare-link ">
-										<i class="icon-compare"></i><span class="dropdn-link-txt">لیست علاقه
-											مندی</span><span class="compare-qty">{{WishCount}}</span>
+
+								<div class="dropdn dropdn_wishlist">
+									<a href="#" class="dropdn-link only-icon wishlist-link ">
+										<i class="icon-heart"></i><span class="dropdn-link-txt">لیست علاقه
+											مندی</span><span class="wishlist-qty">{{WishCount}}</span>
 									</a>
 								</div>
 								<div class="dropdn dropdn_account dropdn_fullheight">
@@ -1920,8 +1921,7 @@
 	</div>
 	<div class="footer-sticky">
 		<div class="payment-notification-wrap js-pn" data-visible-time="3000" data-hidden-time="3000" data-delay="500"
-			data-from="تهران ,مشهد ,تبریز ,مازندران ,شیراز"
-			data-products='[{"productname":"شلوار چرمی", "productlink":"product.html","productimage":""},{"productname":"کوله پشتی پارچه ای مشکی", "productlink":"product.html","productimage":""},{"productname":"کفش های کتانی", "productlink":"product.html","productimage":""}]'>
+			data-from="تهران ,مشهد ,تبریز ,مازندران ,شیراز" data-products='{{Offers.POPUP}}'>
 			<div class="payment-notification payment-notification--squared">
 				<div class="payment-notification-inside">
 					<div class="payment-notification-container">

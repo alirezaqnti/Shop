@@ -4,7 +4,6 @@ from django.http.request import HttpRequest
 from django.core.exceptions import ValidationError
 from django.http.response import HttpResponse, JsonResponse
 from django.contrib import messages
-from Main.models import Shortener
 from core.settings import REFFERER
 from django.contrib import admin
 from django import forms
@@ -147,9 +146,15 @@ class ProductForm(forms.ModelForm):
             "Demo": forms.Textarea(
                 attrs={"class": "form-control", "required": "true", "rows": "4"}
             ),
-            "Name": forms.TextInput(attrs={"class": "form-control", "required": "true"}),
-            "Discount": forms.TextInput(attrs={"class": "form-control", "required": "false"}),
-            "BasePrice": forms.TextInput(attrs={"class": "form-control", "required": "true"}),
+            "Name": forms.TextInput(
+                attrs={"class": "form-control", "required": "true"}
+            ),
+            "Discount": forms.TextInput(
+                attrs={"class": "form-control", "required": "false"}
+            ),
+            "BasePrice": forms.TextInput(
+                attrs={"class": "form-control", "required": "true"}
+            ),
             "MetaDescription": forms.TextInput(
                 attrs={
                     "class": "form-control",
@@ -196,7 +201,12 @@ class ProductAdmin(admin.ModelAdmin):
         "Visit",
         "Sale",
     ]
-    inlines = [VarietyInline, ProductImageInline, ProductTechInline, ProductCommentInline]
+    inlines = [
+        VarietyInline,
+        ProductImageInline,
+        ProductTechInline,
+        ProductCommentInline,
+    ]
     form = ProductForm
     add_form_template = "admin/Product.html"
 
@@ -229,10 +239,7 @@ class ProductAdmin(admin.ModelAdmin):
             offPrice = obj.BasePrice - price
             obj.FinalPrice = price
             obj.OffPrice = offPrice
-            short = Shortener()
-            short.Real = f"{REFFERER}products/{slug}"
-            short.save()
-            obj.Url = short.Short
+
         super().save_model(request, obj, form, change)
 
     def add_view(self, request, form_url="", extra_context=None):
@@ -258,7 +265,9 @@ class ProductAdmin(admin.ModelAdmin):
                                 SI.Size = s["Size"]
                                 SI.Quantity = int(s["Quantity"])
                                 SI.Discount = int(s["Discount"])
-                                SI.FinalPrice = (100 - int(s["Discount"]) / 100) * PRD.BasePrice
+                                SI.FinalPrice = (
+                                    100 - int(s["Discount"]) / 100
+                                ) * PRD.BasePrice
                                 SI.OffPrice = (int(s["Discount"]) / 100) * PRD.BasePrice
                                 SI.save()
                         techs = res["Techs"]
@@ -267,7 +276,9 @@ class ProductAdmin(admin.ModelAdmin):
                             value = item["value"]
                             if name != "" and value != "":
                                 try:
-                                    ProductTech.objects.get(Product=PRD, Name=name, Value=value)
+                                    ProductTech.objects.get(
+                                        Product=PRD, Name=name, Value=value
+                                    )
                                 except:
                                     PT = ProductTech()
                                     PT.Value = value
@@ -288,7 +299,9 @@ class ProductAdmin(admin.ModelAdmin):
                             else:
                                 FilV = FilterValue.objects.get(pk=int(item["PK"]))
                             try:
-                                FilP = ProductFilter.objects.get(Product=PRD, Filter=FilV)
+                                FilP = ProductFilter.objects.get(
+                                    Product=PRD, Filter=FilV
+                                )
                             except:
                                 FilP = ProductFilter()
                                 FilP.Product = PRD
@@ -408,7 +421,9 @@ class ProductAdmin(admin.ModelAdmin):
                             SI.Size = s["Size"]
                             SI.Quantity = int(s["Quantity"])
                             SI.Discount = int(s["Discount"])
-                            SI.FinalPrice = (100 - int(s["Discount"]) / 100) * PRD.BasePrice
+                            SI.FinalPrice = (
+                                100 - int(s["Discount"]) / 100
+                            ) * PRD.BasePrice
                             SI.OffPrice = (int(s["Discount"]) / 100) * PRD.BasePrice
                             SI.save()
                     techs = res["Techs"]
@@ -417,7 +432,9 @@ class ProductAdmin(admin.ModelAdmin):
                         value = item["value"]
                         if name != "" and value != "":
                             try:
-                                ProductTech.objects.get(Product=PRD, Name=name, Value=value)
+                                ProductTech.objects.get(
+                                    Product=PRD, Name=name, Value=value
+                                )
                             except:
                                 PT = ProductTech()
                                 PT.Value = value
@@ -468,7 +485,9 @@ class ProductAdmin(admin.ModelAdmin):
                 return redirect(f"/admin/Products/product/{object_id}/change")
             elif "DeleteVarDeactive" in request.POST:
                 RPV = request.POST["RPV"]
-                var = Variety.objects.filter(RPV=RPV).prefetch_related("size_var").first()
+                var = (
+                    Variety.objects.filter(RPV=RPV).prefetch_related("size_var").first()
+                )
                 var.Active = False
                 var.save()
                 for item in var.size_var.all():
@@ -477,7 +496,9 @@ class ProductAdmin(admin.ModelAdmin):
                 return redirect(f"/admin/Products/product/{object_id}/change")
             elif "DeleteVarDelete" in request.POST:
                 RPV = request.POST["RPV"]
-                var = Variety.objects.filter(RPV=RPV).prefetch_related("size_var").first()
+                var = (
+                    Variety.objects.filter(RPV=RPV).prefetch_related("size_var").first()
+                )
                 var.delete()
                 return redirect(f"/admin/Products/product/{object_id}/change")
             elif "ImageDelete" in request.POST:
@@ -492,7 +513,8 @@ class ProductAdmin(admin.ModelAdmin):
                         im.save()
                 else:
                     messages.error(
-                        request, "تعداد تصاویر کمتر از ۳ عدد می باشد.حذف تصویر امکان پذیر نیست"
+                        request,
+                        "تعداد تصاویر کمتر از ۳ عدد می باشد.حذف تصویر امکان پذیر نیست",
                     )
 
                 return redirect(f"/admin/Products/product/{object_id}/change")
@@ -505,7 +527,9 @@ class ProductAdmin(admin.ModelAdmin):
                 return redirect(f"/admin/Products/product/{object_id}/change")
             elif "ActiveVar" in request.POST:
                 RPV = request.POST["RPV"]
-                var = Variety.objects.filter(RPV=RPV).prefetch_related("size_var").first()
+                var = (
+                    Variety.objects.filter(RPV=RPV).prefetch_related("size_var").first()
+                )
                 var.Active = True
                 var.save()
                 for item in var.size_var.all():
@@ -552,7 +576,10 @@ class ProductAdmin(admin.ModelAdmin):
                                     PIM = ProductImage()
                                     PIM.Image = item
                                     PIM.Product = PRD
-                                    if index == 0 and PIMC.filter(Primary=True).count() == 0:
+                                    if (
+                                        index == 0
+                                        and PIMC.filter(Primary=True).count() == 0
+                                    ):
                                         PIM.Primary = True
                                     PIM.save()
                             else:

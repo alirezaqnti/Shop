@@ -245,7 +245,7 @@ RenderSearchResult = function (URL) {
 				`;
 			} else {
 				Price = `
-				<div class="price-new">${getThousands(Default.FinalPrice)} تومان
+				<div class="price-new">${getThousands(Default.FinalPrice)} ریال
 				</div>
 				`;
 			}
@@ -306,6 +306,10 @@ RenderSearchResult = function (URL) {
 					`;
 				}
 			}
+			let Stars = '';
+			for (let i = 0; i < PRD.Rate; i++) {
+				Stars += '<i class="icon-star-fill fill"></i>';
+			}
 			$('.SearchResult').append(`
 				<div class="prd prd--style2 prd-labels--max prd-labels-shadow ${OS}">
 				<div class="prd-inside">
@@ -348,17 +352,12 @@ RenderSearchResult = function (URL) {
 					<div class="prd-info">
 						<div class="prd-info-wrap">
 							<div class="prd-info-top">
-								<div class="prd-rating"><i class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i><i
-										class="icon-star-fill fill"></i>
+								<div class="prd-rating">
+									${Stars}
 								</div>
 							</div>
 							<div class="prd-rating justify-content-center">
-								<i class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i><i
-									class="icon-star-fill fill"></i><i
-									class="icon-star-fill fill"></i><i class="icon-star-fill fill"></i>
+							${Stars}
 							</div>
 							<h2 class="prd-title"><a href="/products/${PRD.Slug}">${PRD.Name}</a>
 							</h2>
