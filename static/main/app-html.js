@@ -7415,6 +7415,8 @@ function onYouTubeIframeAPIReady() {
 					that.defaults.productArray = $paymentNotification
 						.parent()
 						.data('products');
+					// let STR = that.defaults.productArray;
+					// console.log(JSON.parse(STR));
 					that.defaults.paymentNotificationVisible =
 						$paymentNotification.data('visible-time')
 							? $paymentNotification.data('visible-time')
@@ -7478,6 +7480,7 @@ function onYouTubeIframeAPIReady() {
 				},
 				_setData: function _setData(i) {
 					var that = this;
+
 					$('.js-pn-name').html(
 						that.defaults.productArray[i].productname
 					);

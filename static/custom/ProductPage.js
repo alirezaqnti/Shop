@@ -197,9 +197,8 @@ $('#SingleOptionSelector-1').change(function () {
 });
 
 GetSimilarToPreview = async function () {
-	let loc = window.location;
-	let path = loc.pathname.split('/');
-	let res = await fetch(`/products/getsimilartopreview/${path[2]}`);
+	let slug = $('.prd-block_title').attr('data-slug');
+	let res = await fetch(`/products/getsimilartopreview/${slug}`);
 	let info = await res.json();
 	return info;
 };
@@ -212,109 +211,175 @@ RenderSimilarToPreview = function () {
 			let p = $('.MayLike').parents('.products-area');
 			p.addClass('d-none');
 		} else {
-			x.forEach((element) => {
-				let vars = JSON.parse(element.Varities);
-				let var_ = vars[0];
-				let sizes = var_.Size;
-				let tag = ``;
-				if (parseInt(sizes[0].OffPrice) > 0) {
-					tag = `<a class="product-type two" href="#">ویژه</a>`;
-					var price = `
-			<div class='d-flex justify-content-evenly align-items-center'>
-			<span>${getThousands(sizes[0].FinalPrice)} ریال</span>
-			<small class='mr-1'>
-			<del>
-			${getThousands(element.Product_BasePrice)} ریال
-			</del>
-			</small>
-			</div>
-			`;
+			x.forEach((PRD) => {
+				let vars = PRD.Varities;
+				let Images = PRD.Images;
+				let Default = vars.Default;
+				let Lables = vars.Lables;
+				let Vars = vars.Vars;
+				let Price = '';
+				if (Default.Discount > 0) {
+					Price = `
+					<div class="price-old">${getThousands(PRD.BasePrice)} ریال
+					</div>
+					<div class="price-new">${getThousands(Default.FinalPrice)} ریال
+					</div>
+					`;
 				} else {
-					var price = `<span>${getThousands(
-						sizes[0].FinalPrice
-					)} ریال</span>
-			`;
+					Price = `
+					<div class="price-new">${getThousands(Default.FinalPrice)} ریال
+					</div>
+					`;
 				}
-				let sel = ``;
-				for (let i = 0; i < sizes.length; i++) {
-					const Si = sizes[i];
-					let d;
-					if (i == 0) {
-						d = `
-			  <div class="option selected" data-value="${var_.RPV}">
-			  <span class="value" style="background-color: ${var_.Color};">
-			  </span>
-			  ${Si.Size}
-			  </div>
-			  `;
-					} else {
-						d = `
-			  <div class="option" data-value="${var_.RPV}">
-			  <span class="value" style="background-color: ${var_.Color};">
-			  </span>
-			  ${Si.Size}
-			  </div>
-			  `;
+				let Label = '';
+				let OS = '';
+				for (let i = 0; i < Lables.length; i++) {
+					const element = Lables[i];
+					if (element.Label == 'label-new') {
+						Label += `<div class="label-new"><span>جدید</span></div>`;
+					} else if (element.Label == 'label-sale') {
+						Label = `
+						<div class="label-sale"><span>${element.Value}%- <span class="sale-text">فروش
+									ویژه</span></span>
+							<div class="countdown-circle">
+								<div class="countdown js-countdown" data-countdown="2021/07/01">
+								</div>
+							</div>
+						</div>
+						`;
+					} else if (element.Label == 'prd-outstock') {
+						OS = 'prd-outstock';
 					}
-					sel += d;
 				}
-				$('.MayLike')
-					.owlCarousel()
-					.trigger(
-						'add.owl.carousel',
-						`
-				  
-				  <div class="products-item">
-					  <div class="top">
-						${tag}
-						  <a href="/products/${element.Slug}">
-							<img src="/media/${element.Image_URL}" alt="${element.Name}" />
-						  </a>
-						  <div class="inner">
-							  <h3>
-							  <a href="/products/${element.Slug}">${element.Name}</a>
-							  </h3>
-							  ${price}
-						  </div>
-					  </div>
-					  <div class="bottom">
-						  <i class="bx bx-plus menuToggle"></i>
-						  <div class="menu">
-							  <ul>
-								  <li class='menu-option' style="--i:0.1s;">
-									<div class="select-menu">
-									  <div class="select">
-									  <span class="value" style="background-color: ${var_.Color};">
-									  </span>
-										<span class='varSize'>
-										${sizes[0].Size}
-										</span>
-									  </div>
-									  <div class="options-list">
-										
-										${sel}
-										
-									  </div>
+				let Colors = '';
+				for (let i = 0; i < Vars.length; i++) {
+					const element = Vars[i];
+					Colors += `
+						<li>
+							<a class="#" data-toggle="tooltip" data-placement="right" title="${element.ColorName}" style='background-color:${element.ColorCode}'>
+							</a>
+						</li>
+						`;
+				}
+				let Imgs = '';
+				for (let i = 0; i < Images.length; i++) {
+					const element = Images[i];
+					if (i == 0) {
+						Imgs += `
+						<li data-image="/media/${element.Image}" class="active">
+							<a href="#" class="js-color-toggle" data-toggle="tooltip" data-placement="left">
+								<img
+									src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+									data-src="/media/${element.Image}"
+									class="lazyload fade-up" alt="Color Name">
+							</a>
+						</li>
+						`;
+					} else {
+						Imgs += `
+						<li data-image="/media/${element.Image}" >
+							<a href="#" class="js-color-toggle" data-toggle="tooltip" data-placement="left">
+								<img
+									src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+									data-src="/media/${element.Image}"
+									class="lazyload fade-up" alt="Color Name">
+							</a>
+						</li>
+						`;
+					}
+				}
+				let Stars = '';
+				for (let i = 0; i < PRD.Rate; i++) {
+					Stars += '<i class="icon-star-fill fill"></i>';
+				}
+				$('.MayLike').append(`
+					<div class="prd prd--style2 prd-labels--max prd-labels-shadow ${OS}">
+					<div class="prd-inside">
+						<div class="prd-img-area">
+							<a href="/products/${PRD.Slug}" class="prd-img image-hover-scale image-container"
+								style="padding-bottom: 128.48%">
+								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+									data-src="/media/${Images[0].Image}"
+									alt="${PRD.Name}" class="js-prd-img lazyload fade-up">
+								<div class="foxic-loader"></div>
+								<div class="prd-big-squared-labels">
+									${Label}
+								</div>
+							</a>
+							<div class="prd-circle-labels">
+								<a 
+									href="#" 
+									class="circle-label-qview js-prd-quickview prd-hide-mobile"
+									data-src="ajax/ajax-quickview.html">
+									<i class="icon-eye"></i>
+									<span>مشاهده سریع</span>
+								</a>
+								<div
+									class="colorswatch-label colorswatch-label--variants js-prd-colorswatch">
+									<i class="icon-palette"><span class="path1"></span><span
+											class="path2"></span><span class="path3"></span><span
+											class="path4"></span><span class="path5"></span><span
+											class="path6"></span><span class="path7"></span><span
+											class="path8"></span><span class="path9"></span><span
+											class="path10"></span></i>
+									<ul>
+										${Colors}
+									</ul>
+								</div>
+							</div>
+							<ul class="list-options color-swatch">
+								${Imgs}
+							</ul>
+						</div>
+						<div class="prd-info">
+							<div class="prd-info-wrap">
+								<div class="prd-info-top">
+									<div class="prd-rating">
+										${Stars}
 									</div>
-									 
-								  </li>
-								  <li  style="--i:0.2s;" class='AddToWish' data-target='${sizes[0].RPVS}'>
-									<a href="#" >
-									  <i class="bx bx-heart menu-option"></i>
-									</a>
-								  </li>
-								  <li  style="--i:0.3s;" class='AddToCart' data-target='${sizes[0].RPVS}'>
-									<a href="#">
-									  <i class="bx bx-cart menu-option"></i>
-									</a>
-								  </li>
-							  </ul>
-						  </div>
-					  </div>
-				  </div>
-			`
-					)
-					.trigger('refresh.owl.carousel');
+								</div>
+								<div class="prd-rating justify-content-center">
+								${Stars}
+								</div>
+								<h2 class="prd-title"><a href="/products/${PRD.Slug}">${PRD.Name}</a>
+								</h2>
+								<div class="prd-description">
+									${PRD.Demo}
+								</div>
+								<div class="prd-action">
+									<form action="#">
+										<button class="btn js-prd-addtocart AddToCart"
+											data-product='${Default.RPVS}'>افزودن
+											به سبد خرید</button>
+									</form>
+								</div>
+							</div>
+							<div class="prd-hovers">
+								<div class="prd-circle-labels">
+									
+									<div class="prd-hide-mobile"><a href="#"
+											class="circle-label-qview js-prd-quickview"
+											data-src="ajax/ajax-quickview.html"><i
+												class="icon-eye"></i><span>مشاهده
+												سریع</span></a></div>
+								</div>
+								<div class="prd-price">
+									${Price}
+								</div>
+								<div class="prd-action">
+									<div class="prd-action-left">
+										<form action="#">
+											<button class="btn js-prd-addtocart AddToCart"
+												data-product='${Default.RPVS}'>افزودن
+												به سبد خرید</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				`);
 			});
 		}
 	});

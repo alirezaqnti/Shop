@@ -16,6 +16,7 @@
 	<link href="{% static 'cosmetic/style-cosmetics.css' %}" rel="stylesheet">
 	<link href="{% static 'main/fonts/icomoon/icons.css' %}" rel="stylesheet">
 	<link rel="stylesheet" href="{% static 'custom/CustomStyle.css' %}">
+	<link rel="stylesheet" href="{% static 'plugins/fontawesome/all.min.css' %}">
 
 	{% block head %}
 
@@ -783,38 +784,42 @@
 														</ul>
 													</div>
 													{% for cat in Cat %}
-													{% if cat.parent == None %}
 													<div class="mmenu-col">
 														<h3 class="submenu-title">
-															<a href="/products/results/?cat={{cat.pk}}">
-																{{cat.Name}}
+															<a href="/products/results/?cat={{cat.Parent.id}}">
+																{{cat.Parent.Name}}
 															</a>
 														</h3>
+
+														{% if cat.Children|length > 0 %}
 														<ul class="submenu-list">
-															{% for c in cat.get_children %}
-															{% if not c.is_leaf_node %}
+															{% for c in cat.Children %}
+															{% if c.Children|length > 0 %}
 															<li>
-																<a href="/products/results/?cat={{c.pk}}"
-																	class="active">{{c.Name}}</a>
+																<a href="/products/results/?cat={{c.Parent.id}}"
+																	class="active">{{c.Parent.Name}}</a>
+
 																<ul class="sub-level">
 
-																	{% for item in c.get_children %}
+																	{% for item in c.Children %}
 																	<li><a
-																			href="/products/results/?cat={{item.pk}}">{{item.Name}}</a>
+																			href="/products/results/?cat={{item.id}}">{{item.Name}}</a>
 																	</li>
 
 																	{% endfor %}
 																</ul>
 															</li>
 															{% else %}
-															<li><a href="/products/results/?cat={{c.pk}}">{{c.Name}}</a>
+															<li><a
+																	href="/products/results/?cat={{c.Parent.id}}">{{c.Parent.Name}}</a>
 															</li>
 
 															{% endif %}
 															{% endfor %}
 														</ul>
+														{% endif %}
+
 													</div>
-													{% endif %}
 													{% endfor %}
 													<div class="mmenu-bottom justify-content-center">
 														<a href="{% url 'PostsList' %}"><i
@@ -1347,35 +1352,9 @@
 							<a href="#" class="nav-viewall">مشاهده همه</a>
 						</div>
 						<ul class="nav nav-level-1">
-							<li><a href="/">لایه ها<span class="menu-label menu-label--color1">جدید</span><span
-										class="arrow"><i class="icon-angle-left"></i></a>
-								<ul class="nav-level-2">
-									<li><a href="/">پوسته مُد (پیش فرض)</a></li>
-									<li><a href="index-sport.html">پوسته ورزشی</a></li>
-									<li><a href="index-helloween.html">پوسته هالووین</a></li>
-									<li><a href="index-medical.html">پوسته پزشکی</a></li>
-									<li><a href="index-food.html">پوسته بازار غذا</a></li>
-									<li><a href="index-cosmetics.html">پوسته لوازم آرایشی و بهداشتی</a></li>
-									<li><a href="index-fishing.html">پوسته ماهیگیری</a></li>
-									<li><a href="index-zir.html">پوسته لباس زیر</a></li>
-									<li><a href="index-books.html">پوسته کتاب<span
-												class="menu-label menu-label--color1">جدید</span></a></li>
-									<li><a href="index-electronics.html">پوسته لوازم الکترونیکی<span
-												class="menu-label menu-label--color2">جدید</span></a></li>
-									<li><a href="index-viping.html">پوسته دستگاه ویپ<span
-												class="menu-label">جدید</span></a></li>
-									<li><a href="index-games.html">پوسته بازی ها</a></li>
-									<li><a href="index-02.html">صفحه خانه 2</a></li>
-									<li><a href="index-03.html">صفحه خانه 3</a></li>
-									<li><a href="index-04.html">صفحه خانه 4</a></li>
-									<li><a href="index-05.html">صفحه خانه 5</a></li>
-									<li><a href="index-06.html">صفحه خانه 6</a></li>
-									<li><a href="index-07.html">صفحه خانه 7</a></li>
-									<li><a href="index-08.html">صفحه خانه 8</a></li>
-									<li><a href="index-09.html">صفحه خانه 9</a></li>
-									<li><a href="index-10.html">صفحه خانه 10</a></li>
-									<li><a href="index-ltr.html">صفحه خانه LTR</a></li>
-								</ul>
+							<li>
+								<a href="/">خانه</a>
+
 							</li>
 							<li><a href="#">صفحات<span class="arrow"><i class="icon-angle-left"></i></a>
 								<ul class="nav-level-2">
@@ -1443,67 +1422,63 @@
 									<li><a href="coming-soon.html" target="_blank">به زودی</a></li>
 								</ul>
 							</li>
-							<li><a href="category.html">محصولات جدید<span class="arrow"><i
-											class="icon-angle-left"></i></a>
+							<li><a href="javascript:void(0)">
+									دسته بندی ها
+									<span class="arrow">
+										<i class="icon-angle-left"></i>
+									</span>
+								</a>
 								<ul class="nav-level-2">
-									<li><a href="category.html">کفش ها<span class="arrow"><i
-													class="icon-angle-left"></i></a>
+
+									{% for cat in Cat %}
+									<li>
+
+										{% if cat.Children|length > 0 %}
+										<a href="/products/results/?cat={{cat.Parent.id}}">{{cat.Parent.Name}}
+											<span class="arrow">
+												<i class="icon-angle-left"></i>
+											</span>
+										</a>
 										<ul class="nav-level-3">
-											<li><a href="category.html">پاشنه بلند</a></li>
-											<li><a href="category.html">پوتین</a></li>
-											<li><a href="category.html">تخت</a></li>
-											<li><a href="category.html">ورزشی و مجلسی</a></li>
-											<li><a href="category.html">مخصوص دویدن</a></li>
+
+											{% for c in cat.Children %}
+											<li>
+
+												{% if c.Children|length > 0 %}
+												<a href="/products/results/?cat={{c.Parent.id}}">{{c.Parent.Name}}
+													<span class="arrow">
+														<i class="icon-angle-left"></i>
+													</span>
+												</a>
+												<ul class="nav-level-4">
+
+													{% for item in c.Children %}
+													<li>
+														<a href="/products/results/?cat={{item.id}}">{{item.Name}}</a>
+													</li>
+													{% endfor %}
+
+												</ul>
+												{% else %}
+												<a href="/products/results/?cat={{c.Parent.id}}">{{c.Parent.Name}}</a>
+												{% endif %}
+
+											</li>
+
+											{% endfor %}
+
+
 										</ul>
+
+										{% else %}
+										<a href="/products/results/?cat={{cat.Parent.id}}">{{cat.Parent.Name}}
+										</a>
+										{% endif %}
+
 									</li>
-									<li><a href="category.html">برتر<span class="arrow"><i
-													class="icon-angle-left"></i></a>
-										<ul class="nav-level-3">
-											<li><a href="category.html">لباس</a></li>
-											<li><a href="category.html">پیراهن و تاپ</a></li>
-											<li><a href="category.html">کت و پالتو</a></li>
-											<li><a href="category.html">سوییشرت</a></li>
-										</ul>
-									</li>
-									<li><a href="category.html">کفش ها<span class="arrow"><i
-													class="icon-angle-left"></i></a>
-										<ul class="nav-level-3">
-											<li><a href="category.html">پاشنه بلند</a></li>
-											<li><a href="category.html">پوتین</a></li>
-											<li><a href="category.html">تخت</a></li>
-											<li><a href="category.html">ورزشی و مجلسی</a></li>
-											<li><a href="category.html">مخصوص دویدن</a></li>
-										</ul>
-									</li>
-									<li><a href="category.html">پایین تنه<span class="arrow"><i
-													class="icon-angle-left"></i></a>
-										<ul class="nav-level-3">
-											<li><a href="category.html">جین</a></li>
-											<li><a href="category.html">شلوار</a></li>
-											<li><a href="category.html">شلوار اسلش</a></li>
-											<li><a href="category.html">شلوارک</a></li>
-											<li><a href="category.html">جوراب</a></li>
-										</ul>
-									</li>
-									<li><a href="category.html">لوازم جانبی<span class="arrow"><i
-													class="icon-angle-left"></i></a>
-										<ul class="nav-level-3">
-											<li><a href="category.html">عینک آفتابی</a></li>
-											<li><a href="category.html">کلاه</a></li>
-											<li><a href="category.html">ساعت</a></li>
-											<li><a href="category.html">زیورآلات</a></li>
-											<li><a href="category.html">کمربند</a></li>
-										</ul>
-									</li>
-									<li><a href="category.html">کیف ها<span class="arrow"><i
-													class="icon-angle-left"></i></a>
-										<ul class="nav-level-3">
-											<li><a href="category.html">کیف دستی</a></li>
-											<li><a href="category.html">کوله پشتی</a></li>
-											<li><a href="category.html">کیف بند دار</a></li>
-											<li><a href="category.html">کیف پول</a></li>
-										</ul>
-									</li>
+
+									{% endfor %}
+
 								</ul>
 							</li>
 							<li><a href="#" target="_blank">قالب فاکسیک<span class="menu-label menu-label--color3">عجله
@@ -1919,9 +1894,11 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="footer-sticky">
 		<div class="payment-notification-wrap js-pn" data-visible-time="3000" data-hidden-time="3000" data-delay="500"
-			data-from="تهران ,مشهد ,تبریز ,مازندران ,شیراز" data-products='{{Offers.POPUP}}'>
+			data-from="تهران ,مشهد ,تبریز ,مازندران ,شیراز"
+			data-products='[{% for item in Offers.POPUP %}{"productname":"{{item.productname}}", "productlink":"{{item.productlink}}","productimage":"/media/{{item.productimage}}"}{% if forloop.counter != Offers.POPUP|length %},{% endif %}{% endfor %}]'>
 			<div class="payment-notification payment-notification--squared">
 				<div class="payment-notification-inside">
 					<div class="payment-notification-container">
@@ -1967,6 +1944,7 @@
 	<script src="{% static 'custom/master.js'%}"></script>
 	<script src="{% static 'custom/Cookie.js'%}"></script>
 	<script src="{% static 'custom/thousands.js'%}"></script>
+	<script src="{% static 'plugins/fontawesome/all.js'%}"></script>
 	{% block js %}
 	{% endblock js %}
 </body>

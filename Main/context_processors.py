@@ -50,6 +50,7 @@ def getCart(request, *args, **kwargs):
             co = cr.cartproduct_cart.filter(Active=True)
             data = []
             for item in co:
+                print("TRRR!")
                 Variety = item.Variety.Variety
                 pic = ProductImage.objects.filter(
                     Product=Variety.Product, Primary=True
@@ -115,25 +116,33 @@ def getCart(request, *args, **kwargs):
 
 
 def Categories(request):
-    cats = Category.objects.filter(level=0).order_by("order")
-    # if not "cats" in cache:
-    #     subcats = []
-    #     for item in cats:
-    #         for cat in Category.objects.filter(parent_id=item.id):
-    #             subcats.append(cat)
-    #             for sub in Category.objects.filter(parent_id=cat.id):
-    #                 subcats.append(sub)
-    #         subcats.append(item)
-    #     cats = sorted(subcats, key=operator.attrgetter("order"))
-    #     res = [item.to_json() for item in cats]
-    #     cache.set("cats", res, timeout=CACHE_TTL)
-    # else:
-    #     res = cache.get("cats")
-    return cats.get_descendants(include_self=True)
+    if not "cats" in cache:
+        cats = Category.objects.filter(level=0).order_by("order")
+        res = []
+        for item in cats:
+            parent = item
+            p = {}
+            c_list = []
+            p["Parent"] = parent.to_json()
+            children = parent.get_children()
+            for child in children:
+                c = {}
+                g_list = []
+                c["Parent"] = child.to_json()
+                grands = child.get_children()
+                for grand in grands:
+                    g_list.append(grand.to_json())
+                c["Children"] = g_list
+                c_list.append(c)
+            p["Children"] = c_list
+            res.append(p)
+        cache.set("cats", res, timeout=60 * 60)
+    else:
+        res = cache.get("cats")
+    return res
 
 
 def GetOffers():
-    cache.delete("offers")
     if not "offers" in cache:
         Offer = Offers.objects.filter(Active=True)
         Dis = Offer.filter(Type="2")

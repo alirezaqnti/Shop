@@ -1,6 +1,5 @@
 LOADER = function () {
 	let load = $('.Loader');
-	console.log(load, load.hasClass('d-none'));
 	if (load.hasClass('d-none')) {
 		$(document.body).css('overflow-y', 'hidden');
 		load.removeClass('d-none');

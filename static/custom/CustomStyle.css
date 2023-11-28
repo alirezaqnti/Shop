@@ -10,21 +10,24 @@
  * Rating styles
  */
 .rating {
-    width: 226px;
-    margin: 0 auto 1em;
-    font-size: 45px;
-    overflow: hidden;
+    margin: 0 auto;
 }
 
 .rating input {
     float: right;
     opacity: 0;
     position: absolute;
+    z-index: 100;
 }
 
-.rating a,
+.rating input[type='radio']+label {
+    font-size: 37px !important;
+    min-width: auto !important;
+    margin: 0 15px !important;
+    padding: 0 !important;
+}
+
 .rating label {
-    float: right;
     color: #aaa;
     text-decoration: none;
     -webkit-transition: color .4s;
@@ -35,13 +38,14 @@
 
 .rating label:hover~label,
 .rating input:focus~label,
-.rating label:hover,
-.rating a:hover,
-.rating a:hover~a,
-.rating a:focus,
-.rating a:focus~a {
+.rating label:hover {
     color: orange;
     cursor: pointer;
+}
+
+.rating input[type='radio']+label:before,
+.rating input[type='radio']+label:after {
+    display: none;
 }
 
 .STRwrapper,

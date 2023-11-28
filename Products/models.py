@@ -65,7 +65,7 @@ class Category(MPTTModel):
         return {
             "id": self.id,
             "Name": self.Name,
-            "parent_id": self.parent_id,
+            "parent_id": str(self.parent_id),
             "level": self.level,
             "order": self.order,
         }
