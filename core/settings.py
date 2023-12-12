@@ -57,82 +57,48 @@ MIDDLEWARE = [
 ]
 
 # endregion
-DEBUG = True
-
-
-if DEBUG:
+try:
+    from .Private import (
+        DEBUG,
+        DATABASES,
+        CACHES,
+        STATIC_ROOT,
+        STATIC_URL,
+        MEDIA_ROOT,
+        MEDIA_URL,
+        ALLOWED_HOSTS,
+        REFFERER,
+    )
+except:
+    DEBUG = True
+    ALLOWED_HOSTS = ["127.0.0.1"]
     REFFERER = "http://127.0.0.1:8000/"
-    ALLOWED_HOSTS = ["*"]
-    INSTALLED_APPS += ["debug_toolbar"]
-    MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
-    # region Database
-
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": "unnameddb",
-            "USER": "alirezaqanati",
-            "PASSWORD": "Agh050797",
-            "HOST": "localhost",
-            "PORT": "",
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
+
+    # region CACHES
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379",
         }
     }
 
     # endregion
 
-    CACHES = {
-        "default": {
-            "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": "redis://127.0.0.1:6379/1",
-            "OPTIONS": {
-                "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            },
-        }
-    }
-    # region Static & Media
-
+    # region STATIC
     STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+    STATIC_URL = "/static/"
 
-    # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    # endregion
 
-    STATIC_URL = "/static/"  # root for static file such as css & js
+    # region MEDIA
     MEDIA_URL = "/media/"
     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
-    # endregion
-
-else:
-    REFFERER = ""
-    ALLOWED_HOSTS = []
-
-    # region Database
-
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": "maindbuvz_db",
-            "USER": "postgres",
-            "PASSWORD": "fq8nci6325smv7k",
-            "HOST": "maindb-inu-service",
-            "PORT": "",
-        }
-    }
-
-    # endregion
-
-    CACHES = {
-        "default": {
-            "BACKEND": "django_redis.cache.RedisCache",
-            "LOCATION": "redis://:kuldu9houadhrx5@redisdb-egg-service",
-        }
-    }
-    # region Static & Media
-
-    STATIC_ROOT = os.path.join(BASE_DIR, "static")
-
-    STATIC_URL = "/static/"  # root for static file such as css & js
-    MEDIA_URL = "/public/media/"
-    MEDIA_ROOT = os.path.join(BASE_DIR, "public", "media")
 
     # endregion
 
@@ -232,7 +198,9 @@ USE_TZ = False
 
 REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
-    "DEFAULT_AUTHENTICATION_CLASSES": ["rest_framework.authentication.TokenAuthentication"],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication"
+    ],
 }
 
 # endregion
@@ -375,5 +343,7 @@ LOGGING = {
 pbKEYn = 7103911361751289296658388830746844227983219246289797730958985648971967279708296739736792579263687929546606918383482400680235043342107525818413503464325971
 pbKEYe = 65537
 prKEYd = 2972311113578316123772367977293883082465292200627318058205690609586345341519248303895066173321944931813135020998013444255269957602943741946502311933902073
-prKEYp = 4731199765390719506094051066379241046338305937891657841571405284305548516145942981
+prKEYp = (
+    4731199765390719506094051066379241046338305937891657841571405284305548516145942981
+)
 prKEYq = 1501503152269585625202396327858355883810508305252554689784338601803188791
