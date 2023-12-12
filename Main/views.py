@@ -35,10 +35,14 @@ from Warehouse.models import (
 )
 from django.contrib import messages
 import requests
-from requests.auth import HTTPBasicAuth
 from django.db import transaction
 from Warehouse.serializers import WheelSerializer
+from kavenegar import KavenegarAPI
 
+try:
+    from core.Private import KAVENEGAR_API_KEY
+except:
+    KAVENEGAR_API_KEY = ""
 # def html_email():
 #     subject = 'That’s your subject'
 #     html_message = render_to_string('mail_template.html', {'context': 'values'})
@@ -54,25 +58,45 @@ def get_csrf(request):
     return response
 
 
-def SendSMS(Phone, Message):
-    data = requests.request(
-        "POST",
-        url="http://niksms.com/fa/publicapi/ptpsms/",
-        json={
-            "username": "09128523035",
-            "password": "Mohsenvafaei67",
-            "senderNumber": "50004307",
-            "numbers": Phone,
-            "message": Message,
-        },
-        headers={"Content-Type": "application/json"},
-    )
-    res = data.json()
-    if res["Status"] == 1:
-        return True
-    else:
-        return False
+# region Send SMS
+# send a single token sms
+def SendSMS(data):
+    try:
+        api = KavenegarAPI(KAVENEGAR_API_KEY)
+        params = {
+            "receptor": data["Phone"],
+            "template": data["template"],
+        }
+        try:
+            params["token"] = data["token"]
+        except:
+            pass
 
+        try:
+            params["token2"] = data["token2"]
+        except:
+            pass
+
+        try:
+            params["token3"] = data["token3"]
+        except:
+            pass
+
+        try:
+            params["token10"] = data["token10"]
+        except:
+            pass
+        try:
+            params["token20"] = data["token20"]
+        except:
+            pass
+
+        response = api.verify_lookup(params)
+    except Exception as e:
+        print(e)
+
+
+# endregion
 
 # region Code
 # functions:
@@ -83,17 +107,18 @@ def SendSMS(Phone, Message):
 # کد ۶ رقمی
 
 
-def Code(request, phone, type):
+def Code(phone):
     co = CodeReg()
-    if type == "Phone":
-        co.Phone = phone
-    else:
-        co.Email = phone
+    co.Phone = phone
     co.save()
     number = co.Code
-    text = f""" فروشگاه 
-    کد اعتبار سنجی شما: {number}"""
-    # SendSMS(phone, text)
+    template = "LomerUserPhoneNOVerification"
+    data = {
+        "template": template,
+        "token": number,
+        "Phone": phone,
+    }
+    SendSMS(data)
     # if request.POST and request.is_ajax():
     #     number = random.randint(100000, 999999)
     #     request.session["code"] = number

@@ -1,7 +1,9 @@
 from zeep import Client
 
-
-MERCHANT = "896002e4-8b1f-4059-aa25-0008ebf970cb"
+try:
+    from core.Private import ZARINPAL_MERCHANT as MERCHANT
+except:
+    MERCHANT = ""
 
 
 def GetClient():
