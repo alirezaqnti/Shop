@@ -1,4 +1,3 @@
 venv/*
 *.pyc
 static/ckeditor
-media/images

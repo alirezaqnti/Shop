@@ -84,6 +84,8 @@ class ProductPage(TemplateView):
             .prefetch_related("comment_tip")
             .order_by("Created_at")
         )
+        CM = []
+        [CM.append(x.toJson()) for x in Cms]
         Tags = PRD.tag_prd.all()
         context["SelectedVar"] = var.RPV
         context["Vars"] = vars
@@ -91,7 +93,7 @@ class ProductPage(TemplateView):
         context["Subs"] = VarietySubs
         context["Def"] = Def
         context["Pictures"] = Pics
-        context["Comments"] = Cms
+        context["Comments"] = CM
         context["Tags"] = Tags
         context["PRD"] = PRD
         return context
@@ -99,11 +101,15 @@ class ProductPage(TemplateView):
     def post(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         User = getActiveUser(request)
-        Pr = context["Product"]
+        Pr = context["PRD"]
         stars = request.POST.get("stars", None)
+        print("stars:", stars)
         STR = request.POST.getlist("STR", None)
+        print("STR:", STR)
         Weak = request.POST.getlist("Weak", None)
+        print("Weak:", Weak)
         text = request.POST.get("text", None)
+        print("text:", text)
         Comment = ProductComment()
         Comment.Product = Pr
         Comment.User = User

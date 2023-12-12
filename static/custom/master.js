@@ -10,10 +10,10 @@ $('body').on('click', '.Removefromcart', function (e) {
 	let res = AjaxReq(data, url, CartUpdate);
 });
 
-$('.WishlistTable').on('click', 'button', function (e) {
+$('body').on('click', '.RemovefromWish', function (e) {
 	e.preventDefault();
-	let slug = $(this).attr('data-target');
-	let tr = $(this).parents('tr')[0];
+	let slug = $(this).attr('data-RW');
+
 	let data = {
 		RW: slug,
 	};
@@ -21,7 +21,7 @@ $('.WishlistTable').on('click', 'button', function (e) {
 	let res = AjaxReq(data, url);
 	if (res) {
 		$(tr).fadeOut(1000);
-		$('.WishlistTable').remove(tr);
+		$(`.wish-item[data-RW=${slug}]`).remove();
 		WishListUpdate();
 	}
 });
@@ -56,44 +56,30 @@ WishListUpdate = async function () {
 	let res = await fetch(`${loc.origin}/warehouse/getwishlist/`);
 	let info = await res.json();
 
-	$('.WishlistHead').html(`${info.count} محصول`);
-	$('.WishlistBadge').html(`${info.count}`);
-	let Pros = info.Pros;
+	$('.wishlist-qty').html(`${info.WishCount}`);
+	let Pros = info.WishPros;
 	$('.WishlistTable').empty();
 	for (let i = 0; i < Pros.length; i++) {
 		const element = Pros[i];
-		var si = ``;
-		var color = ``;
-		if (element.Size) {
-			si = ` سایز ${element.Size}`;
-		}
-		if (element.Color) {
-			color = `<span class='value' style='background-color:${element.Color}'></span>`;
-		}
-
-		$('.WishlistTable').append(`
-		<tr>
-		<th scope="row">
-		  <img src="/media/${element.Pic}" alt="Cart" />
-		</th>
-		<td>
-		  <span class="rate">${element.Name}
-			<span class="value" style="background-color: ${element.Color};"></span>
-			سایز ${element.Size}
-		  </span>
-		</td>
-		<td>
-		  <a class="btn btn-outline-dark" href="#">
-			<i class="fa fa-cart-plus" aria-hidden="true"></i>
-		  </a>
-		</td>
-		<td>
-		  <button type='button' class="close btn btn-link" data-target="${element.RW}">
-			<i class="bx bx-x"></i>
-		  </button>
-		</td>
-	  </tr>
-            `);
+		$('#ModalWishProducts').append(`
+		<div class="minicart-prd row wish-item" data-RW='${element.RW}'>
+			<div class="minicart-prd-image image-hover-scale-circle col">
+				<a href="/products/${element.Slug}">
+				<img class="lazyload fade-up"
+						src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+						data-src="/media/${element.Pic}" alt=""></a>
+			</div>
+			<div class="minicart-prd-info col">
+				<div class="minicart-prd-tag">${element.ColorName}</div>
+				<h2 class="minicart-prd-name"><a href="/products/${element.Slug}">${element.Name}</a></h2>
+			</div>
+			<div class="minicart-prd-action">
+				<a href="javascript:void(0)" data-RW="${element.RW}"
+					class="js-product-remove RemovefromWish" data-line-number="1"><i
+						class="icon-recycle"></i></a>
+			</div>
+		</div>
+	`);
 	}
 };
 $(document).on('click', '.AddToCart', function (e) {

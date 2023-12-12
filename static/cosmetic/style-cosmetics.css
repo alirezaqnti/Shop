@@ -8313,7 +8313,7 @@ select.selectpicker {
 .hdr-logo {
     display: -ms-flexbox;
     display: flex;
-    max-width: 300px;
+    max-width: 150px;
     -ms-flex-align: center;
     align-items: center;
 }
@@ -8331,19 +8331,19 @@ select.selectpicker {
 
 @media (max-width: 1199px) {
     .hdr-logo {
-        max-width: 220px;
+        max-width: 110px;
     }
 }
 
 @media (max-width: 575px) {
     .hdr-logo {
-        max-width: 160px;
+        max-width: 110;
     }
 }
 
 @media (max-width: 479px) {
     .hdr-logo {
-        max-width: 130px;
+        max-width: 100px;
     }
 }
 
@@ -10126,6 +10126,7 @@ body.boxed .dropdn.dropdn_fullheight .dropdn-content {
 }
 
 .minicart-prd-name {
+    width: max-content;
     font-size: 15px;
     font-weight: 600;
     line-height: 20px;

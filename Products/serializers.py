@@ -1,14 +1,5 @@
 from rest_framework import serializers
-from .models import (
-    ProductToPreview,
-    Product,
-    ProductImage,
-    Variety,
-    ProductStat,
-    Filters,
-    Category,
-    VarietySub,
-)
+from .models import *
 from Warehouse.models import WishList
 from Analytic.views import DateDiffrence
 from Main.context_processors import getActiveUser

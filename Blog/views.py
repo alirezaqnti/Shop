@@ -13,10 +13,14 @@ class PostsList(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        Lt = Post.objects.filter(Active=True).order_by("-Created_At")[:3]
+        Ps = Post.objects.filter(Active=True).order_by("-Created_At")[:3]
         Tg = PostTags.objects.all().order_by("-Usage")[:10]
-        context["Late"] = Lt
+        RT = Post.objects.filter(Active=True).order_by("-Rate")[:3]
+        TGs = PostTags.objects.all().order_by("-ClickCount")[:10]
+        context["Posts"] = Ps
         context["Tags"] = Tg
+        context["Fav_Post"] = RT
+        context["Fav_Tags"] = TGs
         return context
 
 
@@ -41,19 +45,25 @@ class PostDetail(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        slug = kwargs["slug"]
+        RPO = kwargs["RPO"]
         Ps = (
-            Post.objects.filter(Slug=slug)
+            Post.objects.filter(RPO=RPO)
             .prefetch_related("tag_post", "comment_post", "rate_post")
             .first()
         )
-        Nx = Post.objects.filter(Created_At__gte=Ps.Created_At).exclude(Slug=slug).first()
-        Pv = Post.objects.filter(Created_At__lte=Ps.Created_At).exclude(Slug=slug).first()
-        Lt = Post.objects.filter(Active=True).exclude(Slug=slug).order_by("-Created_At")[:3]
+        Lt = (
+            Post.objects.filter(Active=True)
+            .exclude(RPO=RPO)
+            .order_by("-Created_At")[:5]
+        )
+        RT = Post.objects.filter(Active=True).exclude(RPO=RPO).order_by("-Rate")[:3]
+        TGs = PostTags.objects.all().order_by("-ClickCount")[:10]
         context["Post"] = Ps
         context["Late"] = Lt
-        context["Next"] = Nx
-        context["Prev"] = Pv
+        context["Fav_Post"] = RT
+        context["Fav_Tags"] = TGs
+        context["Tags"] = Ps.tag_post.all()
+        context["CMs"] = Ps.comment_post.all()
         return context
 
     def post(self, request, *args, **kwargs):

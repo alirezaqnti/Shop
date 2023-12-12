@@ -30,32 +30,28 @@ RenderPosts = function (URL) {
 		for (let i = 0; i < result.length; i++) {
 			const post = result[i];
 			$('.Post-Wrapper').append(`
-
-            <div class="col-sm-6">
-            <div class="blog-item">
-                <div class="top">
-                    <a href="/blog/${post.Slug}">
-                        <img src="${post.Poster}" alt="Blog" class="img-fluid" />
-                    </a>
-                    <span>${post.Created}</span>
-                </div>
-                <div class="bottom">
-                    <h3>
-                        <a href="/blog/${post.Slug}">
-                            ${post.Title}
-                        </a>
-                    </h3>
-                    <p class="text-truncate d-block">
-
-                        ${post.Demo}
-                    </p>
-                    <a class="blog-btn" href="/blog/${post.Slug}">
-                        ادامه مطلب
-                        <i class="bx bx-plus"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
+			<div class="post-prw">
+				<div class="row vert-margin-middle">
+					<div class="post-prw-img col-md-7">
+						<a href="/blog/post/${post.RPO}">
+							<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+								data-src="${post.Poster}" class="lazyload fade-up" alt="">
+						</a>
+					</div>
+					<div class="post-prw-text col-md-11">
+						<div class="post-prw-links">
+							<div class="post-prw-date"><i class="icon-calendar"></i>${post.Created}</div>
+							<div class="post-prw-date"><i class="icon-star"></i>${post.Rate}/5</div>
+						</div>
+						<h4 class="post-prw-title"><a href="/blog/post/${post.RPO}">${post.Title}</a>
+						</h4>
+						<div class="post-prw-teaser">${post.Demo}</div>
+						<div class="post-prw-btn">
+							<a href="/blog/post/${post.RPO}" class="btn btn--sm">مطالعه بیشتر</a>
+						</div>
+					</div>
+				</div>
+			</div>
             `);
 		}
 	});

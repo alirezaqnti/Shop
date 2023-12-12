@@ -1,0 +1,274 @@
+{% extends 'Main/Master.html' %}
+{% load static %}
+
+{% block head %}
+
+{% endblock head %}
+
+
+{% block content %}
+
+<div class="page-content">
+	<div class="holder breadcrumbs-wrap mt-0">
+		<div class="container">
+			<ul class="breadcrumbs">
+				<li><a href="/">خانه</a></li>
+				<li><a href="/blog/">بلاگ</a></li>
+				<li><span>پست</span></li>
+			</ul>
+		</div>
+	</div>
+	<div class="holder">
+		<div class="container">
+			<div class="page-title text-center">
+				<h1>پست</h1>
+			</div>
+			<div class="row">
+				<div class="col-md-14 aside aside--content">
+					<div class="post-full">
+						<h2 class="post-title">{{Post.Title}}</h2>
+						<div class="post-links">
+							<div class="post-date"><i class="icon-calendar"></i>{{Post.Created}}</div>
+							<div class="post-date"><i class="icon-star"></i>{{Post.Rate}}/5</div>
+							<a href="#" class="post-link">{{Post.Author}}</a>
+							<a href="#postComments" class="js-scroll-to"><i class="icon-chat"></i>{{CMs|length}}
+								دیدگاه</a>
+						</div>
+						<div class="post-img image-container" style="padding-bottom: 54.44%">
+							<img class="lazyload fade-up-fast"
+								src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+								data-src="{{ MEDIA_URL }}{{Post.Poster}}" alt="">
+						</div>
+						<div class="post-text">
+							{{Post.Text|safe}}
+						</div>
+
+						{% if Tags %}
+
+						<div class="post-bot">
+							<ul class="tags-list post-tags-list">
+
+								{% for tg in Tags %}
+
+								<li><a href="/blog/?tag={{tg.Value}}">{{tg.Value}}</a></li>
+
+								{% endfor %}
+
+							</ul>
+							<a href="#" class="post-share">
+								<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d92f2937e44d337">
+								</script>
+								<div class="addthis_inline_share_toolbox"></div>
+							</a>
+						</div>
+
+						{% endif %}
+
+					</div>
+
+					{% if Late %}
+
+					<div class="related-posts">
+						<div class="title-with-arrows">
+							<h3 class="h2-style">پست های مرتبط</h3>
+							<div class="carousel-arrows"></div>
+						</div>
+						<div class="post-prws post-prws-carousel js-post-prws-carousel"
+							data-slick='{"slidesToShow": 1, "responsive": [{"breakpoint": 1024,"settings": {"slidesToShow": 1}},{"breakpoint": 768,"settings": {"slidesToShow": 1}},{"breakpoint": 480,"settings": {"slidesToShow": 1}}]}'>
+
+							{% for ps in Late %}
+
+							<div class="post-prw">
+								<div class="row vert-margin-middle">
+									<div class="post-prw-img col-md-7">
+										<a href="{% url 'PostDetail' ps.RPO %}">
+											<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+												data-src="{{ MEDIA_URL }}{{ps.Poster}}" class="lazyload fade-up" alt="">
+										</a>
+									</div>
+									<div class="post-prw-text col-md-11">
+										<div class="post-prw-links">
+											<div class="post-prw-date"><i class="icon-calendar"></i>{{ps.Created}}</div>
+											<div class="post-prw-date"><i class="icon-chat"></i>5 دیدگاه</div>
+										</div>
+										<h4 class="post-prw-title"><a
+												href="{% url 'PostDetail' ps.RPO %}">{{ps.Title}}</a>
+										</h4>
+										<div class="post-prw-teaser">{{ps.Demo}} </div>
+										<div class="post-prw-btn">
+											<a href="{% url 'PostDetail' ps.RPO %}" class="btn btn--sm">مطالعه
+												بیشتر</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							{% endfor %}
+
+						</div>
+					</div>
+
+					{% endif %}
+
+					<div class="post-comments mt-3 mt-md-4" id="postComments">
+						<h3 class="h2-style">دیدگاه های پست</h3>
+
+						{% for cm in CMs %}
+
+						<div class="post-comment">
+							<div class="row">
+								<div class="col">
+									<div class="row justify-content-start align-items-center">
+										<div class="post-comment-date"><i class="icon-calendar"></i>{{cm.Created}}
+										</div>
+										<div class="post-comment-date mt-0 mr-2"><i class="icon-star"></i>{{cm.Rate}}/5
+										</div>
+									</div>
+									<div class="post-comment-author"><a href="#">{{cm.Name}}</a></div>
+									<div class="post-comment-text">
+										<p>{{cm.Text}}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						{% endfor %}
+
+					</div>
+					<div class="post-comment-form mt-3 mt-md-4">
+						<form action="#" class="comment-form" method="post">
+							{% csrf_token %}
+							<div class="row justify-content-between align-items-center">
+								<div class="col-18 col-md-6">
+									<h3 class="h2-style">دیدگاه خود را بگذارید</h3>
+								</div>
+								<div class="col-18 col-md-12">
+									<div class="form-group">
+										<label for="">میزان رضایت:</label>
+										<div class="rating">
+											<input name="Rate" id="e5" type="radio" value="5"></a><label
+												for="e5">☆</label>
+											<input name="Rate" id="e4" type="radio" value="4"></a><label
+												for="e4">☆</label>
+											<input name="Rate" id="e3" type="radio" value="3"></a><label
+												for="e3">☆</label>
+											<input name="Rate" id="e2" type="radio" value="2"></a><label
+												for="e2">☆</label>
+											<input name="Rate" id="e1" type="radio" value="1"></a><label
+												for="e1">☆</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="row vert-margin-middle">
+									<div class="col-lg">
+										<input type="text" name="Name" class="form-control form-control--sm"
+											placeholder="نام" required>
+									</div>
+									<div class="col-lg">
+										<input type="number" name="Phone" class="form-control form-control--sm"
+											placeholder="تلفن همراه" required>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<textarea class="form-control form-control--sm textarea--height-200" name="Text"
+									placeholder="متن پیام" required></textarea>
+							</div>
+							<button class="btn" type="submit">ثبت دیدگاه</button>
+						</form>
+					</div>
+				</div>
+				<div class="col-md-4 aside aside--sidebar aside--right">
+					<div class="aside-block">
+						<form action="/blog/" method="get">
+							<div class="row align-items-center">
+								<div class="col-13 p-0">
+									<div class="form-group">
+										<input type="text" name="txt" class="form-control" placeholder="جستجو کنید...">
+									</div>
+								</div>
+								<div class="col-4 p-0">
+									<button class="btn" type="submit">
+										<i class="icon-search"></i>
+									</button>
+
+								</div>
+							</div>
+						</form>
+					</div>
+
+					{% if Fav_Tags %}
+
+					<div class="aside-block">
+						<h2 class="text-uppercase">برچسب های محبوب</h2>
+						<ul class="tags-list">
+
+							{% for tg in Fav_Tags %}
+
+							<li><a href="/blog/?tag={{tg.Value}}">{{tg.Value}}</a></li>
+
+
+							{% endfor %}
+
+						</ul>
+					</div>
+
+					{% endif %}
+
+					{% if Fav_Post %}
+
+					<div class="aside-block">
+						<h2 class="text-uppercase">پست های محبوب</h2>
+
+						{% for ps in Fav_Post %}
+
+						<div class="post-prw-simple-sm">
+							<a href="{% url 'PostDetail' ps.RPO %}" class="post-prw-img">
+								<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+									data-src="{{ MEDIA_URL }}{{ps.Poster}}" class="lazyload fade-up" alt="">
+							</a>
+							<div class="post-prw-links">
+								<div class="post-prw-date"><i class="icon-calendar"></i>{{ps.Created}}</div>
+								<a href="#" class="post-prw-author">به وسیله {{ps.Author}}</a>
+							</div>
+							<h4 class="post-prw-title"><a href="{% url 'PostDetail' ps.RPO %}">{{ps.Title}}</a></h4>
+							<a href="{% url 'PostDetail' ps.RPO %}" class="post-prw-comments"><i
+									class="icon-star"></i>{{ps.Rate}}/5</a>
+						</div>
+
+						{% endfor %}
+
+					</div>
+
+					{% endif %}
+
+					<!-- <div class="aside-block">
+						<h2 class="text-uppercase">متا</h2>
+						<ul class="list list--nomarker">
+							<li><a href="#">ورود</a></li>
+							<li><a href="#">مطالب RSS</a></li>
+							<li><a href="#">نظرات RSS</a></li>
+						</ul>
+					</div>
+					<div class="aside-block">
+						<h2 class="text-uppercase">آرشیو</h2>
+						<ul class="list list--nomarker">
+							<li><a href="#">بهمن 1399</a></li>
+							<li><a href="#">اسفند 1399</a></li>
+							<li><a href="#">فروردین 1400</a></li>
+						</ul>
+					</div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
+
+
+{% block js %}
+
+{% endblock js %}

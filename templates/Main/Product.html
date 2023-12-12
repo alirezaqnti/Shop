@@ -303,15 +303,15 @@
 					</div>
 					<div class="prd-block_info_item">
 						<ul class="prd-block_links list-unstyled">
-							<li><i class="icon-size-guide"></i><a href="#" data-fancybox class="modal-info-link"
-									data-src="#sizeGuide">راهنمای سایز</a></li>
+							<!-- <li><i class="icon-size-guide"></i><a href="#" data-fancybox class="modal-info-link"
+									data-src="#sizeGuide">راهنمای سایز</a></li> -->
 							<li><i class="icon-delivery-1"></i><a href="#" data-fancybox class="modal-info-link"
 									data-src="#deliveryInfo">ارسال و مرجوع</a></li>
 							<li><i class="icon-email-1"></i><a href="#" data-fancybox class="modal-info-link"
 									data-src="#contactModal">پرسش درباره این
 									محصول</a></li>
 						</ul>
-						<div id="sizeGuide" style="display: none;" class="modal-info-content modal-info-content-lg">
+						<!-- <div id="sizeGuide" style="display: none;" class="modal-info-content modal-info-content-lg">
 							<div class="modal-info-heading">
 								<div class="mb-1"><i class="icon-size-guide"></i>
 								</div>
@@ -373,7 +373,7 @@
 									</tbody>
 								</table>
 							</div>
-						</div>
+						</div> -->
 						<div id="deliveryInfo" style="display: none;" class="modal-info-content modal-info-content-lg">
 							<div class="modal-info-heading">
 								<div class="mb-1"><i class="icon-delivery-1"></i>
@@ -513,7 +513,7 @@
 							{% for cm in Comments %}
 							<div class="review-item">
 								<div class="review-item_rating">
-									{% with cm.Rate|length as StarRate %}
+									{% with cm.RateRange as StarRate %}
 									{% for star in StarRate %}
 									<i class="icon-star-fill fill"></i>
 									{% endfor %}
@@ -521,7 +521,7 @@
 								</div>
 								<div class="row align-items-center">
 									<div class="col">
-										<h5 class="review-item_author">{{cm.User.Name}} در
+										<h5 class="review-item_author">{{cm.User_Name}} در
 											{{cm.Date}}</h5>
 									</div>
 									<div class="col-auto ml-auto"><a href="#" class="review-item_report">گزارش
@@ -594,7 +594,7 @@
 					</div>
 				</div>
 				<div class="form-group mt-2">
-					<textarea class="form-control textarea--height-170" name="body"
+					<textarea class="form-control textarea--height-170" name="text"
 						placeholder="نظر خود را در رابطه با محصول با ما به اشتراک بگذارید" required></textarea>
 				</div>
 				<button class="btn float-left" type="submit">ثبت</button>

@@ -247,6 +247,7 @@ class AddToWishlist(APIView):
                 stat = 202
             except:
                 wh = WishList.objects.create(User=user, Variety=var)
+                cache.delete("cart")
         else:
             stat = 301
         context = {"stat": stat}
@@ -258,31 +259,17 @@ class RemoveFromWishlist(APIView):
         RW = request.POST.get("RW")
         WishList.objects.get(RW=RW).delete()
         stat = 305
+        cache.delete("cart")
         context = {"stat": stat}
         return Response(context)
 
 
 class GetWishlist(APIView):
     def get(self, request, *args, **kwargs):
-        user = getActiveUser(request)
-        wh = WishList.objects.filter(User=user)
-        data = []
-        for item in wh:
-            pic = ProductImage.objects.get(
-                Product=item.Variety.Variety.Product, Primary=True
-            )
-            dic = {
-                "Name": item.Variety.Variety.Product.Name,
-                "Pic": str(pic.Image),
-                "Size": item.Variety.Size,
-                "Color": item.Variety.Variety.ColorCode,
-                "RW": item.RW,
-            }
-            data.append(dic)
-
+        gc = getCart(request)
         context = {
-            "count": wh.count(),
-            "Pros": data,
+            "WishPros": gc["WishPros"],
+            "WishCount": gc["WishCount"],
         }
         return Response(context)
 

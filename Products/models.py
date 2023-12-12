@@ -337,6 +337,18 @@ class ProductComment(models.Model):
     def __str__(self):
         return self.Product.Name
 
+    def toJson(self):
+        return {
+            "Product": self.Product_id,
+            "User": self.User_id,
+            "User_Name": self.User.Name,
+            "Date": self.Date,
+            "Text": self.Text,
+            "Rate": self.Rate,
+            "RateRange": range(self.Rate),
+            "Created_at ": str(self.Created_at),
+        }
+
 
 class CommentTip(models.Model):
     Comment = models.ForeignKey(

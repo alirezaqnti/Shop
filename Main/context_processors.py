@@ -38,6 +38,7 @@ def getActiveUser(request, *args, **kwargs):
 
 
 def getCart(request, *args, **kwargs):
+    cache.delete("cart")
     if not "cart" in cache:
         context = {}
         try:
@@ -50,7 +51,6 @@ def getCart(request, *args, **kwargs):
             co = cr.cartproduct_cart.filter(Active=True)
             data = []
             for item in co:
-                print("TRRR!")
                 Variety = item.Variety.Variety
                 pic = ProductImage.objects.filter(
                     Product=Variety.Product, Primary=True
@@ -90,16 +90,19 @@ def getCart(request, *args, **kwargs):
             context["ShippingPrice"] = 0
         try:
             wh = WishList.objects.filter(User=user)
+            print("WH:", wh)
             wishes = []
             for item in wh:
-                pic = ProductImage.objects.filter(
-                    Product=item.Variety.Variety.Product, Primary=True
-                ).first()
+                Var = item.Variety.Variety
+                PRD = Var.Product
+                pic = ProductImage.objects.filter(Product=PRD, Primary=True).first()
                 dic = {
-                    "Name": item.Variety.Variety.Product.Name,
+                    "Slug": PRD.Slug,
+                    "Name": PRD.Name,
                     "Pic": str(pic.Image),
                     "RW": item.RW,
-                    "Color": item.Variety.Variety.ColorCode,
+                    "ColorCode": Var.ColorCode,
+                    "ColorName": Var.ColorName,
                     "Size": item.Variety.Size,
                 }
                 wishes.append(dic)
@@ -112,6 +115,7 @@ def getCart(request, *args, **kwargs):
         cache.set("cart", context, timeout=CACHE_TTL)
     else:
         context = cache.get("cart")
+    print(context)
     return context
 
 
